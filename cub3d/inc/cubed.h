@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/06/30 23:09:47 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/01 23:10:33 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,15 @@ typedef enum e_bool
 	TRUE
 }	t_bool;
 
-// This contains MLX (Graphic engine) data
-typedef struct s_mlx
+// This contains MLX (Graphic Engine) Data (GED)
+typedef struct s_ged
 {
-	int i;
-}	t_mlx;
+	void	*mlx;
+	void	*win;
+	int		width;
+	int		height;
+	int		closeflag;
+}	t_ged;
 
 // A list of file descriptor, for textures and config file
 typedef struct s_fds
@@ -89,7 +93,7 @@ typedef struct s_elem
 // Global-like struct for all our data
 typedef struct s_cube
 {
-	t_mlx	mlx;
+	t_ged	*ged;
 	t_fds	files;
 	t_elem	elements;
 }	t_cube;
