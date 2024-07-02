@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:15:08 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/02 11:58:20 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:37:57 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ t_bool	read_next_line(int fd, char **buffer)
 
 t_bool	obligatory_elements_are_set(t_cube *data)
 {
-	if (data->files.east_texture == 0 || \
-		data->files.north_texture == 0 || \
-		data->files.south_texture == 0 || \
-		data->files.west_texture == 0 || \
+	if (data->ged.textures.north_wall == 0 || \
+		data->ged.textures.south_wall == 0 || \
+		data->ged.textures.east_wall == 0 || \
+		data->ged.textures.west_wall == 0 || \
 		data->elements.ceiling_color.x == -1 || \
 		data->elements.floor_color.x == -1 || \
 		data->elements.ceiling_color.y == -1 || \
@@ -75,14 +75,24 @@ t_bool	obligatory_elements_are_set(t_cube *data)
 
 void	set_default_config(t_cube *data)
 {
-	data->files.east_texture = 0;
-	data->files.north_texture = 0;
-	data->files.south_texture = 0;
-	data->files.west_texture = 0;
+	data->ged.textures.north_wall = 0;
+	data->ged.textures.south_wall = 0;
+	data->ged.textures.east_wall = 0;
+	data->ged.textures.west_wall = 0;
 	data->elements.ceiling_color.x = -1;
 	data->elements.floor_color.x = -1;
 	data->elements.ceiling_color.y = -1;
 	data->elements.floor_color.y = -1;
 	data->elements.ceiling_color.z = -1;
 	data->elements.floor_color.z = -1;
+}
+t_bool	is_map_line(char *line)
+{
+	while (*line)
+	{
+		if (*line == '1')
+			return (TRUE);
+		line ++;
+	}
+	return (FALSE);
 }

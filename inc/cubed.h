@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/02 12:53:24 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:02:04 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define MEMORY_ERROR "Memory allocation has failed"
 # define WRONG_EXTENSION "Filename not supported"
 # define WRONG_LINE_CONTENT "The configuration file has an incorrect format"
+# define CANT_LOAD_TEXTURE "Couldn't load textures"
 
 // Functions/Prints
 int	print_error(int return_value, char *error_message, char *strerror);
