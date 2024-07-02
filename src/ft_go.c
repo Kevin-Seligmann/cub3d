@@ -1,6 +1,7 @@
 #include "cubed.h"
 #include "parser.h"
 
+/*
 void	ft_go(t_cube *map)
 {
 	map->ged->mlx = mlx_init();
@@ -12,3 +13,4 @@ void	ft_go(t_cube *map)
 	mlx_key_hook(map->ged->win, ft_key_hook, map);
 	mlx_loop(map->ged->mlx);
 }
+*/

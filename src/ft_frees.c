@@ -1,6 +1,7 @@
 #include "cubed.h"
 #include "parser.h"
 
+/*
 // Funcion que libera la memoria de la estructura del mapa
 void	ft_free_map(t_cube *map)
 {
@@ -13,3 +14,4 @@ int	ft_close(t_cube *map)
 	ft_free_map(map);
 	exit(EXIT_SUCCESS);
 }
+*/

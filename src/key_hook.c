@@ -1,6 +1,7 @@
 #include "cubed.h"
 #include "parser.h"
 
+/*
 int		ft_key_hook(int keycode, t_cube *map)
 {
 	if (keycode == 53)
@@ -19,3 +20,4 @@ int		ft_key_hook(int keycode, t_cube *map)
 	//renderizar nuevo mapa
 	return (0);
 }
+*/

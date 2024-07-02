@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:15:08 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/02 07:59:07 by mac              ###   ########.fr       */
+/*   Updated: 2024/07/02 11:58:20 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,29 @@
 
 //Esta funcion checkea el formato del fichero mapa .cub
 
-int	ft_format_cub(char *map_f)
+int	check_file_extension(char *file, char *extension)
 {
-	int		i;
-	char	*file_cub;
+	size_t	extension_length;
+	size_t	file_length;
 
-	file_cub = ".cub";
-	i = 0;
-	while (ft_strlen(map_f) != 4 && map_f)
-		map_f++;
-	if (!map_f || *map_f == '\0')
-		return (0);
-	while (map_f[i])
+	extension_length = ft_strlen(extension);
+	file_length = ft_strlen(file);
+	if (extension_length > file_length) // Should we accept a file named ".cub"?
+		return (print_error(-1, WRONG_EXTENSION, 0));
+	while (extension_length > 0)
 	{
-		if (map_f[i] != file_cub[i])
-			return (0);
-		i++;
+		if (extension[extension_length] != file[file_length])
+			return (print_error(-1, WRONG_EXTENSION, 0));
+		extension_length --;
+		file_length --;
 	}
-	return (1);
+	return (0);
 }
 
 int	open_file(char *path, int *fd)
 {
+	if (check_file_extension(path, CONFIG_FILE_EXTENSION) == -1)
+		return (-1);
 	*fd = open(path, O_RDWR); //Write mode so it doesn't open directories
 	if (*fd == -1)
 		return (print_error(-1, path, strerror(errno)));
