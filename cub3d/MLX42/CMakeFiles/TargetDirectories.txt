@@ -1,7 +1,0 @@
-/home/kseus/42/common/cub3d/MLX42/CMakeFiles/mlx42.dir
-/home/kseus/42/common/cub3d/MLX42/CMakeFiles/edit_cache.dir
-/home/kseus/42/common/cub3d/MLX42/CMakeFiles/rebuild_cache.dir
-/home/kseus/42/common/cub3d/MLX42/CMakeFiles/list_install_components.dir
-/home/kseus/42/common/cub3d/MLX42/CMakeFiles/install.dir
-/home/kseus/42/common/cub3d/MLX42/CMakeFiles/install/local.dir
-/home/kseus/42/common/cub3d/MLX42/CMakeFiles/install/strip.dir
