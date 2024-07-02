@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 22:35:32 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/02 12:47:46 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:57:12 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ char	*ft_strsnjoin(char **p_s, char *sep, size_t n);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 char	**ft_split_charset(char const *s, char *c);
+int		ft_arr_count_arguments(char **arr);
+void	ft_arr_free(char **arr);
 char	*ft_itoa(int n);
 char	*ft_itoa_base(size_t n, char *base);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));

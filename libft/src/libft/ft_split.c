@@ -6,11 +6,38 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:43:00 by kseligma          #+#    #+#             */
-/*   Updated: 2024/01/14 17:24:31 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:56:51 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+void	ft_arr_free(char **arr) // Not used to split but useful here
+{
+	int	ind;
+
+	if (!arr)
+		return ;
+	ind = 0;
+	while (arr[ind])
+	{
+		free(arr[ind]);
+		ind ++;
+	}
+	free(arr);
+}
+
+int	ft_arr_count_arguments(char **arr) // Not used to split but useful here
+{
+	int	count;
+
+	count = 0;
+	if (!arr)
+		return (0);
+	while (arr[count])
+		count ++;
+	return (count);
+}
 
 static size_t	total_space(char *s, char c)
 {
