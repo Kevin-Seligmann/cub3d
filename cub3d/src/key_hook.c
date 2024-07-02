@@ -1,7 +1,7 @@
 #include "cubed.h"
 #include "parser.h"
 
-int		key_hook(int keycode, t_cube *map)
+int		ft_key_hook(int keycode, t_cube *map)
 {
 	if (keycode == 53)
 		map->ged->closeflag++;

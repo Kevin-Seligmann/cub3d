@@ -6,7 +6,7 @@
 /*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/01 23:10:33 by mac              ###   ########.fr       */
+/*   Updated: 2024/07/02 07:14:08 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,21 @@
 # define MISSING_CONFIG_DATA "The configuration file is incomplete"
 # define MEMORY_ERROR "Memory allocation has failed"
 
-// Functions
+// Functions/Prints
 int	print_error(int return_value, char *error_message, char *strerror);
+
+//Functions/free
+void	ft_free_map(t_cube *map);
+int		ft_close(t_cube *map);
+
+//Funcitons/keys
+void	ft_wkey(t_cube *map);
+void	ft_skey(t_cube *map);
+void	ft_dkey(t_cube *map);
+void	ft_akey(t_cube *map);
+int		ft_key_hook(int keycode, t_cube *map);
+
+//Fuctions/go
 
 // Data structures
 
