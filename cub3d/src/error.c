@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 21:53:44 by kseligma          #+#    #+#             */
-/*   Updated: 2024/06/30 21:53:59 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/02 08:14:53 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,3 +26,5 @@ int	print_error(int return_value, char *error_message, char *strerror)
 	write(2, "\n", 2);
 	return (return_value);
 }
+
+

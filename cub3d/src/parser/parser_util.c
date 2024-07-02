@@ -3,15 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   parser_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:15:08 by kseligma          #+#    #+#             */
-/*   Updated: 2024/06/30 23:07:01 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/02 07:59:07 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include "parser.h"
+
+//Esta funcion checkea el formato del fichero mapa .cub
+
+int	ft_format_cub(char *map_f)
+{
+	int		i;
+	char	*file_cub;
+
+	file_cub = ".cub";
+	i = 0;
+	while (ft_strlen(map_f) != 4 && map_f)
+		map_f++;
+	if (!map_f || *map_f == '\0')
+		return (0);
+	while (map_f[i])
+	{
+		if (map_f[i] != file_cub[i])
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 int	open_file(char *path, int *fd)
 {
