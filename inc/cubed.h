@@ -40,6 +40,10 @@
 # define FLOOR_ID "F"
 # define CEILING_ID "C"
 
+//Definitions
+#define WIDTH 1500
+#define HEIGHT 1000
+
 // Output messages
 # define INVALID_NUMBER_ARGS "The number of arguments is invalid"
 # define ERROR_SEPARATOR ": "
@@ -65,5 +69,6 @@ void	ft_akey(t_cube *map);
 int		ft_key_hook(int keycode, t_cube *map);
 
 //Fuctions/go
+void	ft_go(t_cube *map);
 
 #endif
