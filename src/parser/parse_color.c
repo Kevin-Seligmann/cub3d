@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 20:12:25 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/02 23:58:36 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/04 01:57:59 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	get_number(char **line, int *color)
 		return (-1);
 	while (ft_isdigit(**line))
 	{
-		*color += **line + '0';
+		*color = (*color) * 10 + **line - '0';
 		(*line) ++;
 		if (*color > 255)
 			return (-1);
@@ -68,6 +68,9 @@ int	set_map_color(t_cube *data, char **args, char *line)
 {
 	t_v3	color;
 
+	color.x = 0;
+	color.y = 0;
+	color.z = 0;
 	if ((!ft_strcmp(args[0], FLOOR_ID) && data->elements.floor_color.x != -1) || \
 		(!ft_strcmp(args[0], CEILING_ID) && data->elements.ceiling_color.x != -1))
 	{
