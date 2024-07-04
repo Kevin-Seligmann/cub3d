@@ -11,7 +11,7 @@ MLX_FOLDER = MLX42
 INC = -I./inc -I./libft/inc -I./$(MLX_FOLDER)/include
 
 # Files
-OBJ = cubed.o parser.o error.o parser_util.o parse_color.o parse_element.o parse_map.o parse_texture.o ft_go.o key_hook.o press_key.o ft_frees.o
+OBJ = cubed.o parser.o error.o parser_util.o parse_color.o parse_element.o parse_map.o parse_texture.o ft_go.o key_hook.o press_key.o ft_frees.o valid_map.o
 LFT = $(LFT_FOLDER)/libft.a
 MLX = $(MLX_FOLDER)/libmlx42.a
 DEPS = $(OBJ_DIR:.o=.d)
@@ -23,8 +23,8 @@ PROJECT = cub3D
 
 # Compilation/Linking
 CC = cc
-LFLAGS = -Wall -Wextra -Werror
-CFLAGS = -Wall -Wextra -Werror -MMD $(INC)
+LFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -MMD $(INC) -g
 MLXFLAGS = -ldl -lglfw -pthread -lm
 
 # Rules

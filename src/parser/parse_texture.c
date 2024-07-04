@@ -6,14 +6,14 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 20:11:06 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/03 00:30:02 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/04 00:53:00 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include "parser.h"
 
-int	get_texture(t_cube *data, char **args, xpm_t **texture)
+int	get_texture(t_cube *data, char **args, mlx_texture_t **texture)
 {
 	char	*ls;
 
@@ -28,18 +28,18 @@ int	get_texture(t_cube *data, char **args, xpm_t **texture)
 		(!ft_strcmp(args[0], SOUTH_ID) && data->ged.textures.south_wall) || \
 		(ft_arr_count_arguments(args) != 2))
 		return (print_error(-1, WRONG_LINE_CONTENT, 0));
-	if (check_file_extension(args[1], ".xpm42") == -1)
+	if (check_file_extension(args[1], ".png") == -1)
 		return (print_error(-1, WRONG_EXTENSION, "Texture file"));
-	*texture = mlx_load_xpm42(args[1]);
-	printf("%s\n", args[1]);
+	*texture = mlx_load_png(args[1]);
 	if (!*texture)
 		return (print_error(-1, CANT_LOAD_TEXTURE, ft_itoa(mlx_errno)));
+	ft_printf("[Debug] Loaded: %s\n", args[1]);
 	return (0);
 }
 
 int	set_texture(t_cube *data, char **args)
 {
-	xpm_t	*texture;
+	mlx_texture_t	*texture;
 
 	if (get_texture(data, args, &texture) == -1)
 	{

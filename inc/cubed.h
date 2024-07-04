@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/02 16:02:04 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:56:32 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,15 @@
 # define WRONG_EXTENSION "Filename not supported"
 # define WRONG_LINE_CONTENT "The configuration file has an incorrect format"
 # define CANT_LOAD_TEXTURE "Couldn't load textures"
+# define NO_MAP_FOUND "Map not found"
+# define MAP_NOT_CLOSED "The map is not closed"
+# define MANY_PLAYERS "More than one player has been found"
 
 // Functions/Prints
 int	print_error(int return_value, char *error_message, char *strerror);
 
 //Functions/free
-void	ft_free_map(t_cube *map);
+void	ft_free_map(t_map *map);
 int		ft_close(t_cube *map);
 
 //Funcitons/keys
