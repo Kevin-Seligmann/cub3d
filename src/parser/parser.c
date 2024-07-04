@@ -6,13 +6,14 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 21:34:38 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/04 18:35:02 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/04 22:50:38 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include "parser.h"
 
+// Debug function, delete eventually
 void debug_print_data(t_cube *data)
 {
 	ft_printf("Ceiling %d %d %d\n", data->elements.ceiling_color.x, data->elements.ceiling_color.y, data->elements.ceiling_color.z);
@@ -35,6 +36,7 @@ void debug_print_data(t_cube *data)
 	}
 }
 
+// Checks if the obligatory values are set (E.g, if there's color)
 t_bool	obligatory_elements_are_set(t_cube *data)
 {
 	if (data->ged.textures.north_wall == 0 || \
@@ -55,6 +57,7 @@ t_bool	obligatory_elements_are_set(t_cube *data)
 	return (TRUE);
 }
 
+// Set default value, equivalent to something not set
 void	set_default_config(t_cube *data)
 {
 	data->ged.textures.north_wall = 0;
@@ -73,13 +76,14 @@ void	set_default_config(t_cube *data)
 	data->map.player_position.z = -2;
 }
 
+// Parses the configuration file given as input
 int	parse_file_config(t_cube *data)
 {
 	char	*line;
 
 	line = NULL;
 	set_default_config(data);
-	while (read_next_line(data->files.config_file_fd, &line) && is_map_line(line) == FALSE) // Should a line of just spaces be considered empty? Not for now
+	while (read_next_line(data->files.config_file_fd, &line) && is_map_line(line) == FALSE) // Should a line of just spaces be considered empty?
 	{
 		if (parse_element(data, line) == -1)
 		{
@@ -96,6 +100,7 @@ int	parse_file_config(t_cube *data)
 	return (0);
 }
 
+/* Parses the user's input */
 int	parser(t_cube *data, int argc, char **argv)
 {
 	if (argc != 2)

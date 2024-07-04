@@ -1,0 +1,10 @@
+NO ./textures/boat.png
+SO ./textures/boat.png
+WE ./textures/boat.png
+EA ./textures/boat.png
+F 200 ,20, 200
+C 00200, 0200, 0000001
+
+111
+1W1
+111

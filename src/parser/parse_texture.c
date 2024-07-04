@@ -6,13 +6,15 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 20:11:06 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/04 00:53:00 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/04 22:52:01 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include "parser.h"
 
+// Removes the line skip, if a texture has already been found, returns error, or if the
+// extension is wrong, or if minilib fails to open the texture
 int	get_texture(t_cube *data, char **args, mlx_texture_t **texture)
 {
 	char	*ls;
@@ -33,10 +35,11 @@ int	get_texture(t_cube *data, char **args, mlx_texture_t **texture)
 	*texture = mlx_load_png(args[1]);
 	if (!*texture)
 		return (print_error(-1, CANT_LOAD_TEXTURE, ft_itoa(mlx_errno)));
-	ft_printf("[Debug] Loaded: %s\n", args[1]);
+	ft_printf("[Debug] Loaded: %s\n", args[1]); // Debug
 	return (0);
 }
 
+// Gets the texture and sets its value on the data struct
 int	set_texture(t_cube *data, char **args)
 {
 	mlx_texture_t	*texture;

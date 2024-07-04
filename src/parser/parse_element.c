@@ -6,13 +6,14 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 12:26:33 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/03 00:24:42 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/04 22:53:43 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include "parser.h"
 
+// An element is a line with color or texture, this parses that
 int	parse_element(t_cube *data, char *line)
 {
 	char	**args;
@@ -20,7 +21,7 @@ int	parse_element(t_cube *data, char *line)
 	args = ft_split(line, ' ');
 	if (!args)
 		return (print_error(-1, MEMORY_ERROR, 0));
-	if (!args[0] || !ft_strcmp(args[0], "\n")) // This makes a line full of spaces equal to a line skip (Prob should change)
+	if (!args[0] || !ft_strcmp(args[0], "\n"))
 	{
 		ft_arr_free(args);
 		return (0);

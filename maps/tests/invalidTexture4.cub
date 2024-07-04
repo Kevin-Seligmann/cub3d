@@ -1,0 +1,9 @@
+NO ./textures/boat.png
+SO ./textures/boat.png
+WE ./textures/boat.png
+EA ./textures/noPerm.png
+F 200, 200, 200
+C 0, 0, 0
+111
+1S1
+111

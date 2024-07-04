@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:15:08 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/04 18:14:06 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/04 22:49:13 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	check_file_extension(char *file, char *extension)
 	return (0);
 }
 
+// Opens file, returns -1 on error, checks extension
 int	open_file(char *path, int *fd)
 {
 	if (check_file_extension(path, CONFIG_FILE_EXTENSION) == -1)
@@ -44,6 +45,7 @@ int	open_file(char *path, int *fd)
 	return (0);
 }
 
+// Uses GNL to return the next line, frees the previous line, returns FALSE on end of file
 t_bool	read_next_line(int fd, char **buffer)
 {
 	if (*buffer)
@@ -56,16 +58,18 @@ t_bool	read_next_line(int fd, char **buffer)
 		return (FALSE);
 	return (TRUE);
 }
-
-t_bool	is_map_line(char *line)
+// If a line is the line of the map (Doesn't start with a letter, as that would mean an identifier) returns TRUE
+t_bool	is_map_line(char *line) // Every line that doesn't start with an identifier or is empty is a map line
 {
+	if (*line == '\n')
+		return (FALSE);
 	while (*line)
 	{
-		if (*line == '1')
-			return (TRUE);
-		if (ft_isalnum(*line))
+		if (ft_isalpha(*line))
 			return (FALSE);
+		if (ft_strchr("10", *line))
+			return (TRUE);
 		line ++;
 	}
-	return (FALSE);
+	return (TRUE);
 }

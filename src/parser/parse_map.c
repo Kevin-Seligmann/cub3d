@@ -6,13 +6,14 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 04:11:11 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/04 18:29:57 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/04 22:53:00 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cubed.h"
 # include "parser.h"
 
+// Allocates memory for the map, a doble array
 int	alloc_map(t_map *map)
 {
 	int	height;
@@ -36,19 +37,20 @@ int	alloc_map(t_map *map)
 	return (0);
 }
 
+// Counts the width and height of the map
 int	get_dimensions(t_cube *data, char *line)
 {
 	int	map_width_aux;
 
 	data->map.height = 1;
-	data->map.width = ft_strlen(line);
+	data->map.width = ft_strlen(line) - 1;
 	map_width_aux = 0;
 	while (read_next_line(data->files.config_file_fd, &line))
 	{
 		if (is_map_line(line))
 		{
 			data->map.height ++;
-			map_width_aux = ft_strlen(line);
+			map_width_aux = ft_strlen(line) - 1;
 			if (map_width_aux > data->map.width)
 				data->map.width = map_width_aux;
 		}
@@ -62,29 +64,36 @@ int	get_dimensions(t_cube *data, char *line)
 	return (0);
 }
 
+// Copies the content of map in the file to a doble array
 void	copy_map(t_cube *data, int **map, char *line)
 {
-	int	ind;
+	int	width;
 	int	height;
 
 	height = 0;
 	while (map[height])
 	{
-		ind = 0;
-		while (line[ind] != '\n')
+		width = 0;
+		while (line[width])
 		{
-			map[height][ind] = line[ind];
-			ind ++;
+			if (line[width] == '\n')
+				map[height][width] = ' ';
+			else
+				map[height][width] = line[width];
+			width ++;
 		}
-		map[height][ind] = 0; // Stop !!!
+		while (width < data->map.width)
+		{
+			map[height][width] = ' ';
+			width ++;
+		}
+		map[height][width] = 0;
 		height ++;
-		if (read_next_line(data->files.config_file_fd, &line) == FALSE)
-			return ; // Should never happen (Doesnt make sense) but just in case
+		read_next_line(data->files.config_file_fd, &line);
 	}
-	if (line)
-		free(line); // Should never happen (Doesnt make sense) but just in case
 }
 
+// Parses the MAP
 int	parse_map(t_cube *data, char *line)
 {
 	if (get_dimensions(data, line) == -1)
