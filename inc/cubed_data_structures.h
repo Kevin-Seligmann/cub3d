@@ -23,6 +23,15 @@ typedef enum e_bool
 	TRUE
 }	t_bool;
 
+/*Data related to the mlx_key_hook function
+typedef struct mlx_key_data_s
+{
+	keys_t		key;
+	action_t	action;
+	int32_t		os_key;
+	modifier_key_t	modifier;
+}	mlx_key_data_t;
+*/
 typedef struct s_texture_pack
 {
 	mlx_texture_t *east_wall;
@@ -34,12 +43,12 @@ typedef struct s_texture_pack
 // This contains MLX (Graphic Engine) Data (GED)
 typedef struct s_ged
 {
-	void	*mlx;
-	void	*win;
+	/*void			*win;
+	void			*context;
+	int				width;
+	int				height;
+	double			delta_time;*/
 	t_texture_pack	textures;
-	int		width;
-	int		height;
-	int		closeflag;
 }	t_ged;
 
 // A list of file descriptor, for textures and config file
