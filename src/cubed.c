@@ -19,10 +19,13 @@
 int	main(int argc, char **argv)
 {
 	static t_cube data;
+	(void)argc;
+	(void)argv;
 
-	if (parser(&data, argc, argv) == -1) // First step is parsing, if any error occurs, exit.
-		return (0);
+	printf("entra en el main\n");
+	//if (parser(&data, argc, argv) == -1) // First step is parsing, if any error occurs, exit.
+		//return (0);
 	// Minilib initialization
-	//ft_go(&data); // This function will  start the game
+	ft_go(&data); // This function will  start the game
 	return (0);
 }
