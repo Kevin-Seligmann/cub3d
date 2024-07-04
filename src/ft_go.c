@@ -3,9 +3,28 @@
 
 void ft_hook(void* param)
 {
-	const mlx_t* mlx = param;
+	mlx_t* mlx = param;
 
-	printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
+	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(mlx);
+	if (mlx_is_key_down(mlx, MLX_KEY_UP))
+		//image->instances[0].y -= 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
+		//image->instances[0].y += 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
+		//image->instances[0].x -= 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
+		//image->instances[0].x += 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_W))
+		//image->instances[0].y -= 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_S))
+		//image->instances[0].y += 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_A))
+		//image->instances[0].x -= 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_D))
+	{
+		//image->instances[0].x += 5;
+	}
 }
 
 int	ft_go(t_cube *map)
@@ -13,10 +32,8 @@ int	ft_go(t_cube *map)
 	mlx_t *mlx;
 	(void)map;
 
-	printf("Ha entrado en ft_go\n");
-	mlx_set_setting(MLX_MAXIMIZED, true);
-	printf("Settings creados\n");
-	mlx = mlx_init(WIDTH, HEIGHT, "CUBE3d", true);
+	mlx_set_setting(MLX_FULLSCREEN, true);
+	mlx = mlx_init(WIDTH, HEIGHT, "CUBE3d made by KSeligma & OSeivane", true);
 	if(!mlx)
 	{
 		printf("No se ha creado mlx\n");
@@ -30,7 +47,7 @@ int	ft_go(t_cube *map)
 	}
 	mlx_put_pixel(img, 0, 0, 0xFF0000FF);
 	//register the key hook
-	mlx_key_hook(mlx, &my_keyhook, NULL);
+	//mlx_key_hook(mlx, &my_keyhook, NULL);
 	//register the loop hook
 	mlx_loop_hook(mlx, ft_hook, mlx);
 	//Start the MiniLibx loop
