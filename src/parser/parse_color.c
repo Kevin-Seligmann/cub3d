@@ -6,13 +6,14 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 20:12:25 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/04 01:57:59 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/04 22:55:56 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include "parser.h"
 
+// Skips the comas in the string
 int	skip_coma(char **line)
 {
 	while (**line == ' ')
@@ -25,6 +26,7 @@ int	skip_coma(char **line)
 	return (0);
 }
 
+// Gets color number, if bigger than 255 or returns error
 int	get_number(char **line, int *color)
 {
 	if (!ft_isdigit(**line))
@@ -39,6 +41,7 @@ int	get_number(char **line, int *color)
 	return (0);
 }
 
+// Loop through the line with the color, skipping commas and getting the colors
 int	get_color(t_v3 *color, char *line, char *identifier)
 {
 	while (*line == ' ')
@@ -64,6 +67,7 @@ int	get_color(t_v3 *color, char *line, char *identifier)
 	return (0);
 }
 
+// Set the map color
 int	set_map_color(t_cube *data, char **args, char *line)
 {
 	t_v3	color;
@@ -72,7 +76,7 @@ int	set_map_color(t_cube *data, char **args, char *line)
 	color.y = 0;
 	color.z = 0;
 	if ((!ft_strcmp(args[0], FLOOR_ID) && data->elements.floor_color.x != -1) || \
-		(!ft_strcmp(args[0], CEILING_ID) && data->elements.ceiling_color.x != -1))
+		(!ft_strcmp(args[0], CEILING_ID) && data->elements.ceiling_color.x != -1)) // If the information is repeated
 	{
 		ft_arr_free(args);
 		return (print_error(-1, WRONG_LINE_CONTENT, 0));
