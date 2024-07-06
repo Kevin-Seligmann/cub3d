@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed_data_structures.h                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/04 18:10:36 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/04 23:05:48 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,6 @@ typedef struct s_texture_pack
 // This contains MLX (Graphic Engine) Data (GED)
 typedef struct s_ged
 {
-	/*void			*win;
-	void			*context;
-	int				width;
-	int				height;
-	double			delta_time;*/
 	t_texture_pack	textures;
 }	t_ged;
 

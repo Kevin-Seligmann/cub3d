@@ -32,7 +32,7 @@ int	ft_go(t_cube *map)
 	mlx_t *mlx;
 	(void)map;
 
-	mlx_set_setting(MLX_FULLSCREEN, true);
+	mlx_set_setting(MLX_MAXIMIZED, true);
 	mlx = mlx_init(WIDTH, HEIGHT, "CUBE3d made by KSeligma & OSeivane", true);
 	if(!mlx)
 	{
@@ -45,14 +45,8 @@ int	ft_go(t_cube *map)
 		mlx_terminate(mlx);
 		return (EXIT_FAILURE);
 	}
-	mlx_put_pixel(img, 0, 0, 0xFF0000FF);
-	//register the key hook
-	//mlx_key_hook(mlx, &my_keyhook, NULL);
-	//register the loop hook
 	mlx_loop_hook(mlx, ft_hook, mlx);
-	//Start the MiniLibx loop
 	mlx_loop(mlx);
-	//Terminate and clean
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
 }
