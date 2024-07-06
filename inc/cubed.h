@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/04 17:56:32 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/06 12:06:04 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@
 # define WRONG_EXTENSION "Filename not supported"
 # define WRONG_LINE_CONTENT "The configuration file has an incorrect format"
 # define CANT_LOAD_TEXTURE "Couldn't load textures"
+# define CANT_LOAD_IMAGE "Couldn't load images"
+# define CANT_MAKE_MLX "Couldn't make mlx"
 # define NO_MAP_FOUND "Map not found"
 # define MAP_NOT_CLOSED "The map is not closed"
 # define MANY_PLAYERS "More than one player has been found"

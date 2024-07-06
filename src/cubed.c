@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:41:35 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/04 20:41:47 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/06 11:44:55 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ int	main(int argc, char **argv)
 
 	if (parser(&data, argc, argv) == -1) // First step is parsing, if any error occurs, exit.
 		return (0);
-//	ft_go(&data); // This function will  start the game
+	ft_go(&data); // This function will  start the game
 	return (0);
 }

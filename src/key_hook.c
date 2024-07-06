@@ -1,26 +1,28 @@
 #include "cubed.h"
 #include "parser.h"
 
-void	my_keyhook(mlx_key_data_t keydata, void* param)
+void ft_hook(void* param)
 {
-	(void)param;
+	mlx_t* mlx = param;
 
-	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-		//lo que sea
-	if (keydata.key == MLX_KEY_W && keydata.action == MLX_REPEAT)
-		//lo que sea
-	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-		//lo que sea
-	if (keydata.key == MLX_KEY_A && keydata.action == MLX_REPEAT)
-		//lo que sea
-	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-		//lo que sea
-	if (keydata.key == MLX_KEY_D && keydata.action == MLX_REPEAT)
-		//lo que sea
-	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
-		//lo que sea
-	if (keydata.key == MLX_KEY_S && keydata.action == MLX_REPEAT)
+	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE) || mlx_is_key_down(mlx, MLX_KEY_X))
+		mlx_close_window(mlx);
+	if (mlx_is_key_down(mlx, MLX_KEY_UP))
+		//image->instances[0].y -= 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
+		//image->instances[0].y += 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
+		//image->instances[0].x -= 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
+		//image->instances[0].x += 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_W))
+		//image->instances[0].y -= 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_S))
+		//image->instances[0].y += 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_A))
+		//image->instances[0].x -= 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_D))
 	{
-		
+		//image->instances[0].x += 5;
 	}
 }
