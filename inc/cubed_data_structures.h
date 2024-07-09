@@ -6,7 +6,7 @@
 /*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/04 23:05:48 by osg              ###   ########.fr       */
+/*   Updated: 2024/07/08 08:54:10 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,7 @@ typedef enum e_bool
 	TRUE
 }	t_bool;
 
-/*Data related to the mlx_key_hook function
-typedef struct mlx_key_data_s
-{
-	keys_t		key;
-	action_t	action;
-	int32_t		os_key;
-	modifier_key_t	modifier;
-}	mlx_key_data_t;
-*/
+
 typedef struct s_texture_pack
 {
 	mlx_texture_t *east_wall;
@@ -78,10 +70,36 @@ typedef struct s_elem
 typedef struct s_map
 {
 	int		**map;
+	int		mapX;
+	int		mapZ;
+	int		stepX;
+	int		stepZ;
 	int		height;
 	int		width;
+	int		lineHeight;
+	int		drawStart;
+	int		drawEnd;
+	int		hit;
+	int		side;
 	t_vf2	player_position;
 	t_vf2	player_direction;
+	t_vf2	plane;
+	t_vf2	camera;
+	t_vf2	rayDir;
+	t_vf2	sideDist;
+	t_vf2	deltaDist;
+	float	time;
+	float	oldTime;
+	float	frameTime;
+	float	moveSpeed;
+	float	rotSpeed;
+	float	perpWallDist;
+	/*const t_v3	red;
+	const t_v3	green;
+	const t_v3	blue;
+	const t_v3	white;
+	const t_v3	yellow;*/
+	
 }	t_map;
 
 // Global-like struct for all our data
