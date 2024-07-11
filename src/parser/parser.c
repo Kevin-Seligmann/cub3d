@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 21:34:38 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/04 22:50:38 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/08 09:10:52 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void debug_print_data(t_cube *data)
 		while (line && *line)
 		{
 			ft_printf("%c", *line);
-			line ++;
+			line++;
 		}
 		ft_printf("%c", '\n');
-		map ++;
+		map++;
 	}
 }
 

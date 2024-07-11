@@ -6,7 +6,7 @@
 /*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/06 12:06:04 by osg              ###   ########.fr       */
+/*   Updated: 2024/07/08 08:38:53 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define CUBED_H
 
 // Standard
-# include <stdio.h>
+# include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/stat.h>
@@ -67,10 +67,11 @@ void	ft_free_map(t_map *map);
 int		ft_close(t_cube *map);
 
 //Funcitons/keys
-void	my_keyhook(mlx_key_data_t keydata, void* param);
+void ft_hook(void* param);
 
 //Fuctions/go
-void ft_hook(void* param);
 int 	ft_go(t_cube *map);
+void    ft_raycasting(t_cube *map);
+
 
 #endif
