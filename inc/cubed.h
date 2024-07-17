@@ -6,7 +6,7 @@
 /*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/08 08:38:53 by osg              ###   ########.fr       */
+/*   Updated: 2024/07/17 23:26:59 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ft_free_map(t_map *map);
 int		ft_close(t_cube *map);
 
 //Funcitons/keys
-void ft_hook(void* param);
+void ft_hook(void *param);
 
 //Fuctions/go
 int 	ft_go(t_cube *map);

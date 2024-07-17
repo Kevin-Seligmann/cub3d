@@ -1,5 +1,34 @@
 # cub3d
 
+## TODO LIST
+
+
+	STEPS:
+	1. Game 2D------------??
+		1.1 Print map---------------------------------??
+		1.2 Print player------------------------------??
+		1.3 Player movements--------------------------??
+			1.3.1 Rotate player---------------------------------??
+			1.3.2 Move player (with direction)------------------??
+			1.3.3 Map colision----------------------------------??
+		1.4 Move player (with direction)--------------??
+		1.5 Print Rays (FOV)--------------------------??
+			1.5.1 Print one ray---------------------------------??
+			1.5.2 Print ray with vertical colision--------------??
+			1.5.3 Print ray with horizontal coliision-----------??
+			1.5.4 Print rays in FOV-----------------------------??
+	2. Game 3D------------
+		2.1 Raycasting--------------------------------??
+		2.2 Print 3D walls----------------------------??
+		2.3 Print floor & ceiling---------------------??
+		2.4 Print sprites & textures------------------??
+	3. Correct & test-----
+		3.1 Correct leaks-----------------------------??
+		3.2 Test Norminette---------------------------??
+		3.3 Change textures---------------------------??
+		3.4 Change sprites----------------------------??
+
+
 ## Subject
 
 Create a simulation using raycasting
