@@ -6,7 +6,7 @@
 /*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/08 08:54:10 by osg              ###   ########.fr       */
+/*   Updated: 2024/07/17 23:00:16 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,23 +83,6 @@ typedef struct s_map
 	int		side;
 	t_vf2	player_position;
 	t_vf2	player_direction;
-	t_vf2	plane;
-	t_vf2	camera;
-	t_vf2	rayDir;
-	t_vf2	sideDist;
-	t_vf2	deltaDist;
-	float	time;
-	float	oldTime;
-	float	frameTime;
-	float	moveSpeed;
-	float	rotSpeed;
-	float	perpWallDist;
-	/*const t_v3	red;
-	const t_v3	green;
-	const t_v3	blue;
-	const t_v3	white;
-	const t_v3	yellow;*/
-	
 }	t_map;
 
 // Global-like struct for all our data
