@@ -11,62 +11,44 @@ void ft_hook(void *param)
 		mlx_close_window(mlx);
 	if (mlx_is_key_down(mlx, MLX_KEY_W))
 	{
-      if(game->map.[int(game->map.player_position.x + game->map.player_direction.x * moveSpeed)][int(posY)] == false) posX += dirX * moveSpeed;
-      if(game->map[int(posX)][int(posY + dirY * moveSpeed)] == false) posY += dirY * moveSpeed;
+      if(game->map.map[int(game->map.player_position.x + game->map.player_direction.x * game->map.moveSpeed)][int(game->map.player_position.z)] == false)
+    	  game->map.player_position.x += game->map.player_direction.x * game->map.moveSpeed;
+      if(game->map[int(game->map.player_position.x)][int(game->map.player_position.z + game->map.player_direction.z * game->map.moveSpeed)] == false)
+	  	  game->map.player_position.z += game->map.player_direction.z * game->map.moveSpeed;
     }
 	if (mlx_is_key_down(mlx, MLX_KEY_S))
 	{
-      if(game->map[int(posX - dirX * moveSpeed)][int(posY)] == false) posX -= dirX * moveSpeed;
-      if(game->map[int(posX)][int(posY - dirY * moveSpeed)] == false) posY -= dirY * moveSpeed;
+      if(game->map[int(game->map.player_position.x - game->map.player_direction.x * game->map.moveSpeed)][int(game->map.player_position.z)] == false)
+        game->map.player_position.x -= game->map.player_direction.x * game->map.moveSpeed;
+      if(game->map[int(game->map.player_position.x)][int(game->map.player_position.z - game->map.player_direction.z * game->map.moveSpeed)] == false)
+        game->map.player_position.z -= game->map.player_direction.z * game->map.moveSpeed;
     }
 	if (mlx_is_key_down(mlx, MLX_KEY_A))
 	{
-      //both camera direction and camera plane must be rotated
-      double oldDirX = dirX;
-      dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
-      dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
-      double oldPlaneX = planeX;
-      planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
-      planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
-    }
+    
+  }
 	if (mlx_is_key_down(mlx, MLX_KEY_D))
 	{
-      //both camera direction and camera plane must be rotated
-      double oldDirX = dirX;
-      dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
-      dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
-      double oldPlaneX = planeX;
-      planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
-      planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
-    }
-	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-	{
-      if(game->map[int(posX + dirX * moveSpeed)][int(posY)] == false) posX += dirX * moveSpeed;
-      if(game->map[int(posX)][int(posY + dirY * moveSpeed)] == false) posY += dirY * moveSpeed;
-    }
-	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-	{
-      if(game->map[int(posX - dirX * moveSpeed)][int(posY)] == false) posX -= dirX * moveSpeed;
-      if(game->map[int(posX)][int(posY - dirY * moveSpeed)] == false) posY -= dirY * moveSpeed;
-    }
+     
+  }
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
 	{
       //both camera direction and camera plane must be rotated
-      double oldDirX = dirX;
-      dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
-      dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
-      double oldPlaneX = planeX;
-      planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
-      planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
+      game->map.oldDir.x = game->map.player_direction.x;
+      game->map.player_direction.x = game->map.player_direction.x * cos(game->map.rotSpeed) - game->map.player_direction.z * sin(game->map.rotSpeed);
+      game->map.player_direction.z = game->map.oldDir.x * sin(game->map.rotSpeed) + game->map.player_direction.z * cos(game->map.rotSpeed);
+      game->map.oldPlane.x = game->map.plane.x;
+      game->map.plane.x = game->map.plane.x * cos(game->map.rotSpeed) - game->map.plane.z * sin(game->map.rotSpeed);
+      game->map.plane.z = game->map.oldPlane.x * sin(game->map.rotSpeed) + game->map.plane.z * cos(game->map.rotSpeed);
     }
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 	{
       //both camera direction and camera plane must be rotated
-      double oldDirX = dirX;
-      dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
-      dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
-      double oldPlaneX = planeX;
-      planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
-      planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
+      game->map.oldDir.x = game->map.player_direction.x;
+      game->map.player_direction.x = game->map.player_direction.x * cos(-game->map.rotSpeed) - game->map.player_direction.z * sin(-game->map.rotSpeed);
+      game->map.player_direction.z = game->map.oldDir.x * sin(-game->map.rotSpeed) + game->map.player_direction.z * cos(-game->map.rotSpeed);
+      game->map.oldPlane.x = game->map.plane.x;
+      game->map.plane.x = game->map.plane.x * cos(-game->map.rotSpeed) - game->map.plane.z * sin(-game->map.rotSpeed);
+      game->map.plane.z = game->map.oldPlane.x * sin(-game->map.rotSpeed) + game->map.plane.z * cos(-game->map.rotSpeed);
     }
 }
