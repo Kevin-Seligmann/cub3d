@@ -29,10 +29,10 @@ int	ft_go(t_cube *game)
 		print_error(-1, CANT_LOAD_IMAGE, 0);
 		mlx_terminate(mlx);
 	}
-	mlx_loop_hook(mlx, ft_hook, mlx);
+	//mlx_loop_hook(mlx, ft_hook, mlx);
 	mlx_loop(mlx);
 	//Calling raycasting
-	ft_raycasting(game);
+	//ft_raycasting(game);
 	mlx_delete_image(mlx, img);
 	mlx_delete_texture(texture);
 	mlx_terminate(mlx);

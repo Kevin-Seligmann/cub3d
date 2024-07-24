@@ -1,7 +1,7 @@
-NO graphic/textures/blue_brick.xpm
-SO graphic/textures/stone_wall.xpm
-WE graphic/textures/red_brick.xpm
-EA graphic/textures/wood_wall.xpm
+NO graphic/textures/bluestone.png
+SO graphic/textures/eagle.png
+WE graphic/textures/purplestone.png
+EA graphic/textures/wood.png
 
 F 11,169,20
 C 153,204,255
