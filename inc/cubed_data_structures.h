@@ -6,7 +6,7 @@
 /*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/10 09:28:13 by osg              ###   ########.fr       */
+/*   Updated: 2024/07/17 23:41:08 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,6 @@ typedef struct s_map
 	float	moveSpeed;
 	float	rotSpeed;
 	float	perpWallDist;
-	/*const t_v3	red;
-	const t_v3	green;
-	const t_v3	blue;
-	const t_v3	white;
-	const t_v3	yellow;*/
-	
 }	t_map;
 
 // Global-like struct for all our data

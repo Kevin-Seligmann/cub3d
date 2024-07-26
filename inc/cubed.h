@@ -6,7 +6,7 @@
 /*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/08 08:38:53 by osg              ###   ########.fr       */
+/*   Updated: 2024/07/18 09:57:10 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 //Definitions
 #define WIDTH 800
 #define HEIGHT 600
+#define BLOCK  50
 
 // Output messages
 # define INVALID_NUMBER_ARGS "The number of arguments is invalid"
@@ -67,7 +68,7 @@ void	ft_free_map(t_map *map);
 int		ft_close(t_cube *map);
 
 //Funcitons/keys
-void ft_hook(void* param);
+void ft_hook(void *param);
 
 //Fuctions/go
 int 	ft_go(t_cube *map);

@@ -62,7 +62,7 @@ void	ft_DDA(t_cube *game)
 {
 	while (game->map.hit == 0)
 	{
-		if (game->.map.sideDist.x < game->map.sideDist.z)
+		if (game->map.sideDist.x < game->map.sideDist.z)
 		{
 			game->map.sideDist.x += game->map.deltaDist.x;
 			game->map.mapX += game->map.stepX;
@@ -90,22 +90,13 @@ void	ft_fisheye(t_cube *game)
 
 void	calc_draw_fill(t_cube *game)
 {
-	lineHeight = (int)(h / perpWallDist);
-	drawStart = -lineHeight / 2 + h / 2;
-	if (drawStart < 0)
-		drawStart = 0;
-	drawEnd = lineHeight / 2 + h / 2;
-	if (drawEnd >= h)
-		drawEnd = h - 1;
-}
-
-void	choose_color(t_cube *game)
-{
-
-	red = {255, 0, 0};
-	green = {0, 255, 0};
-	blue = {0, 0, 255};
-	white =
+	game->map.lineHeight = (int)(h / game->map.perpWallDist);
+	game->map.drawStart = -game->map.lineHeight / 2 + h / 2;
+	if (game->map.drawStart < 0)
+		game->map.drawStart = 0;
+	game->map.drawEnd = game->map.lineHeight / 2 + h / 2;
+	if (game->map.drawEnd >= h)
+		game->map.drawEnd = h - 1;
 }
 
 void	timing_speed(t_cube *game)
@@ -113,7 +104,7 @@ void	timing_speed(t_cube *game)
 	game->map.oldTime = game->map.time;
 	game->map.time = getTicks(); //equivalencia en lenguaje C.
 	game->map.frameTime = (game->map.time - game->map.oldTime) / 1000.0
-	//print(1.0 / gme->map.frameTime; printear los frame por segundo
+	//print(1.0 / game->map.frameTime; printear los frame por segundo
 	//redraw(); version en c?
 	//cls(); version en c?
 	game->map.moveSpeed = game->map.frameTime * 5.0;
