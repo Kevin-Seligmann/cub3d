@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 04:11:11 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/04 22:53:00 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/28 12:12:49 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // Allocates memory for the map, a doble array
 int	alloc_map(t_map *map)
 {
-	int	height;
+	unsigned int height;
 
 	map->map = malloc(sizeof(*(map->map)) * (map->height + 1));
 	if (!map->map)
@@ -28,7 +28,7 @@ int	alloc_map(t_map *map)
 		if (!map->map[height])
 		{
 			map->map[height] = NULL;
-			ft_free_map(map);
+			ft_arr_free_int(map->map);
 			return (print_error(-1, MEMORY_ERROR, 0));
 		}
 		height ++;
@@ -40,7 +40,7 @@ int	alloc_map(t_map *map)
 // Counts the width and height of the map
 int	get_dimensions(t_cube *data, char *line)
 {
-	int	map_width_aux;
+	unsigned int	map_width_aux;
 
 	data->map.height = 1;
 	data->map.width = ft_strlen(line) - 1;
@@ -67,8 +67,8 @@ int	get_dimensions(t_cube *data, char *line)
 // Copies the content of map in the file to a doble array
 void	copy_map(t_cube *data, int **map, char *line)
 {
-	int	width;
-	int	height;
+	unsigned int	width;
+	unsigned int	height;
 
 	height = 0;
 	while (map[height])

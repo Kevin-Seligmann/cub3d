@@ -16,7 +16,8 @@ LIBFT_O = ft_isalpha.o ft_isdigit.o ft_isalnum.o ft_isascii.o ft_isprint.o \
 		ft_putchar_fd.o ft_putstr_fd.o ft_putendl_fd.o ft_putnbr_fd.o \
 		ft_lstclear.o ft_lstdelone.o ft_lstiter.o ft_lstlast.o ft_lstmap.o \
 		ft_lstnew.o ft_lstsize.o ft_lstadd_back.o ft_lstadd_front.o ft_itoa_base.o \
-		ft_strsnjoin.o ft_lastloc.o ft_intnchr.o ft_split_charset.o ft_strcmp.o
+		ft_strsnjoin.o ft_lastloc.o ft_intnchr.o ft_split_charset.o ft_strcmp.o \
+		ft_doublepointer_free.o
 
 FT_PRINTF_O = ft_printf.o ft_printf_specified.o ft_printf_order.o \
 			ft_printf_write_extra.o

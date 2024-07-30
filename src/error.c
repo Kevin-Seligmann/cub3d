@@ -3,28 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 21:53:44 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/02 08:14:53 by mac              ###   ########.fr       */
+/*   Updated: 2024/07/30 12:19:57 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-int	print_error(int return_value, char *error_message, char *strerror)
+#define PR_BUFFSIZE 1000
+
+/*
+	Function that returns values and print error messages on one line, 
+	to shorten the lines that takes to return from a failed function
+	from 4 to 1 (Norminette + braces)
+*/
+int	print_error(int return_value, \
+const char	*error_message, const char *strerror)
 {
-	write(2, ERROR_STANDARD_MESSAGE, ft_strlen(ERROR_STANDARD_MESSAGE));
-	write(2, PROGRAM_NAME, ft_strlen(PROGRAM_NAME));
-	write(2, ERROR_SEPARATOR, ft_strlen(ERROR_SEPARATOR));
-	write(2, error_message, ft_strlen(error_message));
+	char	buffer[PR_BUFFSIZE + 1];
+
+	buffer[0] = 0;
+	ft_strlcat(buffer, ERROR_STANDARD_MESSAGE, PR_BUFFSIZE);
+	ft_strlcat(buffer, PROGRAM_NAME, PR_BUFFSIZE);
+	ft_strlcat(buffer, ERROR_SEPARATOR, PR_BUFFSIZE);
+	ft_strlcat(buffer, error_message, PR_BUFFSIZE);
 	if (strerror)
 	{
-		write(2, ERROR_SEPARATOR, ft_strlen(ERROR_SEPARATOR));
-		write(2, strerror, ft_strlen(strerror));
+		ft_strlcat(buffer, ERROR_SEPARATOR, PR_BUFFSIZE);
+		ft_strlcat(buffer, strerror, PR_BUFFSIZE);
 	}
-	write(2, "\n", 2);
+	ft_strlcat(buffer, "\n", PR_BUFFSIZE);
+	write(STDERR_FILENO, buffer, ft_strlen(buffer));
 	return (return_value);
 }
-
-

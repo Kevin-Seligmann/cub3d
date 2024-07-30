@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 21:34:38 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/08 09:10:52 by osg              ###   ########.fr       */
+/*   Updated: 2024/07/28 12:26:40 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 // Debug function, delete eventually
 void debug_print_data(t_cube *data)
 {
-	ft_printf("Ceiling %d %d %d\n", data->elements.ceiling_color.x, data->elements.ceiling_color.y, data->elements.ceiling_color.z);
-	ft_printf("Floor %d %d %d\n", data->elements.floor_color.x, data->elements.floor_color.y, data->elements.floor_color.z);
+	ft_printf("Ceiling %d %d %d\n", data->colors.ceiling_color.x, data->colors.ceiling_color.y, data->colors.ceiling_color.z);
+	ft_printf("Floor %d %d %d\n", data->colors.floor_color.x, data->colors.floor_color.y, data->colors.floor_color.z);
 	ft_printf("North text %p South text %p East text %p West text %p \n",\
 	data->ged.textures.north_wall, data->ged.textures.south_wall, data->ged.textures.east_wall, data->ged.textures.west_wall);
 	printf("Player dir %.2f %.2f Player pos %.2f %.2f\n", data->map.player_direction.x,  data->map.player_direction.z,  data->map.player_position.x, data->map.player_position.z);
@@ -43,12 +43,12 @@ t_bool	obligatory_elements_are_set(t_cube *data)
 		data->ged.textures.south_wall == 0 || \
 		data->ged.textures.east_wall == 0 || \
 		data->ged.textures.west_wall == 0 || \
-		data->elements.ceiling_color.x == -1 || \
-		data->elements.floor_color.x == -1 || \
-		data->elements.ceiling_color.y == -1 || \
-		data->elements.floor_color.y == -1 || \
-		data->elements.ceiling_color.z == -1 || \
-		data->elements.floor_color.z == -1 || \
+		data->colors.ceiling_color.x == -1 || \
+		data->colors.floor_color.x == -1 || \
+		data->colors.ceiling_color.y == -1 || \
+		data->colors.floor_color.y == -1 || \
+		data->colors.ceiling_color.z == -1 || \
+		data->colors.floor_color.z == -1 || \
 		data->map.player_direction.x == -2 || \
 		data->map.player_direction.z == -2 || \
 		data->map.player_position.x == -2 || \
@@ -64,12 +64,12 @@ void	set_default_config(t_cube *data)
 	data->ged.textures.south_wall = 0;
 	data->ged.textures.east_wall = 0;
 	data->ged.textures.west_wall = 0;
-	data->elements.ceiling_color.x = -1;
-	data->elements.floor_color.x = -1;
-	data->elements.ceiling_color.y = -1;
-	data->elements.floor_color.y = -1;
-	data->elements.ceiling_color.z = -1;
-	data->elements.floor_color.z = -1;
+	data->colors.ceiling_color.x = -1;
+	data->colors.floor_color.x = -1;
+	data->colors.ceiling_color.y = -1;
+	data->colors.floor_color.y = -1;
+	data->colors.ceiling_color.z = -1;
+	data->colors.floor_color.z = -1;
 	data->map.player_direction.x = -2;
 	data->map.player_direction.z = -2;
 	data->map.player_position.x = -2;
@@ -97,6 +97,8 @@ int	parse_file_config(t_cube *data)
 		return (-1);
 	if (obligatory_elements_are_set(data) == FALSE)
 		return (print_error(-1, MISSING_CONFIG_DATA, 0)); // Free map
+	data->colors.hex_ceiling = get_rgba(data->colors.ceiling_color.x, data->colors.ceiling_color.y, data->colors.ceiling_color.z, 0xff);
+	data->colors.hex_floor = get_rgba(data->colors.floor_color.x, data->colors.floor_color.y, data->colors.floor_color.z, 0xff);
 	return (0);
 }
 

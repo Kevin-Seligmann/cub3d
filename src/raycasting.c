@@ -1,134 +1,141 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/30 11:00:36 by kseligma          #+#    #+#             */
+/*   Updated: 2024/07/30 12:22:12 by kseligma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cubed.h"
-#include "parser.h"
 
-void	init_raycasting(t_cube *game)
+/*
+	The plane vector is perpendicular to the player and has a length
+	of CAM_V_LENGT (Related to FOV).
+
+	camera.x maps '0-WIDTH' to '-1, 1'
+
+	Ray direction is the sum of player direction and the camera (plane)
+	vector multiplied by the x-camera coordinate.
+	Its 'max' value is 'player direction + plane'
+	It's 'min' value is 'player direction - plane'.
+	So it maps 0-WIDTH to all the camera plane.
+*/
+void	set_raycasting_data(t_map *map, int x)
 {
-	game->map.player_position.x = 22;
-	game->map.player_position.z = 12;
-	game->map.player_direction.x = -1;
-	game->map.player_direction.z = 0;
-	game->map.plane.x = 0;
-	game->map.plane.z = 0.66;
-	game->map.time = 0;
-	game->map.oldtime = 0;
-	game->map.mapX = int(game->map.player_position.x);
-	game->map.mapZ = int(game->map.player_position.z);
-	game->map.deltaDist.x = (game->map.rayDir.x == 0) ? 1e30 : abs(1 / game->map.rayDir.x);
-	game->map.deltaDist.z = (game->map.rayDir.z == 0) ? 1e30 : abs(1 / game->map.rayDir.z);
-	game->map.hit = 0;
-	/*game->map.red = {255, 0, 0};
-	game->map.green = {0, 255, 0};
-	game->map.blue = {0, 0, 255};
-	game-> map.white = {255, 255, 255};
-	game->map.yellow = {255, 255, 0};*/
+	perp_clockwise_vf2(&map->player_direction, &map->plane);
+	map->plane.x *= CAM_V_LENGTH;
+	map->plane.z *= CAM_V_LENGTH;
+	map->camera.x = 2. * x / WIDTH - 1.;
+	map->ray_dir.x = map->player_direction.x + map->plane.x * map->camera.x;
+	map->ray_dir.z = map->player_direction.z + map->plane.z * map->camera.x;
+	map->map_pos.x = map->player_position.x;
+	map->map_pos.z = map->player_position.z;
+	if (map->ray_dir.x == 0)
+		map->delta_dist.x = __DBL_MAX__;
+	else
+		map->delta_dist.x = fabs(1. / map->ray_dir.x);
+	if (map->ray_dir.z == 0)
+		map->delta_dist.z = __DBL_MAX__;
+	else
+		map->delta_dist.z = fabs(1. / map->ray_dir.z);
 }
 
-void calc_camera(t_cube *game)
+#define todo
+/*
+	To do:
+	explain this better (Probably on docs)
+*/
+void	set_step(t_map *map)
 {
-	while (x < w) //calculate ray postion and direction
+	if (map->ray_dir.x < 0)
 	{
-		game->map.camera.x = 2 * x / float(w) - 1; //x - coordinate in camera space
-		game->map.rayDir.x = game->map.player_direction.x + game->map.plane.x * game->map.camera.x;
-		game->map.rayDir.z = game->map.player_direction.z + game->map.plane.x * game->map.camera.x;
-		x++;
-	}
-}
-
-void	calc_step_sideDist(t_cube *game)
-{
-	if (game->map.rayDir.x < 0)
-	{
-		game->map.stepX = -1;
-		game->map.sideDist.x = (game->map.player_position.x - game->map.mapX) * game->map.deltaDist.x;
+		map->step.x = -1;
+		map->side_dist.x = (map->player_position.x - \
+		map->map_pos.x) * map->delta_dist.x;
 	}
 	else
 	{
-		game->map.stepX = -1;
-		game->map.sideDist.x = (game->map.mapX + 1.0 - game->map.player_position.x) * game->map.deltaDist.x;
+		map->step.x = 1;
+		map->side_dist.x = (map->map_pos.x + 1.0 - \
+		map->player_position.x) * map->delta_dist.x;
 	}
-	if
+	if (map->ray_dir.z < 0)
 	{
-		game->map.stepZ = -1;
-		game->map.sideDist.z = (game->map.player_position.z - game->map.mapZ) * game->map.deltaDist.z;
+		map->step.z = -1;
+		map->side_dist.z = (map->player_position.z - \
+		map->map_pos.z) * map->delta_dist.z;
 	}
 	else
 	{
-		game->map.stepZ = -1;
-		game->map.sideDist.z = (game->map.mapZ + 1.0 - game->map.player_position.z) * game->map.deltaDist.z;
+		map->step.z = 1;
+		map->side_dist.z = (map->map_pos.z + 1.0 - \
+		map->player_position.z) * map->delta_dist.z;
 	}
 }
 
-void	ft_DDA(t_cube *game)
+#define todo
+/*
+	To do:
+	explain this better (Probably on docs)
+*/
+void	ft_dda(t_map *map)
 {
-	while (game->map.hit == 0)
+	int	hit;
+
+	hit = 0;
+	while (hit == 0)
 	{
-		if (game->map.sideDist.x < game->map.sideDist.z)
+		if (map->side_dist.x < map->side_dist.z)
 		{
-			game->map.sideDist.x += game->map.deltaDist.x;
-			game->map.mapX += game->map.stepX;
-			game->map.side = 0;
+			map->side_dist.x += map->delta_dist.x;
+			map->map_pos.x += map->step.x;
+			map->side = 0;
 		}
 		else
 		{
-			game->map.sideDist.z += game->map.deltaDist.z;
-			game->map.mapZ += game->map.stepZ;
-			game->map.side = 1;
+			map->side_dist.z += map->delta_dist.z;
+			map->map_pos.z += map->step.z;
+			map->side = 1;
 		}
-		if (game->map[game->map.mapX][game->map.mapZ] > 0)
-			game->map.hit = 1;
+		if (map->map[map->map_pos.z][map->map_pos.x] == '1')
+			hit = 1;
 	}
 }
 
-void	ft_fisheye(t_cube *game)
+#define todo
+/*
+	To do:
+	explain this better (Probably on docs)
+*/
+void	get_wall_dist(t_map *map)
 {
-	if (game->map.side == 0)
-		game->map.perpWallDist = (game->map.sideDist.x - game->map.deltaDist.x);
+	if (map->side == 0)
+		map->wall_dist = (map->side_dist.x - map->delta_dist.x);
 	else
-		game->map.perpWallDist = (game->map.sideDist.z - game->map.deltaDist.z);
-
+		map->wall_dist = (map->side_dist.z - map->delta_dist.z);
 }
 
-void	calc_draw_fill(t_cube *game)
-{
-	game->map.lineHeight = (int)(h / game->map.perpWallDist);
-	game->map.drawStart = -game->map.lineHeight / 2 + h / 2;
-	if (game->map.drawStart < 0)
-		game->map.drawStart = 0;
-	game->map.drawEnd = game->map.lineHeight / 2 + h / 2;
-	if (game->map.drawEnd >= h)
-		game->map.drawEnd = h - 1;
-}
-
-void	timing_speed(t_cube *game)
-{
-	game->map.oldTime = game->map.time;
-	game->map.time = getTicks(); //equivalencia en lenguaje C.
-	game->map.frameTime = (game->map.time - game->map.oldTime) / 1000.0
-	//print(1.0 / game->map.frameTime; printear los frame por segundo
-	//redraw(); version en c?
-	//cls(); version en c?
-	game->map.moveSpeed = game->map.frameTime * 5.0;
-	game->map.rotSpeed = game->map.frameTime * 3.0;
-}
-
+#define todo
+/*
+	To do:
+	explain this better (Probably on docs)
+*/
 void	ft_raycasting(t_cube *game)
 {
 	int	x;
 
-	init_raycasting(game);
-	while (!done())
+	x = 0;
+	while (x < WIDTH)
 	{
-		x = 0;
-		while (x < w)
-		{
-			calc_camera(game);
-			calc_step_sideDist(game);
-			ft_DDA(game);
-			ft_fisheye(game);
-			calc_draw_fill(game);
-			choose_color(game);
-			x++;
-		}
-		timing_speed(game);
+		set_raycasting_data(&game->map, x);
+		set_step(&game->map);
+		ft_dda(&game->map);
+		get_wall_dist(&game->map);
+		draw(&game->map, &game->ged, &game->colors, x);
+		x++;
 	}
 }

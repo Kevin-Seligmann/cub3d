@@ -4,7 +4,7 @@ GREEN = "\e[32m"
 NO_COLOR = "\e[0m"
 
 # Folders
-VPATH = src:src/parser:src/math:src/hooks
+VPATH = src:src/parser:src/math:src/mlxgraphics
 OBJ_FOLDER = obj
 LFT_FOLDER = libft
 MLX_FOLDER = MLX42
@@ -12,9 +12,9 @@ INC = -I./inc -I./libft/inc -I./$(MLX_FOLDER)/include
 
 # Files
 OBJ = cubed.o parser.o error.o parser_util.o parse_color.o parse_element.o \
-		parse_map.o parse_texture.o ft_go.o   ft_frees.o \
-		valid_map.o \
-		##raycasting.o key_hook.o
+		parse_map.o parse_texture.o draw.o movement.o\
+		valid_map.o vector.o raycasting.o key_hook.o\
+
 LFT = $(LFT_FOLDER)/libft.a
 MLX = $(MLX_FOLDER)/libmlx42.a
 DEPS = $(OBJ_DIR:.o=.d)

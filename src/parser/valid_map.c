@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:45:30 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/06 11:45:50 by osg              ###   ########.fr       */
+/*   Updated: 2024/07/28 21:56:13 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	set_player_coordinates(t_map *map, int **arr, int i, int j)
 {
 	if (map->player_direction.x != -2) // If player direction has been set, error
 		return (print_error(-1, MANY_PLAYERS, 0));
-	map->player_position.x = i;
-	map->player_position.z = j;
+	map->player_position.x = j + 0.5;
+	map->player_position.z = i + 0.5;
 	if (arr[i][j] == 'W')
 	{
 		map->player_direction.x = -1;
@@ -40,15 +40,16 @@ int	set_player_coordinates(t_map *map, int **arr, int i, int j)
 		map->player_direction.x = 0;
 		map->player_direction.z = 1;
 	}
+	arr[i][j] = '0';
 	return (0);
 }
 
 // Checks if the char is enclosed
-t_bool	square_is_enclosed(t_map *map, int **arr, int i, int j)
+t_bool	square_is_enclosed(t_map *map, int **arr, unsigned int i, unsigned int j)
 {
-	if (i == 0 || i == map->width - 1) // ...
+	if (i == 0 || i == map->height - 1) // ...
 		return (FALSE);
-	if (j == 0 || j == map->height - 1) // If the char is at the limits of the map, is not enclosed
+	if (j == 0 || j == map->width - 1) // If the char is at the limits of the map, is not enclosed
 		return (FALSE);
 	if (arr[i + 1][j] == ' ' || arr[i][j + 1] == ' ') // ...
 		return (FALSE);
@@ -59,8 +60,8 @@ t_bool	square_is_enclosed(t_map *map, int **arr, int i, int j)
 
 t_bool	is_map_valid(t_map *map, int **arr) // Empty map?
 {
-	int	i;
-	int	j;
+	unsigned int	i;
+	unsigned int	j;
 
 	i = 0;
 	while (arr[i])

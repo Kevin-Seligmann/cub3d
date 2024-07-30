@@ -6,12 +6,17 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 20:12:25 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/04 22:55:56 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/28 12:26:40 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include "parser.h"
+
+unsigned int get_rgba(int r, int g, int b, int a)
+{
+    return (r << 24 | g << 16 | b << 8 | a);
+}
 
 // Skips the comas in the string
 int	skip_coma(char **line)
@@ -75,8 +80,8 @@ int	set_map_color(t_cube *data, char **args, char *line)
 	color.x = 0;
 	color.y = 0;
 	color.z = 0;
-	if ((!ft_strcmp(args[0], FLOOR_ID) && data->elements.floor_color.x != -1) || \
-		(!ft_strcmp(args[0], CEILING_ID) && data->elements.ceiling_color.x != -1)) // If the information is repeated
+	if ((!ft_strcmp(args[0], FLOOR_ID) && data->colors.floor_color.x != -1) || \
+		(!ft_strcmp(args[0], CEILING_ID) && data->colors.ceiling_color.x != -1)) // If the information is repeated
 	{
 		ft_arr_free(args);
 		return (print_error(-1, WRONG_LINE_CONTENT, 0));
@@ -87,9 +92,9 @@ int	set_map_color(t_cube *data, char **args, char *line)
 		return (print_error(-1, WRONG_LINE_CONTENT, "Color"));
 	}
 	if (!ft_strcmp(args[0], FLOOR_ID))
-		data->elements.floor_color = color;
+		data->colors.floor_color = color;
 	else if (!ft_strcmp(args[0], CEILING_ID))
-		data->elements.ceiling_color = color;
+		data->colors.ceiling_color = color;
 	ft_arr_free(args);
 	return (0);
 }

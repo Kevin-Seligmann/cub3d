@@ -1,54 +1,88 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key_hook.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/27 15:59:14 by kseligma          #+#    #+#             */
+/*   Updated: 2024/07/30 12:20:20 by kseligma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cubed.h"
-#include "parser.h"
 
-void ft_hook(void *param)
+/*
+	When a key is pressed, a flag is set, when a key is released, the flag is
+	unset. The flags permit detecting multiple key presses, executing more
+	than one movement at the same time in the game loop.
+*/
+
+/* 
+	Keys that move to the front or back.
+
+	W to move forwards.
+	S to move backwards.
+*/
+static void	updown_keys(mlx_key_data_t keydata, t_cube *data)
 {
-	mlx_t *mlx;
-	t_cube *game;
+	if (keydata.key == MLX_KEY_S && keydata.action == MLX_RELEASE)
+		data->map.key &= ~CUBK_S;
+	else if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
+		data->map.key |= CUBK_S;
+	else if (keydata.key == MLX_KEY_W && keydata.action == MLX_RELEASE)
+		data->map.key &= ~CUBK_W;
+	else if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
+		data->map.key |= CUBK_W;
+}
 
-	mlx = param;
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE) || mlx_is_key_down(mlx, MLX_KEY_X))
-		mlx_close_window(mlx);
-	if (mlx_is_key_down(mlx, MLX_KEY_W))
-	{
-      if(game->map.map[int(game->map.player_position.x + game->map.player_direction.x * game->map.moveSpeed)][int(game->map.player_position.z)] == false)
-    	  game->map.player_position.x += game->map.player_direction.x * game->map.moveSpeed;
-      if(game->map[int(game->map.player_position.x)][int(game->map.player_position.z + game->map.player_direction.z * game->map.moveSpeed)] == false)
-	  	  game->map.player_position.z += game->map.player_direction.z * game->map.moveSpeed;
-    }
-	if (mlx_is_key_down(mlx, MLX_KEY_S))
-	{
-      if(game->map[int(game->map.player_position.x - game->map.player_direction.x * game->map.moveSpeed)][int(game->map.player_position.z)] == false)
-        game->map.player_position.x -= game->map.player_direction.x * game->map.moveSpeed;
-      if(game->map[int(game->map.player_position.x)][int(game->map.player_position.z - game->map.player_direction.z * game->map.moveSpeed)] == false)
-        game->map.player_position.z -= game->map.player_direction.z * game->map.moveSpeed;
-    }
-	if (mlx_is_key_down(mlx, MLX_KEY_A))
-	{
-    
-  }
-	if (mlx_is_key_down(mlx, MLX_KEY_D))
-	{
-     
-  }
-	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-	{
-      //both camera direction and camera plane must be rotated
-      game->map.oldDir.x = game->map.player_direction.x;
-      game->map.player_direction.x = game->map.player_direction.x * cos(game->map.rotSpeed) - game->map.player_direction.z * sin(game->map.rotSpeed);
-      game->map.player_direction.z = game->map.oldDir.x * sin(game->map.rotSpeed) + game->map.player_direction.z * cos(game->map.rotSpeed);
-      game->map.oldPlane.x = game->map.plane.x;
-      game->map.plane.x = game->map.plane.x * cos(game->map.rotSpeed) - game->map.plane.z * sin(game->map.rotSpeed);
-      game->map.plane.z = game->map.oldPlane.x * sin(game->map.rotSpeed) + game->map.plane.z * cos(game->map.rotSpeed);
-    }
-	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-	{
-      //both camera direction and camera plane must be rotated
-      game->map.oldDir.x = game->map.player_direction.x;
-      game->map.player_direction.x = game->map.player_direction.x * cos(-game->map.rotSpeed) - game->map.player_direction.z * sin(-game->map.rotSpeed);
-      game->map.player_direction.z = game->map.oldDir.x * sin(-game->map.rotSpeed) + game->map.player_direction.z * cos(-game->map.rotSpeed);
-      game->map.oldPlane.x = game->map.plane.x;
-      game->map.plane.x = game->map.plane.x * cos(-game->map.rotSpeed) - game->map.plane.z * sin(-game->map.rotSpeed);
-      game->map.plane.z = game->map.oldPlane.x * sin(-game->map.rotSpeed) + game->map.plane.z * cos(-game->map.rotSpeed);
-    }
+/* 
+	Keys that strafe ('side movement').
+
+	A for left strafe.
+	D for right strafe.
+*/
+static void	strafe_keys(mlx_key_data_t keydata, t_cube *data)
+{
+	if (keydata.key == MLX_KEY_A && keydata.action == MLX_RELEASE)
+		data->map.key &= ~CUBK_A;
+	else if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
+		data->map.key |= CUBK_A;
+	else if (keydata.key == MLX_KEY_D && keydata.action == MLX_RELEASE)
+		data->map.key &= ~CUBK_D;
+	else if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
+		data->map.key |= CUBK_D;
+}
+
+/* 
+	Keys that rotate.
+
+	Left arrow for anticlockwise rotation.
+	Right arrow for clockwise rotation.
+*/
+static void	rotation_keys(mlx_key_data_t keydata, t_cube *data)
+{
+	if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_RELEASE)
+		data->map.key &= ~CUBK_L;
+	else if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS)
+		data->map.key |= CUBK_L;
+	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_RELEASE)
+		data->map.key &= ~CUBK_R;
+	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
+		data->map.key |= CUBK_R;
+}
+
+#define error
+/*
+	To do:
+	MLX termination key
+*/
+void	key_hook(mlx_key_data_t keydata, void *param)
+{
+	t_cube	*data;
+
+	data = param;
+	rotation_keys(keydata, data);
+	strafe_keys(keydata, data);
+	updown_keys(keydata, data);
 }

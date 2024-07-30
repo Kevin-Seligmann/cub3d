@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed_data_structures.h                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/17 23:41:08 by osg              ###   ########.fr       */
+/*   Updated: 2024/07/30 12:09:27 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,36 +16,35 @@
 
 # include "MLX42/MLX42.h"
 
-// Boolean
+# define todo
+/*
+	To do:
+	Documentate structs
+*/
+
 typedef enum e_bool
 {
 	FALSE,
 	TRUE
 }	t_bool;
 
-
+/* Textures facing their correspondent side.
+Each texture is a png parsed by MLX */
 typedef struct s_texture_pack
 {
-	mlx_texture_t *east_wall;
-	mlx_texture_t *north_wall;
-	mlx_texture_t *south_wall;
-	mlx_texture_t *west_wall;
+	mlx_texture_t	*east_wall;
+	mlx_texture_t	*north_wall;
+	mlx_texture_t	*south_wall;
+	mlx_texture_t	*west_wall;
 }	t_texture_pack;
 
-// This contains MLX (Graphic Engine) Data (GED)
-typedef struct s_ged
-{
-	t_texture_pack	textures;
-}	t_ged;
-
-// A list of file descriptor, for textures and config file
+/* Configuration file data */
 typedef struct s_fds
 {
 	int		config_file_fd;
 	char	*config_file_path;
 }	t_fds;
 
-// A vector of tree points, also for colors
 typedef struct s_v3
 {
 	int	x;
@@ -53,57 +52,64 @@ typedef struct s_v3
 	int	z;
 }	t_v3;
 
-// A vector of two floats
+typedef struct s_v2
+{
+	int	x;
+	int	z;
+}	t_v2;
+
 typedef struct s_vf2
 {
 	float	x;
 	float	z;
 }	t_vf2;
 
-// Value of elements from the config file
-typedef struct s_elem
+typedef struct s_color
 {
-	t_v3	floor_color;
-	t_v3	ceiling_color;
-}	t_elem;
+	t_v3			floor_color;
+	t_v3			ceiling_color;
+	unsigned int	hex_floor;
+	unsigned int	hex_ceiling;
+}	t_color;
 
 typedef struct s_map
 {
-	int		**map;
-	int		mapX;
-	int		mapZ;
-	int		stepX;
-	int		stepZ;
-	int		height;
-	int		width;
-	int		lineHeight;
-	int		drawStart;
-	int		drawEnd;
-	int		hit;
-	int		side;
-	t_vf2	player_position;
-	t_vf2	player_direction;
-	t_vf2	oldDir;
-	t_vf2	plane;
-	t_vf2	oldPlane;
-	t_vf2	camera;
-	t_vf2	rayDir;
-	t_vf2	sideDist;
-	t_vf2	deltaDist;
-	float	time;
-	float	oldTime;
-	float	frameTime;
-	float	moveSpeed;
-	float	rotSpeed;
-	float	perpWallDist;
+	int				**map;
+	unsigned int	height;
+	unsigned int	width;
+	unsigned int	line_height;
+	unsigned int	key;
+	int				line_start;
+	int				line_end;
+	int				side;
+	float			wall_dist;
+	float			xhit;
+	t_v2			map_pos;
+	t_v2			step;
+	t_vf2			player_position;
+	t_vf2			old_player_position;
+	t_vf2			player_direction;
+	t_vf2			plane;
+	t_vf2			camera;
+	t_vf2			ray_dir;
+	t_vf2			side_dist;
+	t_vf2			delta_dist;
 }	t_map;
+
+// This contains MLX (Graphic Engine) Data (GED)
+typedef struct s_ged
+{
+	mlx_t			*mlx;
+	t_texture_pack	textures;
+	mlx_image_t		*img;
+}	t_ged;
 
 // Global-like struct for all our data
 typedef struct s_cube
 {
 	t_ged	ged;
 	t_fds	files;
-	t_elem	elements;
+	t_color	colors;
 	t_map	map;
 }	t_cube;
 
