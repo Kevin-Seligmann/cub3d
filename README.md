@@ -4,29 +4,32 @@
 
 
 	STEPS:
-	1. Game 2D------------??
-		1.1 Print map---------------------------------??
-		1.2 Print player------------------------------??
-		1.3 Player movements--------------------------??
-			1.3.1 Rotate player---------------------------------??
-			1.3.2 Move player (with direction)------------------??
-			1.3.3 Map colision----------------------------------??
-		1.4 Move player (with direction)--------------??
-		1.5 Print Rays (FOV)--------------------------??
-			1.5.1 Print one ray---------------------------------??
-			1.5.2 Print ray with vertical colision--------------??
-			1.5.3 Print ray with horizontal coliision-----------??
-			1.5.4 Print rays in FOV-----------------------------??
-	2. Game 3D------------
-		2.1 Raycasting--------------------------------??
-		2.2 Print 3D walls----------------------------??
-		2.3 Print floor & ceiling---------------------??
-		2.4 Print sprites & textures------------------??
-	3. Correct & test-----
-		3.1 Correct leaks-----------------------------??
-		3.2 Test Norminette---------------------------??
-		3.3 Change textures---------------------------??
-		3.4 Change sprites----------------------------??
+	1. Game 2D------------ NO!
+		1.1 Print map--------------------------------- NO!
+		1.2 Print player------------------------------ NO!
+		1.3 Player movements-------------------------- OK! (95%)
+			1.3.1 Rotate player--------------------------------- OK!
+			1.3.2 Move player (with direction)------------------ OK!
+			1.3.3 Map colision---------------------------------- OK! (95%)
+		1.4 Move player (with direction)-------------- OK!
+		1.5 Print Rays (FOV)-------------------------- NO!
+			1.5.1 Print one ray--------------------------------- NO!
+			1.5.2 Print ray with vertical colision-------------- NO!
+			1.5.3 Print ray with horizontal coliision----------- NO!
+			1.5.4 Print rays in FOV----------------------------- NO!
+	2. Game 3D------------ NO!
+		2.1 Raycasting-------------------------------- OK!
+		2.2 Print 3D walls---------------------------- OK!
+		2.3 Print floor & ceiling--------------------- OK!
+		2.4 Print sprites & textures------------------ 50% - No sprites
+  		2.5 Animated sprites-------------------------- NO!
+    		2.6 Mouse rotation---------------------------- NO!
+      		2.7 Doors ------------------------------------ NO!
+	3. Correct & test----- NO!
+		3.1 Correct leaks----------------------------- OK!?
+		3.2 Test Norminette--------------------------- 90%
+		3.3 Change textures--------------------------- OK!
+		3.4 Change sprites---------------------------- NO!
 
 
 ## Subject
