@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:34:43 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 12:18:19 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:50:14 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 	Line height is such that if distance is one block, the wall occupies
 	the whole screen.
 */
-static void	set_line_limits(t_map *map)
+static void	set_line_limits(t_sim *map)
 {
 	map->line_height = HEIGHT / map->wall_dist;
 	map->line_start = -(int)(map->line_height / 2) + HEIGHT / 2;
@@ -33,7 +33,7 @@ static void	set_line_limits(t_map *map)
 	If side is 0, ray hit a E or W.
 	If side is 1, ray hit N or S.
 */
-static void	get_texture(t_map *map, \
+static void	get_texture(t_sim *map, \
 t_texture_pack *textures, mlx_texture_t **texture)
 {
 	if (map->side == 0 && map->step.x == 1)
@@ -51,15 +51,15 @@ t_texture_pack *textures, mlx_texture_t **texture)
 	Todo:
 	Explain this better
 */
-static void	get_texture_x(t_map *map)
+static void	get_texture_x(t_sim *map)
 {
 	if (map->side == 0)
-		map->xhit = map->player_position.z + \
+		map->texture_x = map->player_position.z + \
 		map->wall_dist * map->ray_dir.z;
 	else
-		map->xhit = map->player_position.x + \
+		map->texture_x = map->player_position.x + \
 		map->wall_dist * map->ray_dir.x;
-	map->xhit = (map->xhit - floorf(map->xhit));
+	map->texture_x = (map->texture_x - floorf(map->texture_x));
 }
 
 /*
@@ -72,7 +72,7 @@ static void	get_texture_x(t_map *map)
 
 	Each pixel is an R-G-B-A value, add 0, 1, 2, 3 to get each piece. 
 */
-static void	put_texture_pixel(t_map *map, t_ged *gph, int x, unsigned int y)
+static void	put_texture_pixel(t_sim *map, t_ged *gph, int x, unsigned int y)
 {
 	mlx_texture_t	*texture;
 	int				xpos;
@@ -81,7 +81,7 @@ static void	put_texture_pixel(t_map *map, t_ged *gph, int x, unsigned int y)
 
 	get_texture(map, &gph->textures, &texture);
 	get_texture_x(map);
-	xpos = map->xhit * (float) texture->width;
+	xpos = map->texture_x * (float) texture->width;
 	ypos = (y - map->line_start) * \
 	((texture->height - 1.) / map->line_height);
 	tex_coord = (xpos + ypos * texture->width) * 4;
@@ -101,7 +101,7 @@ static void	put_texture_pixel(t_map *map, t_ged *gph, int x, unsigned int y)
 	If the pixel is inside the texture, maps
 	the pixel to the texture
 */
-void	draw(t_map *map, t_ged *gph, t_color *colors, int x)
+void	draw(t_sim *map, t_ged *gph, t_color *colors, int x)
 {
 	unsigned int	y;
 
@@ -110,9 +110,9 @@ void	draw(t_map *map, t_ged *gph, t_color *colors, int x)
 	while (y < HEIGHT)
 	{
 		if ((int) y < map->line_start)
-			mlx_put_pixel(gph->img, x, y, colors->hex_ceiling);
+			mlx_put_pixel(gph->img, x, y, colors->ceiling_color);
 		else if ((int) y >= map->line_end)
-			mlx_put_pixel(gph->img, x, y, colors->hex_floor);
+			mlx_put_pixel(gph->img, x, y, colors->floor_color);
 		else
 			put_texture_pixel(map, gph, x, y);
 		y ++;

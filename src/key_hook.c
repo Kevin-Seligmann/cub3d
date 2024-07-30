@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:59:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 12:20:20 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:43:58 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@
 static void	updown_keys(mlx_key_data_t keydata, t_cube *data)
 {
 	if (keydata.key == MLX_KEY_S && keydata.action == MLX_RELEASE)
-		data->map.key &= ~CUBK_S;
+		data->sim.key_flag &= ~CUBK_S;
 	else if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
-		data->map.key |= CUBK_S;
+		data->sim.key_flag |= CUBK_S;
 	else if (keydata.key == MLX_KEY_W && keydata.action == MLX_RELEASE)
-		data->map.key &= ~CUBK_W;
+		data->sim.key_flag &= ~CUBK_W;
 	else if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-		data->map.key |= CUBK_W;
+		data->sim.key_flag |= CUBK_W;
 }
 
 /* 
@@ -45,13 +45,13 @@ static void	updown_keys(mlx_key_data_t keydata, t_cube *data)
 static void	strafe_keys(mlx_key_data_t keydata, t_cube *data)
 {
 	if (keydata.key == MLX_KEY_A && keydata.action == MLX_RELEASE)
-		data->map.key &= ~CUBK_A;
+		data->sim.key_flag &= ~CUBK_A;
 	else if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-		data->map.key |= CUBK_A;
+		data->sim.key_flag |= CUBK_A;
 	else if (keydata.key == MLX_KEY_D && keydata.action == MLX_RELEASE)
-		data->map.key &= ~CUBK_D;
+		data->sim.key_flag &= ~CUBK_D;
 	else if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-		data->map.key |= CUBK_D;
+		data->sim.key_flag |= CUBK_D;
 }
 
 /* 
@@ -63,13 +63,13 @@ static void	strafe_keys(mlx_key_data_t keydata, t_cube *data)
 static void	rotation_keys(mlx_key_data_t keydata, t_cube *data)
 {
 	if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_RELEASE)
-		data->map.key &= ~CUBK_L;
+		data->sim.key_flag &= ~CUBK_L;
 	else if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS)
-		data->map.key |= CUBK_L;
+		data->sim.key_flag |= CUBK_L;
 	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_RELEASE)
-		data->map.key &= ~CUBK_R;
+		data->sim.key_flag &= ~CUBK_R;
 	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
-		data->map.key |= CUBK_R;
+		data->sim.key_flag |= CUBK_R;
 }
 
 #define error

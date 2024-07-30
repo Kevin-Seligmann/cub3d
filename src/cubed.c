@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:41:35 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 12:19:29 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:43:58 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	simulation_loop(void *data)
 	t_cube	*game;
 
 	game = data;
-	do_rotation(game->map.key, &game->map);
-	do_translation(game->map.key, &game->map);
+	do_rotation(game->sim.key_flag, &game->sim);
+	do_translation(game->sim.key_flag, &game->sim);
 	ft_raycasting(game);
 }
 
@@ -35,7 +35,7 @@ void	simulation_loop(void *data)
 */
 int	config_mlx(t_cube *data)
 {
-	data->map.key = 0;
+	data->sim.key_flag = 0;
 	data->ged.mlx = mlx_init(WIDTH, HEIGHT, WINDOWS_TITLE, true);
 	if (!data->ged.mlx)
 		return (print_error(-1, MLX_ERROR, mlx_strerror(mlx_errno)));

@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:00:36 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 12:22:12 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:43:58 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@
 	It's 'min' value is 'player direction - plane'.
 	So it maps 0-WIDTH to all the camera plane.
 */
-void	set_raycasting_data(t_map *map, int x)
+void	set_raycasting_data(t_sim *map, int x)
 {
-	perp_clockwise_vf2(&map->player_direction, &map->plane);
-	map->plane.x *= CAM_V_LENGTH;
-	map->plane.z *= CAM_V_LENGTH;
-	map->camera.x = 2. * x / WIDTH - 1.;
-	map->ray_dir.x = map->player_direction.x + map->plane.x * map->camera.x;
-	map->ray_dir.z = map->player_direction.z + map->plane.z * map->camera.x;
-	map->map_pos.x = map->player_position.x;
-	map->map_pos.z = map->player_position.z;
+	perp_clockwise_vf2(&map->player_direction, &map->cam_vect);
+	map->cam_vect.x *= CAM_V_LENGTH;
+	map->cam_vect.z *= CAM_V_LENGTH;
+	map->camera_x.x = 2. * x / WIDTH - 1.;
+	map->ray_dir.x = map->player_direction.x + map->cam_vect.x * map->camera_x.x;
+	map->ray_dir.z = map->player_direction.z + map->cam_vect.z * map->camera_x.x;
+	map->pos_int.x = map->player_position.x;
+	map->pos_int.z = map->player_position.z;
 	if (map->ray_dir.x == 0)
 		map->delta_dist.x = __DBL_MAX__;
 	else
@@ -49,30 +49,30 @@ void	set_raycasting_data(t_map *map, int x)
 	To do:
 	explain this better (Probably on docs)
 */
-void	set_step(t_map *map)
+void	set_step(t_sim *map)
 {
 	if (map->ray_dir.x < 0)
 	{
 		map->step.x = -1;
 		map->side_dist.x = (map->player_position.x - \
-		map->map_pos.x) * map->delta_dist.x;
+		map->pos_int.x) * map->delta_dist.x;
 	}
 	else
 	{
 		map->step.x = 1;
-		map->side_dist.x = (map->map_pos.x + 1.0 - \
+		map->side_dist.x = (map->pos_int.x + 1.0 - \
 		map->player_position.x) * map->delta_dist.x;
 	}
 	if (map->ray_dir.z < 0)
 	{
 		map->step.z = -1;
 		map->side_dist.z = (map->player_position.z - \
-		map->map_pos.z) * map->delta_dist.z;
+		map->pos_int.z) * map->delta_dist.z;
 	}
 	else
 	{
 		map->step.z = 1;
-		map->side_dist.z = (map->map_pos.z + 1.0 - \
+		map->side_dist.z = (map->pos_int.z + 1.0 - \
 		map->player_position.z) * map->delta_dist.z;
 	}
 }
@@ -82,7 +82,7 @@ void	set_step(t_map *map)
 	To do:
 	explain this better (Probably on docs)
 */
-void	ft_dda(t_map *map)
+void	ft_dda(t_sim *map)
 {
 	int	hit;
 
@@ -92,16 +92,16 @@ void	ft_dda(t_map *map)
 		if (map->side_dist.x < map->side_dist.z)
 		{
 			map->side_dist.x += map->delta_dist.x;
-			map->map_pos.x += map->step.x;
+			map->pos_int.x += map->step.x;
 			map->side = 0;
 		}
 		else
 		{
 			map->side_dist.z += map->delta_dist.z;
-			map->map_pos.z += map->step.z;
+			map->pos_int.z += map->step.z;
 			map->side = 1;
 		}
-		if (map->map[map->map_pos.z][map->map_pos.x] == '1')
+		if (map->map[map->pos_int.z][map->pos_int.x] == '1')
 			hit = 1;
 	}
 }
@@ -111,7 +111,7 @@ void	ft_dda(t_map *map)
 	To do:
 	explain this better (Probably on docs)
 */
-void	get_wall_dist(t_map *map)
+void	get_wall_dist(t_sim *map)
 {
 	if (map->side == 0)
 		map->wall_dist = (map->side_dist.x - map->delta_dist.x);
@@ -131,11 +131,11 @@ void	ft_raycasting(t_cube *game)
 	x = 0;
 	while (x < WIDTH)
 	{
-		set_raycasting_data(&game->map, x);
-		set_step(&game->map);
-		ft_dda(&game->map);
-		get_wall_dist(&game->map);
-		draw(&game->map, &game->ged, &game->colors, x);
+		set_raycasting_data(&game->sim, x);
+		set_step(&game->sim);
+		ft_dda(&game->sim);
+		get_wall_dist(&game->sim);
+		draw(&game->sim, &game->ged, &game->colors, x);
 		x++;
 	}
 }

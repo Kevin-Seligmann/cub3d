@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:45:30 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/28 21:56:13 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:43:33 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "parser.h"
 
 // Sets player position and direction
-int	set_player_coordinates(t_map *map, int **arr, int i, int j)
+int	set_player_coordinates(t_sim *map, int **arr, int i, int j)
 {
 	if (map->player_direction.x != -2) // If player direction has been set, error
 		return (print_error(-1, MANY_PLAYERS, 0));
@@ -45,7 +45,7 @@ int	set_player_coordinates(t_map *map, int **arr, int i, int j)
 }
 
 // Checks if the char is enclosed
-t_bool	square_is_enclosed(t_map *map, int **arr, unsigned int i, unsigned int j)
+t_bool	square_is_enclosed(t_sim *map, int **arr, unsigned int i, unsigned int j)
 {
 	if (i == 0 || i == map->height - 1) // ...
 		return (FALSE);
@@ -58,7 +58,7 @@ t_bool	square_is_enclosed(t_map *map, int **arr, unsigned int i, unsigned int j)
 	return (TRUE);
 }
 
-t_bool	is_map_valid(t_map *map, int **arr) // Empty map?
+t_bool	is_map_valid(t_sim *map, int **arr) // Empty map?
 {
 	unsigned int	i;
 	unsigned int	j;

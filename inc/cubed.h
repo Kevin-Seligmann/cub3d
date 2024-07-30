@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 12:09:51 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:43:33 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,13 +126,13 @@ void			simulation_loop(void *data);
 
 /* Stores in dst the clockwise perpendicular 2d´vector to src */
 void			perp_clockwise_v2(t_v2 *src, t_v2 *dst);
-void			perp_clockwise_vf2(t_vf2 *src, t_vf2 *dst);
+void			perp_clockwise_vf2(t_vd2 *src, t_vd2 *dst);
 
 /* Transforms RGBA into a 4 bytes hex */
 unsigned int	get_rgba(int r, int g, int b, int a);
 
 /* Draws the scene */
-void			draw(t_map *map, t_ged *gph, t_color *colors, int x);
+void			draw(t_sim *map, t_ged *gph, t_color *colors, int x);
 
 /* Performs the raycasting algorithm, DDA */
 void			ft_raycasting(t_cube *game);

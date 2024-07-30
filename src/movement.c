@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:31:23 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 12:16:14 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:43:33 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 	close to the wall could result in rounding errors,
 	glitching the player inside and causing bounces.
 */
-static float	movex(t_map *mapd, int **map, float movement)
+static float	movex(t_sim *mapd, int **map, float movement)
 {
 	float	wall_offset;
 	float	wall_dist;
@@ -50,7 +50,7 @@ static float	movex(t_map *mapd, int **map, float movement)
 	return (wall_dist * 0.9999 - wall_offset);
 }
 
-static float	movez(t_map *mapd, int **map, float movement)
+static float	movez(t_sim *mapd, int **map, float movement)
 {
 	float	wall_offset;
 	float	wall_dist;
@@ -78,16 +78,16 @@ static float	movez(t_map *mapd, int **map, float movement)
 /*
 	Not enough space in the main function
 */
-static void	do_strafe_traslantion(int key, t_map *map)
+static void	do_strafe_traslantion(int key_flag, t_sim *map)
 {
-	if (key & CUBK_A)
+	if (key_flag & CUBK_A)
 	{
 		map->player_position.x += \
 		movex(map, map->map, -MS * map->player_direction.z);
 		map->player_position.z += \
 		movez(map, map->map, MS * map->player_direction.x);
 	}
-	else if (key & CUBK_D)
+	else if (key_flag & CUBK_D)
 	{
 		map->player_position.x += \
 		movex(map, map->map, MS * map->player_direction.z);
@@ -111,29 +111,29 @@ static void	do_strafe_traslantion(int key, t_map *map)
 	To move left and right, do the same but with perpendicular vectors
 	the two directions will be (y, -x) and (-y, x).
 */
-void	do_translation(int key, void *param)
+void	do_translation(int key_flag, void *param)
 {
-	t_map	*map;
+	t_sim	*map;
 
 	map = param;
 	map->old_player_position.x = map->player_position.x;
 	map->old_player_position.z = map->player_position.z;
-	if (key & CUBK_W)
+	if (key_flag & CUBK_W)
 	{
 		map->player_position.x += \
 		movex(map, map->map, MS * map->player_direction.x);
 		map->player_position.z += \
 		movez(map, map->map, MS * map->player_direction.z);
 	}
-	else if (key & CUBK_S)
+	else if (key_flag & CUBK_S)
 	{
 		map->player_position.x += \
 		movex(map, map->map, -MS * map->player_direction.x);
 		map->player_position.z += \
 		movez(map, map->map, -MS * map->player_direction.z);
 	}
-	else if (key & CUBK_A || key & CUBK_D)
-		do_strafe_traslantion(key, map);
+	else if (key_flag & CUBK_A || key_flag & CUBK_D)
+		do_strafe_traslantion(key_flag, map);
 }
 
 /*
@@ -143,13 +143,13 @@ void	do_translation(int key, void *param)
 	cos(a)	- sin(a)
 	sin(a)	cos(a)
 */
-void	do_rotation(int key, void *param)
+void	do_rotation(int key_flag, void *param)
 {
-	t_map	*map;
+	t_sim	*map;
 	float	aux;
 
 	map = param;
-	if (key & CUBK_L)
+	if (key_flag & CUBK_L)
 	{
 		aux = map->player_direction.x;
 		map->player_direction.x = aux * cos(ROTSPEED) - \
@@ -157,7 +157,7 @@ void	do_rotation(int key, void *param)
 		map->player_direction.z = aux * sin(ROTSPEED) + \
 		map->player_direction.z * cos(ROTSPEED);
 	}
-	if (key & CUBK_R)
+	if (key_flag & CUBK_R)
 	{
 		aux = map->player_direction.x;
 		map->player_direction.x = aux * cos(-ROTSPEED) - \

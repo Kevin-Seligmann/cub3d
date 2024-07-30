@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 21:34:38 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 14:05:28 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:43:58 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void debug_print_data(t_cube *data)
 	ft_printf("Floor %d %d %d\n", data->colors.floor_color.x, data->colors.floor_color.y, data->colors.floor_color.z);
 	ft_printf("North text %p South text %p East text %p West text %p \n",\
 	data->ged.textures.north_wall, data->ged.textures.south_wall, data->ged.textures.east_wall, data->ged.textures.west_wall);
-	printf("Player dir %.2f %.2f Player pos %.2f %.2f\n", data->map.player_direction.x,  data->map.player_direction.z,  data->map.player_position.x, data->map.player_position.z);
-	ft_printf("Map %d x %d \n", data->map.width, data->map.height);
-	int **map = data->map.map;
+	printf("Player dir %.2f %.2f Player pos %.2f %.2f\n", data->sim.player_direction.x,  data->sim.player_direction.z,  data->sim.player_position.x, data->sim.player_position.z);
+	ft_printf("Map %d x %d \n", data->sim.width, data->sim.height);
+	int **map = data->sim.map;
 	while (map && *map)
 	{
 		int *line = *map;
@@ -36,77 +36,11 @@ void debug_print_data(t_cube *data)
 	}
 }
 
-// Checks if the obligatory values are set (E.g, if there's color)
-t_bool	obligatory_elements_are_set(t_cube *data)
-{
-	if (data->ged.textures.north_wall == 0 || \
-		data->ged.textures.south_wall == 0 || \
-		data->ged.textures.east_wall == 0 || \
-		data->ged.textures.west_wall == 0 || \
-		data->colors.ceiling_color.x == -1 || \
-		data->colors.floor_color.x == -1 || \
-		data->colors.ceiling_color.y == -1 || \
-		data->colors.floor_color.y == -1 || \
-		data->colors.ceiling_color.z == -1 || \
-		data->colors.floor_color.z == -1 || \
-		data->map.player_direction.x == -2 || \
-		data->map.player_direction.z == -2 || \
-		data->map.player_position.x == -2 || \
-		data->map.player_position.z == -2)
-		return (FALSE);
-	return (TRUE);
-}
-
-// Set default value, equivalent to something not set
-void	set_default_config(t_cube *data)
-{
-	data->ged.textures.north_wall = 0;
-	data->ged.textures.south_wall = 0;
-	data->ged.textures.east_wall = 0;
-	data->ged.textures.west_wall = 0;
-	data->colors.ceiling_color.x = -1;
-	data->colors.floor_color.x = -1;
-	data->colors.ceiling_color.y = -1;
-	data->colors.floor_color.y = -1;
-	data->colors.ceiling_color.z = -1;
-	data->colors.floor_color.z = -1;
-	data->map.player_direction.x = -2;
-	data->map.player_direction.z = -2;
-	data->map.player_position.x = -2;
-	data->map.player_position.z = -2;
-}
-
-// Parses the configuration file given as input
-int	process_file_config(t_cube *data)
-{
-	char	*line;
-
-	line = NULL;
-	set_default_config(data);
-	while (read_next_line(data->parse_data.fd, &line) && is_map_line(line) == FALSE) // Should a line of just spaces be considered empty?
-	{
-		if (parse_element(data, line) == -1)
-		{
-			free(line);
-			return (-1);
-		}
-	}
-	if (!line)
-		return (print_error(-1, NO_MAP_FOUND, 0));
-	if (parse_map(data, line) == -1)
-		return (-1);
-	if (obligatory_elements_are_set(data) == FALSE)
-		return (print_error(-1, MISSING_CONFIG_DATA, 0)); // Free map
-	data->colors.hex_ceiling = get_rgba(data->colors.ceiling_color.x, data->colors.ceiling_color.y, data->colors.ceiling_color.z, 0xff);
-	data->colors.hex_floor = get_rgba(data->colors.floor_color.x, data->colors.floor_color.y, data->colors.floor_color.z, 0xff);
-	return (0);
-}
-
 /*
 	Copies the information stored in the config file to a
 	double char array
 */
-int	copy_file_to_tab(t_parser *parse_data)
+static int	copy_file_to_tab(t_parser *parse_data)
 {
 	char	*line;
 	char	*aux;

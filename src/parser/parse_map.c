@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 04:11:11 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 13:58:24 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:43:58 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # include "parser.h"
 
 // Allocates memory for the map, a doble array
-int	alloc_map(t_map *map)
+int	alloc_map(t_sim *map)
 {
 	unsigned int height;
 
@@ -42,17 +42,17 @@ int	get_dimensions(t_cube *data, char *line)
 {
 	unsigned int	map_width_aux;
 
-	data->map.height = 1;
-	data->map.width = ft_strlen(line) - 1;
+	data->sim.height = 1;
+	data->sim.width = ft_strlen(line) - 1;
 	map_width_aux = 0;
 	while (read_next_line(data->files.fd, &line))
 	{
 		if (is_map_line(line))
 		{
-			data->map.height ++;
+			data->sim.height ++;
 			map_width_aux = ft_strlen(line) - 1;
-			if (map_width_aux > data->map.width)
-				data->map.width = map_width_aux;
+			if (map_width_aux > data->sim.width)
+				data->sim.width = map_width_aux;
 		}
 		else
 		{
@@ -82,7 +82,7 @@ void	copy_map(t_cube *data, int **map, char *line)
 				map[height][width] = line[width];
 			width ++;
 		}
-		while (width < data->map.width)
+		while (width < data->sim.width)
 		{
 			map[height][width] = ' ';
 			width ++;
@@ -98,16 +98,16 @@ int	parse_map(t_cube *data, char *line)
 {
 	if (get_dimensions(data, line) == -1)
 		return (-1);
-	if (alloc_map(&data->map) == -1)
+	if (alloc_map(&data->sim) == -1)
 		return (-1);
 	if (open_file(data->files.config_file_path, &data->files.fd) == -1)
 		return (-1);
 	line = NULL;
 	while (read_next_line(data->files.fd, &line) && !is_map_line(line))
 		;
-	copy_map(data, data->map.map, line);
+	copy_map(data, data->sim.map, line);
 	close(data->files.fd);
-	if (is_map_valid(&data->map, data->map.map) == FALSE)
+	if (is_map_valid(&data->sim, data->sim.map) == FALSE)
 		return (-1);
 	return (0);
 }
