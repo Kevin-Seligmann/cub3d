@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 21:34:38 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/28 12:26:40 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:22:56 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,11 @@ int	parser(t_cube *data, int argc, char **argv)
 	data->files.config_file_path = argv[1];
 	if (open_file(data->files.config_file_path, &data->files.config_file_fd) == -1)
 		return (-1);
-	if (parse_file_config(data) == -1){ // Close fd
-		debug_print_data(data); // debug
+	if (parse_file_config(data) == -1)
+	{
+//		debug_print_data(data); // debug
 		return (-1);
 	}
-	debug_print_data(data); // debug
+//	debug_print_data(data); // debug
 	return (0);
 }
