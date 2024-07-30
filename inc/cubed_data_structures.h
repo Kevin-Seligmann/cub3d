@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 12:09:27 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:58:24 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,13 @@ typedef struct s_texture_pack
 	mlx_texture_t	*west_wall;
 }	t_texture_pack;
 
-/* Configuration file data */
-typedef struct s_fds
+/* Parser data */
+typedef struct s_parser
 {
-	int		config_file_fd;
-	char	*config_file_path;
-}	t_fds;
+	int		fd;
+	char	*config;
+	char	**config_lines;
+}	t_parser;
 
 typedef struct s_v3
 {
@@ -107,10 +108,10 @@ typedef struct s_ged
 // Global-like struct for all our data
 typedef struct s_cube
 {
-	t_ged	ged;
-	t_fds	files;
-	t_color	colors;
-	t_map	map;
+	t_ged		ged;
+	t_parser	parse_data;
+	t_color		colors;
+	t_map		map;
 }	t_cube;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 04:11:11 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/28 12:12:49 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:58:24 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	get_dimensions(t_cube *data, char *line)
 	data->map.height = 1;
 	data->map.width = ft_strlen(line) - 1;
 	map_width_aux = 0;
-	while (read_next_line(data->files.config_file_fd, &line))
+	while (read_next_line(data->files.fd, &line))
 	{
 		if (is_map_line(line))
 		{
@@ -60,7 +60,7 @@ int	get_dimensions(t_cube *data, char *line)
 			return print_error(-1, WRONG_LINE_CONTENT, "Map");
 		}
 	}
-	close(data->files.config_file_fd);
+	close(data->files.fd);
 	return (0);
 }
 
@@ -89,7 +89,7 @@ void	copy_map(t_cube *data, int **map, char *line)
 		}
 		map[height][width] = 0;
 		height ++;
-		read_next_line(data->files.config_file_fd, &line);
+		read_next_line(data->files.fd, &line);
 	}
 }
 
@@ -100,13 +100,13 @@ int	parse_map(t_cube *data, char *line)
 		return (-1);
 	if (alloc_map(&data->map) == -1)
 		return (-1);
-	if (open_file(data->files.config_file_path, &data->files.config_file_fd) == -1)
+	if (open_file(data->files.config_file_path, &data->files.fd) == -1)
 		return (-1);
 	line = NULL;
-	while (read_next_line(data->files.config_file_fd, &line) && !is_map_line(line))
+	while (read_next_line(data->files.fd, &line) && !is_map_line(line))
 		;
 	copy_map(data, data->map.map, line);
-	close(data->files.config_file_fd);
+	close(data->files.fd);
 	if (is_map_valid(&data->map, data->map.map) == FALSE)
 		return (-1);
 	return (0);

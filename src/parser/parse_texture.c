@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 20:11:06 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/04 22:52:01 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:27:25 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	get_texture(t_cube *data, char **args, mlx_texture_t **texture)
 		(!ft_strcmp(args[0], SOUTH_ID) && data->ged.textures.south_wall) || \
 		(ft_arr_count_arguments(args) != 2))
 		return (print_error(-1, WRONG_LINE_CONTENT, 0));
-	if (check_file_extension(args[1], ".png") == -1)
+	if (extension_checker(args[1], ".png") == -1)
 		return (print_error(-1, WRONG_EXTENSION, "Texture file"));
 	*texture = mlx_load_png(args[1]);
 	if (!*texture)

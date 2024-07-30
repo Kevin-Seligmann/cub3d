@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:14:12 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/28 16:52:54 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:27:25 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "cubed_data_structures.h"
 
-int		check_file_extension(char *map_f, char *extension);
+int		extension_checker(char *map_f, char *extension);
 int		open_file(char *path, int *fd);
 int		parser(t_cube *data, int argc, char **argv);
 t_bool	read_next_line(int fd, char **buffer);
