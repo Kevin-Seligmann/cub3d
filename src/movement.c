@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:31:23 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 15:43:33 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 20:32:09 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 	close to the wall could result in rounding errors,
 	glitching the player inside and causing bounces.
 */
-static float	movex(t_sim *mapd, int **map, float movement)
+static float	movex(t_player *player, int **map, double movement)
 {
 	float	wall_offset;
 	float	wall_dist;
@@ -34,23 +34,21 @@ static float	movex(t_sim *mapd, int **map, float movement)
 		wall_offset = MIN_WALL_DIST;
 	else
 		wall_offset = -MIN_WALL_DIST;
-	if (map[(int)(mapd->old_player_position.z)] \
-	[(int)(mapd->old_player_position.x + movement + wall_offset)] == '0' &&
-	map[(int)(mapd->old_player_position.z + wall_offset)] \
-	[(int)(mapd->old_player_position.x + movement + wall_offset)] == '0' &&
-	map[(int)(mapd->old_player_position.z - wall_offset)] \
-	[(int)(mapd->old_player_position.x + movement + wall_offset)] == '0')
+	if (map[(int)(player->old_pos.z)] \
+	[(int)(player->old_pos.x + movement + wall_offset)] == '0' &&
+	map[(int)(player->old_pos.z + wall_offset)] \
+	[(int)(player->old_pos.x + movement + wall_offset)] == '0' &&
+	map[(int)(player->old_pos.z - wall_offset)] \
+	[(int)(player->old_pos.x + movement + wall_offset)] == '0')
 		return (movement);
 	if (movement > 0)
-		wall_dist = 1. - (mapd->old_player_position.x - \
-		floorf(mapd->old_player_position.x));
+		wall_dist = 1. - (player->old_pos.x - floor(player->old_pos.x));
 	else
-		wall_dist = - (mapd->old_player_position.x - \
-		floorf(mapd->old_player_position.x));
+		wall_dist = - (player->old_pos.x - floor(player->old_pos.x));
 	return (wall_dist * 0.9999 - wall_offset);
 }
 
-static float	movez(t_sim *mapd, int **map, float movement)
+static float	movez(t_player *player, int **map, double movement)
 {
 	float	wall_offset;
 	float	wall_dist;
@@ -59,41 +57,18 @@ static float	movez(t_sim *mapd, int **map, float movement)
 		wall_offset = MIN_WALL_DIST;
 	else
 		wall_offset = -MIN_WALL_DIST;
-	if (map[(int)(mapd->old_player_position.z + movement + wall_offset)] \
-	[(int)(mapd->old_player_position.x)] == '0' &&
-	map[(int)(mapd->old_player_position.z + movement + wall_offset)] \
-	[(int)(mapd->old_player_position.x + wall_offset)] == '0' &&
-	map[(int)(mapd->old_player_position.z + movement + wall_offset)] \
-	[(int)(mapd->old_player_position.x - wall_offset)] == '0')
+	if (map[(int)(player->old_pos.z + movement + wall_offset)] \
+	[(int)(player->old_pos.x)] == '0' &&
+	map[(int)(player->old_pos.z + movement + wall_offset)] \
+	[(int)(player->old_pos.x + wall_offset)] == '0' &&
+	map[(int)(player->old_pos.z + movement + wall_offset)] \
+	[(int)(player->old_pos.x - wall_offset)] == '0')
 		return (movement);
 	if (movement > 0)
-		wall_dist = 1. - (mapd->old_player_position.z - \
-		floorf(mapd->old_player_position.z));
+		wall_dist = 1. - (player->old_pos.z - floor(player->old_pos.z));
 	else
-		wall_dist = - (mapd->old_player_position.z - \
-		floorf(mapd->old_player_position.z));
+		wall_dist = - (player->old_pos.z - floor(player->old_pos.z));
 	return (wall_dist * 0.9999 - wall_offset);
-}
-
-/*
-	Not enough space in the main function
-*/
-static void	do_strafe_traslantion(int key_flag, t_sim *map)
-{
-	if (key_flag & CUBK_A)
-	{
-		map->player_position.x += \
-		movex(map, map->map, -MS * map->player_direction.z);
-		map->player_position.z += \
-		movez(map, map->map, MS * map->player_direction.x);
-	}
-	else if (key_flag & CUBK_D)
-	{
-		map->player_position.x += \
-		movex(map, map->map, MS * map->player_direction.z);
-		map->player_position.z += \
-		movez(map, map->map, -MS * map->player_direction.x);
-	}
 }
 
 #define suggestion
@@ -111,29 +86,30 @@ static void	do_strafe_traslantion(int key_flag, t_sim *map)
 	To move left and right, do the same but with perpendicular vectors
 	the two directions will be (y, -x) and (-y, x).
 */
-void	do_translation(int key_flag, void *param)
+void	do_translation(t_player *player, int **map, unsigned int key_flag)
 {
-	t_sim	*map;
-
-	map = param;
-	map->old_player_position.x = map->player_position.x;
-	map->old_player_position.z = map->player_position.z;
+	player->old_pos.x = player->pos.x;
+	player->old_pos.z = player->pos.z;
 	if (key_flag & CUBK_W)
 	{
-		map->player_position.x += \
-		movex(map, map->map, MS * map->player_direction.x);
-		map->player_position.z += \
-		movez(map, map->map, MS * map->player_direction.z);
+		player->pos.x += movex(player, map, MS * player->dir.x);
+		player->pos.z += movez(player, map, MS * player->dir.z);
 	}
 	else if (key_flag & CUBK_S)
 	{
-		map->player_position.x += \
-		movex(map, map->map, -MS * map->player_direction.x);
-		map->player_position.z += \
-		movez(map, map->map, -MS * map->player_direction.z);
+		player->pos.x += movex(player, map, -MS * player->dir.x);
+		player->pos.z += movez(player, map, -MS * player->dir.z);
 	}
-	else if (key_flag & CUBK_A || key_flag & CUBK_D)
-		do_strafe_traslantion(key_flag, map);
+	else if (key_flag & CUBK_A)
+	{
+		player->pos.x += movex(player, map, -MS * player->dir.z);
+		player->pos.z += movez(player, map, MS * player->dir.x);
+	}
+	else if (key_flag & CUBK_D)
+	{
+		player->pos.x += movex(player, map, MS * player->dir.z);
+		player->pos.z += movez(player, map, -MS * player->dir.x);
+	}
 }
 
 /*
@@ -143,26 +119,24 @@ void	do_translation(int key_flag, void *param)
 	cos(a)	- sin(a)
 	sin(a)	cos(a)
 */
-void	do_rotation(int key_flag, void *param)
+void	do_rotation(t_player *player, int unsigned key_flag)
 {
-	t_sim	*map;
-	float	aux;
+	double	aux;
 
-	map = param;
 	if (key_flag & CUBK_L)
 	{
-		aux = map->player_direction.x;
-		map->player_direction.x = aux * cos(ROTSPEED) - \
-		map->player_direction.z * sin(ROTSPEED);
-		map->player_direction.z = aux * sin(ROTSPEED) + \
-		map->player_direction.z * cos(ROTSPEED);
+		aux = player->dir.x;
+		player->dir.x = aux * cos(ROTSPEED) - \
+		player->dir.z * sin(ROTSPEED);
+		player->dir.z = aux * sin(ROTSPEED) + \
+		player->dir.z * cos(ROTSPEED);
 	}
 	if (key_flag & CUBK_R)
 	{
-		aux = map->player_direction.x;
-		map->player_direction.x = aux * cos(-ROTSPEED) - \
-		map->player_direction.z * sin(-ROTSPEED);
-		map->player_direction.z = aux * sin(-ROTSPEED) + \
-		map->player_direction.z * cos(-ROTSPEED);
+		aux = player->dir.x;
+		player->dir.x = aux * cos(-ROTSPEED) - \
+		player->dir.z * sin(-ROTSPEED);
+		player->dir.z = aux * sin(-ROTSPEED) + \
+		player->dir.z * cos(-ROTSPEED);
 	}
 }

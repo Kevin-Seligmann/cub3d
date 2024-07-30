@@ -6,75 +6,106 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:28:57 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 15:50:14 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 20:21:39 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "cubed.h"
 
-// Checks if the obligatory values are set (E.g, if there's color)
-t_bool	obligatory_elements_are_set(t_cube *data)
+/*
+	Splits the line by spaces.
+
+	If the identifier is a texture, parses a texture.
+	If the identifier is a color, parses a color.
+	If is neither there's an error on the file, prints and returns -1.
+*/
+static int	process_element(t_cube *data, char *line)
+{
+	char	**args;
+	int		return_value;
+
+	args = ft_split(line, ' ');
+	return_value = 0;
+	if (!args)
+		return (print_error(-1, MEMORY_ERROR, 0));
+	if (!ft_strcmp(args[0], EAST_ID) || \
+		!ft_strcmp(args[0], WEST_ID) || \
+		!ft_strcmp(args[0], NORTH_ID) || \
+		!ft_strcmp(args[0], SOUTH_ID))
+		return_value = get_texture(data, args);
+	else if (!ft_strcmp(args[0], FLOOR_ID) || \
+		!ft_strcmp(args[0], CEILING_ID))
+		return_value = get_map_color(data, args, line);
+	else
+		return_value = print_error(-1, WRONG_LINE_CONTENT, 0);
+	ft_arr_free(args);
+	return (return_value);
+}
+
+/*
+	If any of the configuration that has to be found on the config file is
+	not present, returns false. Otherwise true.
+*/
+static bool	obligatory_elements_are_set(t_cube *data)
 {
 	if (data->ged.textures.north_wall == 0 || \
 		data->ged.textures.south_wall == 0 || \
 		data->ged.textures.east_wall == 0 || \
 		data->ged.textures.west_wall == 0 || \
-		data->colors.ceiling_color.x == -1 || \
-		data->colors.floor_color.x == -1 || \
-		data->colors.ceiling_color.y == -1 || \
-		data->colors.floor_color.y == -1 || \
-		data->colors.ceiling_color.z == -1 || \
-		data->colors.floor_color.z == -1 || \
-		data->sim.player_direction.x == -2 || \
-		data->sim.player_direction.z == -2 || \
-		data->sim.player_position.x == -2 || \
-		data->sim.player_position.z == -2)
-		return (FALSE);
-	return (TRUE);
+		data->sim.ceiling_color == 0 || \
+		data->sim.floor_color == 0 || \
+		data->sim.player.pos.x == -2 || \
+		data->sim.player.pos.z == -2 || \
+		data->sim.player.dir.x == -2 || \
+		data->sim.player.dir.z == -2)
+		return (false);
+	return (true);
 }
 
-// Set default value, equivalent to something not set
-void	set_default_config(t_cube *data)
+/*
+	Initializes some data to impossible values to have in config.
+	Color can be 0 because color data is RGBA and config file only accepts
+	RGB. (Minimum color, black, is 0xff).
+*/
+static void	set_default_config(t_cube *data)
 {
 	data->ged.textures.north_wall = 0;
 	data->ged.textures.south_wall = 0;
 	data->ged.textures.east_wall = 0;
 	data->ged.textures.west_wall = 0;
-	data->colors.ceiling_color.x = -1;
-	data->colors.floor_color.x = -1;
-	data->colors.ceiling_color.y = -1;
-	data->colors.floor_color.y = -1;
-	data->colors.ceiling_color.z = -1;
-	data->colors.floor_color.z = -1;
-	data->sim.player_direction.x = -2;
-	data->sim.player_direction.z = -2;
-	data->sim.player_position.x = -2;
-	data->sim.player_position.z = -2;
+	data->sim.ceiling_color = 0;
+	data->sim.floor_color = 0;
+	data->sim.player.dir.x = -2;
+	data->sim.player.dir.z = -2;
+	data->sim.player.pos.x = -2;
+	data->sim.player.pos.z = -2;
 }
 
-// Parses the configuration file given as input
+#define todo
+/*
+	To do:
+	Define how to handle spaces.
+
+	Loops through all lines until it finds a map line.
+	The rest of the file is considered part of the map.
+	If there are elements lacking or there's any error, returns -1.
+*/
 int	process_file_config(t_cube *data)
 {
-	char	*line;
+	int		ind;
 
-	line = NULL;
 	set_default_config(data);
-	while (read_next_line(data->parse_data.fd, &line) && is_map_line(line) == FALSE) // Should a line of just spaces be considered empty?
+	ind = 0;
+	while (data->parse.config_lines[ind] && is_map_line(data->parse.config_lines[ind]) == false)
 	{
-		if (parse_element(data, line) == -1)
-		{
-			free(line);
+		if (process_element(data, data->parse.config_lines[ind]) == -1)
 			return (-1);
-		}
+		ind ++;
 	}
-	if (!line)
-		return (print_error(-1, NO_MAP_FOUND, 0));
-	if (parse_map(data, line) == -1)
+	if (process_map(data, ind) == -1)
 		return (-1);
-	if (obligatory_elements_are_set(data) == FALSE)
-		return (print_error(-1, MISSING_CONFIG_DATA, 0)); // Free map
-	data->colors.ceiling_color = get_rgba(data->colors.ceiling_color.x, data->colors.ceiling_color.y, data->colors.ceiling_color.z, 0xff);
-	data->colors.floor_color = get_rgba(data->colors.floor_color.x, data->colors.floor_color.y, data->colors.floor_color.z, 0xff);
+	if (obligatory_elements_are_set(data) == false)
+		return (print_error(-1, MISSING_CONFIG_DATA, 0));
 	return (0);
 }

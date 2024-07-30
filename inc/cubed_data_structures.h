@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 16:14:33 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 19:51:04 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,6 @@
 	To do:
 	Documentate structs
 */
-
-# define warning
-/*
-	Warning:
-	enum naming
-*/
-typedef enum e_bool
-{
-	FALSE,
-	TRUE
-}	t_bool;
 
 /* Red, green, blue, alpha (opacity) */
 typedef struct s_rgba
@@ -91,13 +80,15 @@ typedef struct s_dda
 /*
 	Player data.
 
-	'player_position'. Player position.
-	'player_direction'. Player direction.
+	'pos'. Player position.
+	'dir'. Player direction.
+	'old_pos' Player position in previous iteration.
 */
 typedef struct s_player
 {
-	t_vd2	player_position;
-	t_vd2	player_direction;
+	t_vd2	pos;
+	t_vd2	dir;
+	t_vd2	old_pos;
 } t_player;
 
 /*
@@ -122,6 +113,10 @@ typedef struct s_sim
 
 /*
 	Textures.
+
+	the xmp_t will be used only if the texture provided is XMP42.
+	xmp_t constains a texture itself. The xpm_t is here to
+	keep the reference for no purpose, XML should handle it.
 */
 typedef struct s_texture_pack
 {
@@ -129,6 +124,10 @@ typedef struct s_texture_pack
 	mlx_texture_t	*north_wall;
 	mlx_texture_t	*south_wall;
 	mlx_texture_t	*west_wall;
+	xpm_t			*east_wall_xpm;
+	xpm_t			*north_wall_xpm;
+	xpm_t			*south_wall_xpm;
+	xpm_t			*west_wall_xpm;
 }	t_texture_pack;
 
 /*
@@ -166,16 +165,16 @@ typedef struct s_parser
 	Program data. 
 
 	'ged'. Containts data related to minilib and graphics management.
-	'parse_data'. Contains data related to the parsir, only used for parsing.
+	'parse'. Contains data related to the parsir, only used for parsing.
 	'sim'. Map and player data.
 	'dda'. DDA Algorithm data for raycasting. 
 */
 typedef struct s_cube
 {
-	t_parser		parse_data;
-	t_ged			ged;
-	t_sim			sim;
-	t_dda			dda;
+	t_parser	parse;
+	t_ged		ged;
+	t_sim		sim;
+	t_dda		dda;
 }	t_cube;
 
 #endif

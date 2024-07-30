@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:59:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 15:43:58 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 20:09:34 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@
 	W to move forwards.
 	S to move backwards.
 */
-static void	updown_keys(mlx_key_data_t keydata, t_cube *data)
+static void	updown_keys(mlx_key_data_t keydata, unsigned int *key_flag)
 {
 	if (keydata.key == MLX_KEY_S && keydata.action == MLX_RELEASE)
-		data->sim.key_flag &= ~CUBK_S;
+		*key_flag &= ~CUBK_S;
 	else if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
-		data->sim.key_flag |= CUBK_S;
+		*key_flag |= CUBK_S;
 	else if (keydata.key == MLX_KEY_W && keydata.action == MLX_RELEASE)
-		data->sim.key_flag &= ~CUBK_W;
+		*key_flag &= ~CUBK_W;
 	else if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-		data->sim.key_flag |= CUBK_W;
+		*key_flag |= CUBK_W;
 }
 
 /* 
@@ -42,16 +42,16 @@ static void	updown_keys(mlx_key_data_t keydata, t_cube *data)
 	A for left strafe.
 	D for right strafe.
 */
-static void	strafe_keys(mlx_key_data_t keydata, t_cube *data)
+static void	strafe_keys(mlx_key_data_t keydata, unsigned int *key_flag)
 {
 	if (keydata.key == MLX_KEY_A && keydata.action == MLX_RELEASE)
-		data->sim.key_flag &= ~CUBK_A;
+		*key_flag &= ~CUBK_A;
 	else if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-		data->sim.key_flag |= CUBK_A;
+		*key_flag |= CUBK_A;
 	else if (keydata.key == MLX_KEY_D && keydata.action == MLX_RELEASE)
-		data->sim.key_flag &= ~CUBK_D;
+		*key_flag &= ~CUBK_D;
 	else if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-		data->sim.key_flag |= CUBK_D;
+		*key_flag |= CUBK_D;
 }
 
 /* 
@@ -60,16 +60,16 @@ static void	strafe_keys(mlx_key_data_t keydata, t_cube *data)
 	Left arrow for anticlockwise rotation.
 	Right arrow for clockwise rotation.
 */
-static void	rotation_keys(mlx_key_data_t keydata, t_cube *data)
+static void	rotation_keys(mlx_key_data_t keydata, unsigned int *key_flag)
 {
 	if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_RELEASE)
-		data->sim.key_flag &= ~CUBK_L;
+		*key_flag &= ~CUBK_L;
 	else if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS)
-		data->sim.key_flag |= CUBK_L;
+		*key_flag |= CUBK_L;
 	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_RELEASE)
-		data->sim.key_flag &= ~CUBK_R;
+		*key_flag &= ~CUBK_R;
 	else if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
-		data->sim.key_flag |= CUBK_R;
+		*key_flag |= CUBK_R;
 }
 
 #define error
@@ -82,7 +82,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	t_cube	*data;
 
 	data = param;
-	rotation_keys(keydata, data);
-	strafe_keys(keydata, data);
-	updown_keys(keydata, data);
+	rotation_keys(keydata, &data->ged.key_flag);
+	strafe_keys(keydata, &data->ged.key_flag);
+	updown_keys(keydata, &data->ged.key_flag);
 }

@@ -6,13 +6,16 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:28:15 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 13:28:21 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:50:23 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include "parser.h"
 
+/*
+	Checks that the string (file) ends with the extension provided.
+*/
 int	extension_checker(char *file, char *extension)
 {
 	size_t	extension_length;

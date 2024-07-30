@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:41:35 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 15:43:58 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 20:12:54 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 /*
 	Main loop hook.
 */
-void	simulation_loop(void *data)
+void	simulation_loop(void *param)
 {
-	t_cube	*game;
+	t_cube	*data;
 
-	game = data;
-	do_rotation(game->sim.key_flag, &game->sim);
-	do_translation(game->sim.key_flag, &game->sim);
-	ft_raycasting(game);
+	data = param;
+	do_rotation(&data->sim.player, data->ged.key_flag);
+	do_translation(&data->sim.player, data->sim.map, data->ged.key_flag);
+	ft_raycasting(data);
 }
 
 #define message
@@ -35,7 +35,7 @@ void	simulation_loop(void *data)
 */
 int	config_mlx(t_cube *data)
 {
-	data->sim.key_flag = 0;
+	data->ged.key_flag = 0;
 	data->ged.mlx = mlx_init(WIDTH, HEIGHT, WINDOWS_TITLE, true);
 	if (!data->ged.mlx)
 		return (print_error(-1, MLX_ERROR, mlx_strerror(mlx_errno)));

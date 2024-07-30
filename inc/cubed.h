@@ -6,13 +6,19 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 15:43:33 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 20:12:35 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBED_H
 
 # define CUBED_H
+
+# define todo
+/*
+	To do:
+	Check all headers.
+*/
 
 /* System libraries */
 # include <math.h>
@@ -22,6 +28,7 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <string.h>
+# include <stdbool.h>
 
 /* User libraries/headers */
 # include "libft.h"
@@ -116,10 +123,11 @@ int				config_mlx(t_cube *data);
 void			key_hook(mlx_key_data_t keydata, void *param);
 
 /* Performs the translation calculations */
-void			do_translation(int key, void *param);
+void			do_translation(t_player *player, \
+int **map, unsigned int key_flag);
 
 /* Performs the rotation calculations */
-void			do_rotation(int key, void *param);
+void			do_rotation(t_player *player, unsigned int key_flag);
 
 /* DDA algorithm, hooked into mlx_loop, executed each frame */
 void			simulation_loop(void *data);
@@ -132,7 +140,7 @@ void			perp_clockwise_vf2(t_vd2 *src, t_vd2 *dst);
 unsigned int	get_rgba(int r, int g, int b, int a);
 
 /* Draws the scene */
-void			draw(t_sim *map, t_ged *gph, t_color *colors, int x);
+void			draw(t_dda *dda, t_ged *ged, t_sim *sim, int x);
 
 /* Performs the raycasting algorithm, DDA */
 void			ft_raycasting(t_cube *game);

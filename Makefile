@@ -11,9 +11,9 @@ MLX_FOLDER = MLX42
 INC = -I./inc -I./libft/inc -I./$(MLX_FOLDER)/include
 
 # Files
-OBJ = cubed.o parser.o error.o parser_util.o parse_color.o parse_element.o \
-		parse_map.o parse_texture.o draw.o movement.o\
-		valid_map.o vector.o raycasting.o key_hook.o\
+OBJ = extension_checker.o get_map_info.o is_map_line.o parser_main.o process_color.o\
+	process_config.o process_map.o process_texture.o cubed.o draw.o\
+	error.o key_hook.o movement.o raycasting.o vector.o
 
 LFT = $(LFT_FOLDER)/libft.a
 MLX = $(MLX_FOLDER)/libmlx42.a

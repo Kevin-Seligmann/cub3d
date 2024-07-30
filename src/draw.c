@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:34:43 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 15:50:14 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/30 19:47:10 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 	Line height is such that if distance is one block, the wall occupies
 	the whole screen.
 */
-static void	set_line_limits(t_sim *map)
+static void	set_line_limits(t_dda *dda)
 {
-	map->line_height = HEIGHT / map->wall_dist;
-	map->line_start = -(int)(map->line_height / 2) + HEIGHT / 2;
-	map->line_end = map->line_height / 2 + HEIGHT / 2;
+	dda->line_height = HEIGHT / dda->wall_dist;
+	dda->line_start = -(int)(dda->line_height / 2) + HEIGHT / 2;
+	dda->line_end = dda->line_height / 2 + HEIGHT / 2;
 }
 
 /*
@@ -33,16 +33,16 @@ static void	set_line_limits(t_sim *map)
 	If side is 0, ray hit a E or W.
 	If side is 1, ray hit N or S.
 */
-static void	get_texture(t_sim *map, \
+static void	get_texture(t_dda *dda, \
 t_texture_pack *textures, mlx_texture_t **texture)
 {
-	if (map->side == 0 && map->step.x == 1)
+	if (dda->side == 0 && dda->step.x == 1)
 		*texture = textures->east_wall;
-	else if (map->side == 0 && map->step.x == -1)
+	else if (dda->side == 0 && dda->step.x == -1)
 		*texture = textures->west_wall;
-	else if (map->side == 1 && map->step.z == 1)
+	else if (dda->side == 1 && dda->step.z == 1)
 		*texture = textures->south_wall;
-	else if (map->side == 1 && map->step.z == -1)
+	else if (dda->side == 1 && dda->step.z == -1)
 		*texture = textures->north_wall;
 }
 
@@ -51,15 +51,13 @@ t_texture_pack *textures, mlx_texture_t **texture)
 	Todo:
 	Explain this better
 */
-static void	get_texture_x(t_sim *map)
+static void	get_texture_x(t_dda *dda, t_player *player)
 {
-	if (map->side == 0)
-		map->texture_x = map->player_position.z + \
-		map->wall_dist * map->ray_dir.z;
+	if (dda->side == 0)
+		dda->texture_x = player->pos.z + dda->wall_dist * dda->ray_dir.z;
 	else
-		map->texture_x = map->player_position.x + \
-		map->wall_dist * map->ray_dir.x;
-	map->texture_x = (map->texture_x - floorf(map->texture_x));
+		dda->texture_x = player->pos.x + dda->wall_dist * dda->ray_dir.x;
+	dda->texture_x = (dda->texture_x - floorf(dda->texture_x));
 }
 
 /*
@@ -72,18 +70,17 @@ static void	get_texture_x(t_sim *map)
 
 	Each pixel is an R-G-B-A value, add 0, 1, 2, 3 to get each piece. 
 */
-static void	put_texture_pixel(t_sim *map, t_ged *gph, int x, unsigned int y)
+static void	put_texture_pixel(t_dda *dda, t_ged *gph, int x, unsigned int y)
 {
 	mlx_texture_t	*texture;
 	int				xpos;
 	int				ypos;
 	int				tex_coord;
 
-	get_texture(map, &gph->textures, &texture);
-	get_texture_x(map);
-	xpos = map->texture_x * (float) texture->width;
-	ypos = (y - map->line_start) * \
-	((texture->height - 1.) / map->line_height);
+	get_texture(dda, &gph->textures, &texture);
+	xpos = dda->texture_x * (float) texture->width;
+	ypos = (y - dda->line_start) * \
+	((texture->height - 1.) / dda->line_height);
 	tex_coord = (xpos + ypos * texture->width) * 4;
 	mlx_put_pixel(gph->img, x, y, \
 	get_rgba(texture->pixels[tex_coord], \
@@ -101,20 +98,23 @@ static void	put_texture_pixel(t_sim *map, t_ged *gph, int x, unsigned int y)
 	If the pixel is inside the texture, maps
 	the pixel to the texture
 */
-void	draw(t_sim *map, t_ged *gph, t_color *colors, int x)
+void	draw(t_dda *dda, t_ged *ged, t_sim *sim, int x)
 {
 	unsigned int	y;
 
-	set_line_limits(map);
+	set_line_limits(dda);
 	y = 0;
 	while (y < HEIGHT)
 	{
-		if ((int) y < map->line_start)
-			mlx_put_pixel(gph->img, x, y, colors->ceiling_color);
-		else if ((int) y >= map->line_end)
-			mlx_put_pixel(gph->img, x, y, colors->floor_color);
+		if ((int) y < dda->line_start)
+			mlx_put_pixel(ged->img, x, y, sim->ceiling_color);
+		else if ((int) y >= dda->line_end)
+			mlx_put_pixel(ged->img, x, y, sim->floor_color);
 		else
-			put_texture_pixel(map, gph, x, y);
+		{
+			get_texture_x(dda, &sim->player);
+			put_texture_pixel(dda, ged, x, y);
+		}
 		y ++;
 	}
 }
