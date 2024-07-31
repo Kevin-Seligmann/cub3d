@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 19:51:04 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/31 10:37:44 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,14 @@ typedef struct s_texture_pack
 	mlx_texture_t	*north_wall;
 	mlx_texture_t	*south_wall;
 	mlx_texture_t	*west_wall;
+	mlx_texture_t	*door_side;
+	mlx_texture_t	*door;
 	xpm_t			*east_wall_xpm;
 	xpm_t			*north_wall_xpm;
 	xpm_t			*south_wall_xpm;
 	xpm_t			*west_wall_xpm;
+	xpm_t			*door_side_xpm;
+	xpm_t			*door_xpm;
 }	t_texture_pack;
 
 /*
@@ -135,7 +139,7 @@ typedef struct s_texture_pack
 
 	'mlx'. MLX instance.
 	'img'. MLX image.
-	'textures'. Loaded game textures.
+	'texts'. Loaded game textures.
 	'key_flag'. Which keys are being pressed.
 */
 typedef struct s_ged
@@ -159,6 +163,8 @@ typedef struct s_parser
 	int		fd;
 	char	*config;
 	char	**config_lines;
+	bool	door_found;
+//	bool	sprite_found[8][30];
 }	t_parser;
 
 /*

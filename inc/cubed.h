@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 20:12:35 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/31 09:30:19 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,24 @@
 /* Wall facing west texture identifier */
 # define WEST_ID "WE"
 
+/* Door texture identifier */
+# define DOOR_ID "DR"
+
 /* Floor color  identifier */
 # define FLOOR_ID "F"
 
 /* Ceiling color identifier */
 # define CEILING_ID "C"
+
+/* Sprites identifiers */
+# define SPRITE2_ID "S2"
+# define SPRITE3_ID "S3"
+# define SPRITE4_ID "S4"
+# define SPRITE5_ID "S5"
+# define SPRITE6_ID "S6"
+# define SPRITE7_ID "S7"
+# define SPRITE8_ID "S8"
+# define SPRITE9_ID "S9"
 
 /* Program constants */
 # define todo
