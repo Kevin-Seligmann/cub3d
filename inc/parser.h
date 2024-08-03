@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:14:12 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/31 09:58:05 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/01 23:38:03 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,6 @@ bool	is_map_line(char *line);
 int		get_texture(t_cube *data, char **args);
 int		get_map_color(t_cube *data, char **args, char *line);
 int		process_map(t_cube *data, int ind);
-int		get_map_info(t_sim *map, int **arr);
+int		get_map_info(t_parser *parse, t_sim *sim, int **arr);
 
 #endif

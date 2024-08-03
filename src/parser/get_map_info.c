@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:45:30 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 19:27:42 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/02 14:10:16 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,32 @@ static int	set_player_coordinates(t_sim *map, int **arr, int i, int j)
 	is not the limit of the map itself or any of its neighbours
 	are spaces. That would entail an open map.
 */
-bool	square_is_enclosed(t_sim *map, int **arr, unsigned int i, unsigned int j)
+int	square_is_enclosed(t_sim *map, int **arr, unsigned int i, unsigned int j)
 {
 	if (i == 0 || i == map->height - 1)
-		return (false);
+		return (print_error(-1, MAP_NOT_CLOSED, 0));
 	if (j == 0 || j == map->width - 1)
-		return (false);
+		return (print_error(-1, MAP_NOT_CLOSED, 0));
 	if (arr[i + 1][j] == ' ' || arr[i][j + 1] == ' ')
-		return (false);
+		return (print_error(-1, MAP_NOT_CLOSED, 0));
 	if (arr[i - 1][j] == ' ' || arr[i][j - 1] == ' ')
-		return (false); 
-	return (true);
+		return (print_error(-1, MAP_NOT_CLOSED, 0));
+	if ((arr[i][j] == 'O' && (arr[i + 1][j] != '1' || arr[i - 1][j] != '1')) \
+	|| (arr[i][j] == 'P' && (arr[i][j + 1] != '1' || arr[i][j - 1] != '1')))
+		return (print_error(-1, DOOR_NOT_CLOSED, 0));
+	return (0);
+}
+
+/*
+	500 to 599 and 600 to 699 are door states.
+*/
+static void configurate_door(t_parser *parse, unsigned int i, unsigned int j, int **map)
+{
+	parse->door_found = true;
+	if (map[i][j] == 'O')
+		map[i][j] = 500;
+	else if (map[i][j] == 'P')
+		map[i][j] = 600;
 }
 
 /*
@@ -80,7 +95,7 @@ bool	square_is_enclosed(t_sim *map, int **arr, unsigned int i, unsigned int j)
 	If a character is a coordinate, extracts the data.
 	Checks if empty spaces are enclosed.
 */
-int	get_map_info(t_sim *map, int **arr)
+int	get_map_info(t_parser *parse, t_sim *sim, int **arr)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -91,14 +106,16 @@ int	get_map_info(t_sim *map, int **arr)
 		j = 0;
 		while (arr[i][j])
 		{
-			if (!ft_strchr(" 01WESN", arr[i][j]))
+			if (!ft_strchr(" 01WESNOP", arr[i][j]))
 				return (print_error(-1, WRONG_LINE_CONTENT, "Map"));
 			if (ft_strchr("WESN", arr[i][j]) \
-			&& set_player_coordinates(map, arr, i, j) == -1) 
+			&& set_player_coordinates(sim, arr, i, j) == -1) 
 				return (-1);
-			if (ft_strchr("0WESN", arr[i][j]) \
-			&& square_is_enclosed(map, arr, i, j) == false)
-				return (print_error(-1, MAP_NOT_CLOSED, 0));
+			if (ft_strchr("0WESNOP", arr[i][j]) \
+			&& square_is_enclosed(sim, arr, i, j) == -1)
+				return (-1);
+			if (ft_strchr("OP", arr[i][j]))
+				configurate_door(parse, i, j, arr);
 			j ++;
 		}
 		i ++;

@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:34:43 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/31 10:37:44 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/02 20:52:07 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,13 @@ static void	set_line_limits(t_dda *dda)
 	If side is 0, ray hit a E or W.
 	If side is 1, ray hit N or S.
 */
-static void	get_texture(t_dda *dda, \
-t_texture_pack *textures, mlx_texture_t **texture)
+static void	get_texture(t_dda *dda, t_texture_pack *textures, mlx_texture_t **texture)
 {
-	if (dda->side == 0 && dda->step.x == 1)
+	if (dda->door_hit == true)
+		*texture = textures->door;
+	else if (dda->door_side == true)
+		*texture = textures->door_side;
+	else if (dda->side == 0 && dda->step.x == 1)
 		*texture = textures->east_wall;
 	else if (dda->side == 0 && dda->step.x == -1)
 		*texture = textures->west_wall;
@@ -70,7 +73,7 @@ static void	get_texture_x(t_dda *dda, t_player *player)
 
 	Each pixel is an R-G-B-A value, add 0, 1, 2, 3 to get each piece. 
 */
-static void	put_texture_pixel(t_dda *dda, t_ged *gph, int x, unsigned int y)
+static void	put_texture_pixel(t_ged *gph, t_dda *dda)
 {
 	mlx_texture_t	*texture;
 	int				xpos;
@@ -79,10 +82,10 @@ static void	put_texture_pixel(t_dda *dda, t_ged *gph, int x, unsigned int y)
 
 	get_texture(dda, &gph->textures, &texture);
 	xpos = dda->texture_x * (float) texture->width;
-	ypos = (y - dda->line_start) * \
+	ypos = (dda->y - dda->line_start) * \
 	((texture->height - 1.) / dda->line_height);
 	tex_coord = (xpos + ypos * texture->width) * 4;
-	mlx_put_pixel(gph->img, x, y, \
+	mlx_put_pixel(gph->img, dda->x, dda->y, \
 	get_rgba(texture->pixels[tex_coord], \
 	texture->pixels[tex_coord + 1], \
 	texture->pixels[tex_coord + 2], \
@@ -98,23 +101,21 @@ static void	put_texture_pixel(t_dda *dda, t_ged *gph, int x, unsigned int y)
 	If the pixel is inside the texture, maps
 	the pixel to the texture
 */
-void	draw(t_dda *dda, t_ged *ged, t_sim *sim, int x)
+void	draw(t_dda *dda, t_ged *ged, t_sim *sim)
 {
-	unsigned int	y;
-
 	set_line_limits(dda);
-	y = 0;
-	while (y < HEIGHT)
+	dda->y = 0;
+	while (dda->y < HEIGHT)
 	{
-		if ((int) y < dda->line_start)
-			mlx_put_pixel(ged->img, x, y, sim->ceiling_color);
-		else if ((int) y >= dda->line_end)
-			mlx_put_pixel(ged->img, x, y, sim->floor_color);
+		if ((int) dda->y < dda->line_start)
+			mlx_put_pixel(ged->img, dda->x, dda->y, sim->ceiling_color);
+		else if ((int) dda->y >= dda->line_end)
+			mlx_put_pixel(ged->img, dda->x, dda->y, sim->floor_color);
 		else
 		{
 			get_texture_x(dda, &sim->player);
-			put_texture_pixel(dda, ged, x, y);
+			put_texture_pixel(ged, dda);
 		}
-		y ++;
+		dda->y ++;
 	}
 }

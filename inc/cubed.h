@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/31 09:30:19 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/01 23:54:20 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ magnitude of the movement per translation tick */
 # define MAP_NOT_CLOSED "The map is not closed"
 # define MANY_PLAYERS "More than one player has been found"
 # define WINDOWS_TITLE "CUBE3d made by KSeligma & OSeivane"
+# define DOOR_NOT_CLOSED "Doors must be placed between two walls"
 
 /* Prints an error with the provided strings and returns 'return_value' */
 int				print_error(int return_value, \
@@ -153,7 +154,7 @@ void			perp_clockwise_vf2(t_vd2 *src, t_vd2 *dst);
 unsigned int	get_rgba(int r, int g, int b, int a);
 
 /* Draws the scene */
-void			draw(t_dda *dda, t_ged *ged, t_sim *sim, int x);
+void			draw(t_dda *dda, t_ged *ged, t_sim *sim);
 
 /* Performs the raycasting algorithm, DDA */
 void			ft_raycasting(t_cube *game);
