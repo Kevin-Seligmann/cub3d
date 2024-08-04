@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:59:14 by kseligma          #+#    #+#             */
 /*   Updated: 2024/08/04 21:10:46 by kseligma         ###   ########.fr       */
@@ -17,7 +17,12 @@
 	unset. The flags permit detecting multiple key presses, executing more
 	than one movement at the same time in the game loop.
 */
-
+static void	escape_window(mlx_key_data_t keydata, void* param)
+{
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+		mlx_close_window(param);
+	mlx_terminate(param);
+}
 /* 
 	Keys that move to the front or back.
 
@@ -116,6 +121,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	t_cube	*data;
 
 	data = param;
+	escape_window(keydata, data);
 	rotation_keys(keydata, &data->ged.key_flag);
 	strafe_keys(keydata, &data->ged.key_flag);
 	updown_keys(keydata, &data->ged.key_flag);
