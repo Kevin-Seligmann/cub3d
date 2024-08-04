@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:34:43 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/02 20:52:07 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/04 16:45:19 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ static void	get_texture_x(t_dda *dda, t_player *player)
 		dda->texture_x = player->pos.z + dda->wall_dist * dda->ray_dir.z;
 	else
 		dda->texture_x = player->pos.x + dda->wall_dist * dda->ray_dir.x;
+	if (dda->door_hit)
+		dda->texture_x -= dda->door_offset;
 	dda->texture_x = (dda->texture_x - floorf(dda->texture_x));
 }
 

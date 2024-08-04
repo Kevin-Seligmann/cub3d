@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/02 14:22:17 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/04 21:00:18 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ typedef struct s_dda
 	t_vd2			cam_vect;
 	bool			door_hit;
 	bool			door_side;
+	double			door_offset;
+	double			door_x;
 	unsigned int 	x;
 	unsigned int 	y;
 } t_dda;

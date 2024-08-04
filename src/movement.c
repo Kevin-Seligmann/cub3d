@@ -6,11 +6,22 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:31:23 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 20:32:09 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/04 20:20:37 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+
+/*
+	Detecs if the space to move is clear.
+	The 50th state of a door is an open door.
+*/
+static bool is_space(int value)
+{
+	if (value == '0' || value == DOOR_NS + 50 || value == DOOR_WE + 50)
+		return (true);
+	return (false);
+}
 
 #define todo
 /*
@@ -28,47 +39,37 @@
 static float	movex(t_player *player, int **map, double movement)
 {
 	float	wall_offset;
-	float	wall_dist;
 
 	if (movement > 0)
 		wall_offset = MIN_WALL_DIST;
 	else
 		wall_offset = -MIN_WALL_DIST;
-	if (map[(int)(player->old_pos.z)] \
-	[(int)(player->old_pos.x + movement + wall_offset)] == '0' &&
-	map[(int)(player->old_pos.z + wall_offset)] \
-	[(int)(player->old_pos.x + movement + wall_offset)] == '0' &&
-	map[(int)(player->old_pos.z - wall_offset)] \
-	[(int)(player->old_pos.x + movement + wall_offset)] == '0')
+	if (is_space(map[(int)(player->old_pos.z)] \
+	[(int)(player->old_pos.x + movement + wall_offset)]) &&
+	is_space(map[(int)(player->old_pos.z + wall_offset)] \
+	[(int)(player->old_pos.x + movement + wall_offset)]) &&
+	is_space(map[(int)(player->old_pos.z - wall_offset)] \
+	[(int)(player->old_pos.x + movement + wall_offset)]))
 		return (movement);
-	if (movement > 0)
-		wall_dist = 1. - (player->old_pos.x - floor(player->old_pos.x));
-	else
-		wall_dist = - (player->old_pos.x - floor(player->old_pos.x));
-	return (wall_dist * 0.9999 - wall_offset);
+	return (0);
 }
 
 static float	movez(t_player *player, int **map, double movement)
 {
 	float	wall_offset;
-	float	wall_dist;
 
 	if (movement > 0)
 		wall_offset = MIN_WALL_DIST;
 	else
 		wall_offset = -MIN_WALL_DIST;
-	if (map[(int)(player->old_pos.z + movement + wall_offset)] \
-	[(int)(player->old_pos.x)] == '0' &&
-	map[(int)(player->old_pos.z + movement + wall_offset)] \
-	[(int)(player->old_pos.x + wall_offset)] == '0' &&
-	map[(int)(player->old_pos.z + movement + wall_offset)] \
-	[(int)(player->old_pos.x - wall_offset)] == '0')
+	if (is_space(map[(int)(player->old_pos.z + movement + wall_offset)] \
+	[(int)(player->old_pos.x)]) &&
+	is_space(map[(int)(player->old_pos.z + movement + wall_offset)] \
+	[(int)(player->old_pos.x + wall_offset)]) &&
+	is_space(map[(int)(player->old_pos.z + movement + wall_offset)] \
+	[(int)(player->old_pos.x - wall_offset)]))
 		return (movement);
-	if (movement > 0)
-		wall_dist = 1. - (player->old_pos.z - floor(player->old_pos.z));
-	else
-		wall_dist = - (player->old_pos.z - floor(player->old_pos.z));
-	return (wall_dist * 0.9999 - wall_offset);
+	return (0);
 }
 
 #define suggestion

@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:45:30 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/02 14:10:16 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/04 20:10:31 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,15 @@ int	square_is_enclosed(t_sim *map, int **arr, unsigned int i, unsigned int j)
 }
 
 /*
-	500 to 599 and 600 to 699 are door states.
+	Sets door state to close.
 */
 static void configurate_door(t_parser *parse, unsigned int i, unsigned int j, int **map)
 {
 	parse->door_found = true;
 	if (map[i][j] == 'O')
-		map[i][j] = 500;
+		map[i][j] = DOOR_NS;
 	else if (map[i][j] == 'P')
-		map[i][j] = 600;
+		map[i][j] = DOOR_WE;
 }
 
 /*

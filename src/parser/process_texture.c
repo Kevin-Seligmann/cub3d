@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 20:11:06 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/31 10:41:37 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/04 20:14:33 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*
 	Gets the texture from minilib.
 */
-static int	get_actual_wall_texture(t_ged *ged, char **args, \
+static int	get_wall_texture(t_ged *ged, char **args, \
 mlx_texture_t **texture, xpm_t **xpm)
 {
 	if ((!ft_strcmp(args[0], EAST_ID) && ged->textures.east_wall) || \
@@ -41,12 +41,12 @@ mlx_texture_t **texture, xpm_t **xpm)
 /*
 	Gets the texture of a wall.
 */
-int	get_texture_wall(t_ged *ged, char **args)
+static int	save_wall_texture(t_ged *ged, char **args)
 {
 	mlx_texture_t	*texture;
 	xpm_t			*xpm;
 
-	if (get_actual_wall_texture(ged, args, &texture, &xpm) == -1)
+	if (get_wall_texture(ged, args, &texture, &xpm) == -1)
 		return (-1);
 	if (!ft_strcmp(args[0], EAST_ID))
 		ged->textures.east_wall = texture;
@@ -68,8 +68,9 @@ int	get_texture_wall(t_ged *ged, char **args)
 }
 
 /*
+	Gets door texture.
 */
-int	get_texture_door(t_ged *ged, char **args)
+static int	save_door_texture(t_ged *ged, char **args)
 {
 	if (ged->textures.door != 0 || ft_arr_count_arguments(args) != 3)
 		return (print_error(-1, WRONG_LINE_CONTENT, 0));
@@ -105,7 +106,7 @@ int	get_texture_door(t_ged *ged, char **args)
 int get_texture(t_cube *data, char **args)
 {
 	if (!ft_strcmp(args[0], DOOR_ID))
-		return (get_texture_door(&data->ged, args));
+		return (save_door_texture(&data->ged, args));
 	else
-		return (get_texture_wall(&data->ged, args));
+		return (save_wall_texture(&data->ged, args));
 }

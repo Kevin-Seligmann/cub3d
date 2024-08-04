@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/01 23:54:20 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/04 20:08:07 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,21 @@ magnitude of the movement per translation tick */
 # define CUBK_L 0x10
 # define CUBK_R 0x20
 
+/*
+	Some elements save their state on the map. Every element that does
+	has 100 possible states.
+*/
+
+/*
+	Door opening state. 
+	0. Close.
+	1-49. Opening.
+	50. Open.
+	51-99. Closing.
+*/
+# define DOOR_NS 100
+# define DOOR_WE 200
+
 /* User messages */
 # define INVALID_NUMBER_ARGS "The number of arguments is invalid"
 # define ERROR_SEPARATOR ": "
@@ -158,5 +173,22 @@ void			draw(t_dda *dda, t_ged *ged, t_sim *sim);
 
 /* Performs the raycasting algorithm, DDA */
 void			ft_raycasting(t_cube *game);
+
+/* Tests if the block hit is the side of a door */
+void check_door_side(t_dda *dda, int **map);
+
+/* If a block is a door, tests if the door has been hit */
+void check_door_hit(t_dda *dda, t_player *player, int **map, int *hit);
+
+/* DDA - Detects ray hit */
+void	set_raycasting_data(t_player *player, t_dda *dda);
+void	set_step(t_player *player, t_dda *dda);
+void	ft_dda(t_dda *dda, t_player *player, int **map);
+
+/* Checks if a door - open or close - has been it */
+void	ft_dda_door(t_dda *dda, int **map);
+
+/* Updates door status each frame*/
+void update_doors(t_cube *data, int **map);
 
 #endif
