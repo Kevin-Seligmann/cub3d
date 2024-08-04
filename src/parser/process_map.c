@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:02:30 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 20:29:54 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/01 23:38:30 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	process_map(t_cube *data, int ind)
 	if (alloc_map(&data->sim) == -1)
 		return (-1);
 	copy_map(data, ind);
-	if (get_map_info(&data->sim, data->sim.map) == -1)
+	if (get_map_info(&data->parse, &data->sim, data->sim.map) == -1)
 	{
 		ft_arr_free_int(data->sim.map);
 		return (-1);

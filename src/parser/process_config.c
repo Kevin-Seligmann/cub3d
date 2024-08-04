@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:28:57 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 20:21:39 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/07/31 10:38:47 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static int	process_element(t_cube *data, char *line)
 	if (!ft_strcmp(args[0], EAST_ID) || \
 		!ft_strcmp(args[0], WEST_ID) || \
 		!ft_strcmp(args[0], NORTH_ID) || \
-		!ft_strcmp(args[0], SOUTH_ID))
+		!ft_strcmp(args[0], SOUTH_ID) || \
+		!ft_strcmp(args[0], DOOR_ID))
 		return_value = get_texture(data, args);
 	else if (!ft_strcmp(args[0], FLOOR_ID) || \
 		!ft_strcmp(args[0], CEILING_ID))
@@ -58,7 +59,9 @@ static bool	obligatory_elements_are_set(t_cube *data)
 		data->sim.player.pos.x == -2 || \
 		data->sim.player.pos.z == -2 || \
 		data->sim.player.dir.x == -2 || \
-		data->sim.player.dir.z == -2)
+		data->sim.player.dir.z == -2 || \
+		(data->parse.door_found == true &&\
+		(data->ged.textures.door == 0 || data->ged.textures.door_side == 0)))
 		return (false);
 	return (true);
 }
@@ -74,6 +77,15 @@ static void	set_default_config(t_cube *data)
 	data->ged.textures.south_wall = 0;
 	data->ged.textures.east_wall = 0;
 	data->ged.textures.west_wall = 0;
+	data->ged.textures.door = 0;
+	data->ged.textures.door_side = 0;
+	data->ged.textures.north_wall_xpm = 0;
+	data->ged.textures.south_wall_xpm = 0;
+	data->ged.textures.east_wall_xpm = 0;
+	data->ged.textures.west_wall_xpm = 0;
+	data->ged.textures.door_xpm = 0;
+	data->ged.textures.door_side_xpm = 0;
+//	ft_memset(data->parse.sprite_found, 0, sizeof(data->parse.sprite_found));
 	data->sim.ceiling_color = 0;
 	data->sim.floor_color = 0;
 	data->sim.player.dir.x = -2;
