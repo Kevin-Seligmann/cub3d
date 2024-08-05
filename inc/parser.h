@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:14:12 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/01 23:38:03 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/05 16:12:57 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,27 @@
 		'	'98765432' represent sprites.
 */
 
-#define todo
-/*
-	To do:
-	Comment these functions
-*/
-
 # include "cubed_data_structures.h"
 
+/* Process file config */
 int		process_file_config(t_cube *data);
-int		extension_checker(char *map_f, char *extension);
+
+/* Checks if the file has the extension provided */
+int		extension_checker(char *file, char *extension);
+
+/* Parses a configuration file */
 int		parser(t_cube *data, int argc, char **argv);
+
+/* Checks if a line on the config file belongs to the map */
 bool	is_map_line(char *line);
+
+/* Gets a texture from config file to mlx struct */
 int		get_texture(t_cube *data, char **args);
+
+/* Parses ceiling/roof color */
 int		get_map_color(t_cube *data, char **args, char *line);
+
+/* Process map */
 int		process_map(t_cube *data, int ind);
 int		get_map_info(t_parser *parse, t_sim *sim, int **arr);
 

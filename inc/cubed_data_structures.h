@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/04 21:00:18 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/05 16:10:26 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,6 @@
 # define CUBED_DATA_STRUCTURES_H
 
 # include "MLX42/MLX42.h"
-
-# define todo
-/*
-	To do:
-	Documentate structs
-*/
 
 /* Red, green, blue, alpha (opacity) */
 typedef struct s_rgba
@@ -59,6 +53,12 @@ typedef struct s_vd2
 	'side_dist'. Total change of position for DDA iteration.
 	'delta_dist'. Change of position for DDA iteration.
 	'cam_vect'. Camera vector.
+	'door_hit'. A door has been hit.
+	'door_side'. The side of a door has been hit.
+	'door_offset'. How much the texture of the door is offset.
+	'door_x'. X hit on the door axis.
+	'x' - Screen X.
+	'y' - Screen Y.
 */
 typedef struct s_dda
 {
@@ -163,6 +163,7 @@ typedef struct s_ged
 	'fd'. File descriptor.
 	'config'. Configuration on a string.
 	'conflig_line'. Configuration separated by lines.
+	'door_found'. If a door has been found on config file.
 */
 typedef struct s_parser
 {

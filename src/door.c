@@ -6,12 +6,17 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 14:56:24 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/04 21:01:13 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:06:22 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
+/*
+	This is the DDA loop but the door check is different.
+	The reason is that rendering rays pass through open doors. If the same 
+	loop where used, open doors would be unclosable.
+*/
 void	ft_dda_door(t_dda *dda, int **map)
 {
 	dda->door_hit = false;
@@ -37,10 +42,9 @@ void	ft_dda_door(t_dda *dda, int **map)
 	}
 }
 
-#define todo
 /*
-	To do:
-	explain this better (Probably on docs)
+	If the block besides a wall is a door, this
+	will change the texture displayed.
 */
 void check_door_side(t_dda *dda, int **map)
 {
@@ -60,12 +64,15 @@ void check_door_side(t_dda *dda, int **map)
 	map[dda->pos_int.z][dda->pos_int.x + 1] < DOOR_WE + 100);
 }
 
-#define todo
 /*
-	To do:
-	explain this better (Probably on docs)
+	This returns how much (From 0 to 1) a door has moved
+	from its starting position.
+
+	An open door should return 1. A close door should return 0.
+
+	This value is used to detect if a ray hits a door.
 */
-void get_door_offset(t_dda *dda, int value)
+static void get_door_offset(t_dda *dda, int value)
 {
 	if (value > DOOR_NS - 1 && value < DOOR_NS + 51)
 		dda->door_offset = (value - 100.) / 50.;
@@ -79,10 +86,34 @@ void get_door_offset(t_dda *dda, int value)
 		dda->door_offset = 0;
 }
 
-#define todo
 /*
-	To do:
-	explain this better (Probably on docs)
+	To know if a door has been hit by a ray and should be render.
+
+	The first step is to calculate how much a door is open. (0 to 1)
+	'door_offset'
+
+	The second step is to calculate the X position on the door.
+
+	The third step is to calculate if a ray hit the door or not.
+
+	Since door_x is the coordinate on the door
+	from 0, if substracting the offset puts this value at 
+	less than 0, it means the door has not been hit.
+
+	Having a door_x greather than one, also means the door has
+	not been hit.
+
+	To get door x:
+	"dda->ray_dir.x * (dda->side_dist.z -dda->delta_dist.z)". This is
+	the distance in X from the player to the side of the entire cube
+	the ray hit.
+
+	"dda->step.z * dda->ray_dir.x / (dda->ray_dir.z * 2.)". This is
+	how much x moves from the place it hit on the wall to the place
+	it hits on the door. (Sign changes depending on step)
+
+	Adding the player position and substracting the door x-int position
+	gives the position on the door.
 */
 void check_door_hit(t_dda *dda, t_player *player, int **map, int *hit)
 {
@@ -91,9 +122,8 @@ void check_door_hit(t_dda *dda, t_player *player, int **map, int *hit)
 	{
 		dda->door_x = player->pos.x + dda->ray_dir.x * (dda->side_dist.z - \
 		dda->delta_dist.z) + dda->step.z * \
-		dda->ray_dir.x / (dda->ray_dir.z * 2.);
-		if (dda->door_x - dda->pos_int.x < 1. && \
-		dda->door_x - dda->door_offset - dda->pos_int.x > 0.)
+		dda->ray_dir.x / (dda->ray_dir.z * 2.) - dda->pos_int.x;
+		if (dda->door_x < 1. && dda->door_x - dda->door_offset > 0.)
 		{
 			*hit = 1;
 			dda->door_hit = true;
@@ -103,9 +133,8 @@ void check_door_hit(t_dda *dda, t_player *player, int **map, int *hit)
 	{
 		dda->door_x = player->pos.z + dda->ray_dir.z * (dda->side_dist.x - \
 		dda->delta_dist.x) + dda->step.x * \
-		dda->ray_dir.z / (dda->ray_dir.x * 2.);
-		if (dda->door_x - dda->pos_int.z < 1. && \
-		dda->door_x - dda->door_offset - dda->pos_int.z > 0.)
+		dda->ray_dir.z / (dda->ray_dir.x * 2.) - dda->pos_int.z;
+		if (dda->door_x < 1. && dda->door_x - dda->door_offset> 0.)
 		{
 			*hit = 1;
 			dda->door_hit = true;
@@ -113,10 +142,10 @@ void check_door_hit(t_dda *dda, t_player *player, int **map, int *hit)
 	}
 }
 
-#define todo
 /*
-	To do:
-	explain this better (Probably on docs)
+	If a door is not closed or open, each tick it
+	status advances one, until it reaches open or close.
+	This makes sense if door state working has been read.
 */
 void update_doors(t_cube *data, int **map)
 {

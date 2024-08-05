@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:41:35 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/04 15:18:07 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/05 16:14:25 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	simulation_loop(void *param)
 	To do:
 	Define windows rezising
 	Check hook errors
-	Documenate better
 */
 int	config_mlx(t_cube *data)
 {
@@ -52,7 +51,6 @@ int	config_mlx(t_cube *data)
 	To do:
 	Check resources after parser and init failing
 	mlx termination and clean exit
-	documentate better
 */
 int	main(int argc, char **argv)
 {
@@ -63,5 +61,7 @@ int	main(int argc, char **argv)
 	if (config_mlx(&data) == -1)
 		return (EXIT_FAILURE);
 	mlx_loop(data.ged.mlx);
+	mlx_terminate(data.ged.mlx);
+	ft_arr_free_int(data.sim.map);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:31:23 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/04 20:20:37 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/05 16:54:55 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,7 @@ static float	movez(t_player *player, int **map, double movement)
 	return (0);
 }
 
-#define suggestion
 /*
-	Suggestion:
-	Try to combine usual movement and strafe without bugs
-
 	Old player position is stored to not give priority to any direction.
 	If not, z movement will be calculated from the new x position. This
 	could cause inconsistency close to walls.

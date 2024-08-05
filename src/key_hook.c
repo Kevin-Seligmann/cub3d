@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:59:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/04 21:16:59 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:07:58 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,15 @@
 	than one movement at the same time in the game loop.
 */
 
-#define todo
 /*
-	To do: Comment
+	Closes the windows to finish the simulation.
 */
-static void	escape_window(mlx_key_data_t keydata, void* param)
+static void	escape_window(mlx_key_data_t keydata, t_cube *data)
 {
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-	{
-		mlx_close_window(param);
-		mlx_terminate(param);
-	}
+	(void) keydata;
+	(void) data;
+//	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+//		mlx_terminate(data->ged.mlx);
 }
 /* 
 	Keys that move to the front or back.
@@ -84,7 +82,6 @@ static void	rotation_keys(mlx_key_data_t keydata, unsigned int *key_flag)
 		*key_flag |= CUBK_R;
 }
 
-#define todo
 /*
 	Casts a ray in front and detect if it hits a door.
 	If it does, change it status from open/opening to closing

@@ -6,23 +6,24 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:00:36 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/04 20:22:13 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/05 16:57:23 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
 /*
-	The plane vector is perpendicular to the player and has a length
-	of CAM_V_LENGT (Related to FOV).
+	The basics of this implementation can be found here.
+	https://lodev.org/cgtutor/raycasting.html
+	https://lodev.org/cgtutor/raycasting2.html
+	https://lodev.org/cgtutor/raycasting3.html
+	https://lodev.org/cgtutor/raycasting4.html
 
-	camera.x maps '0-WIDTH' to '-1, 1'
+	Differences will be commented.
+*/
 
-	Ray direction is the sum of player direction and the camera (plane)
-	vector multiplied by the x-camera coordinate.
-	Its 'max' value is 'player direction + plane'
-	It's 'min' value is 'player direction - plane'.
-	So it maps 0-WIDTH to all the camera plane.
+/*
+	Camera plane, ray direction, dda distance, door booleans.
 */
 void	set_raycasting_data(t_player *player, t_dda *dda)
 {
@@ -46,10 +47,8 @@ void	set_raycasting_data(t_player *player, t_dda *dda)
 	dda->door_side = false;
 }
 
-#define todo
 /*
-	To do:
-	explain this better (Probably on docs)
+	Sets step.
 */
 void	set_step(t_player *player, t_dda *dda)
 {
@@ -79,10 +78,11 @@ void	set_step(t_player *player, t_dda *dda)
 	}
 }
 
-#define todo
 /*
-	To do:
-	explain this better (Probably on docs)
+	Main loop. Checks for wall hits or door hits.
+
+	Doors are maps values from DOOR_NS to DOOR_WE + 100.
+	(Read door timers/states).
 */
 void	ft_dda(t_dda *dda, t_player *player, int **map)
 {
@@ -111,16 +111,21 @@ void	ft_dda(t_dda *dda, t_player *player, int **map)
 	}
 }
 
-#define todo
 /*
-	To do:
-	explain this better (Probably on docs)
+	Distance from line perpendicular to camera plane to wall.
 
+	In the case of a door, if we read the reference we have that (On Z):
+	- The distance to a wall is the Z distance divided by the
+	Z component of the ray. (STEP 5 OF PERP DISTANCE CALC).
+	-  The former value depends on position of player, map , step,
+	and total dist to the wall. All in Z. (STEP 6)
+	- Adding 0.5 to the map position (Doors are half block away)
+	and following the same steps as the reference gives that we 
+	need to add 0.5/ray_dir.z to get the new perpendicular distance.
+	(Or substract depending on direction, because the door line is found
+	differently).
 
-		zpos = dda->pos_int.z + 0.5;
-		xpos = sqrt(zpos * zpos + dda->side_dist.z * dda->side_dist.z);
-
-(dda->pos_int.z + 0.5) * (dda->pos_int.z + 0.5)
+	X Is similar.
 */
 static void	get_wall_dist(t_dda *dda)
 {
@@ -128,14 +133,17 @@ static void	get_wall_dist(t_dda *dda)
 		dda->wall_dist = (dda->side_dist.x - dda->delta_dist.x);
 	else
 		dda->wall_dist = (dda->side_dist.z - dda->delta_dist.z);
-	if (dda->door_hit == true && dda->step.z == 1 && dda->side == 1) 
-		dda->wall_dist += 0.5 / dda->ray_dir.z;
-	else if (dda->door_hit == true && dda->step.z == -1 && dda->side == 1)
-		dda->wall_dist -= 0.5 / dda->ray_dir.z;
-	else if (dda->door_hit == true && dda->step.x == 1 && dda->side == 0)
-		dda->wall_dist += 0.5 / dda->ray_dir.x;
-	else if (dda->door_hit == true && dda->step.x == -1 && dda->side == 0)
-		dda->wall_dist -= 0.5 / dda->ray_dir.x;
+	if (dda->door_hit == true)
+	{
+		if (dda->step.z == 1 && dda->side == 1) 
+			dda->wall_dist += 0.5 / dda->ray_dir.z;
+		else if (dda->step.z == -1 && dda->side == 1)
+			dda->wall_dist -= 0.5 / dda->ray_dir.z;
+		else if (dda->step.x == 1 && dda->side == 0)
+			dda->wall_dist += 0.5 / dda->ray_dir.x;
+		else if (dda->step.x == -1 && dda->side == 0)
+			dda->wall_dist -= 0.5 / dda->ray_dir.x;	
+	}
 }
 
 #define todo
