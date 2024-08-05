@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/05 16:10:52 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:25:45 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,19 @@
 	To do:
 	Check all headers.
 	Check norminette.
+
+	Improve collision to not get stuck in corners. 
+	hint: Sometimes the character gets inside the wall.
+
+	Define how to handle spaces.
+	Review config file options.
+
+	MLX Termination.
+	Clean exit.
+
+	Define windows rezising.
+
+	Make squares for all sizes.
 */
 
 /* System libraries */
@@ -75,11 +88,6 @@
 # define SPRITE9_ID "S9"
 
 /* Program constants */
-# define todo
-/*
-	To do:
-	They dont look like cubes for all WIDTH and HEIGHT values.	
-*/
 /* Windows Width */
 # define WIDTH 800.
 
@@ -176,20 +184,21 @@ void			draw(t_dda *dda, t_ged *ged, t_sim *sim);
 void			ft_raycasting(t_cube *game);
 
 /* Tests if the block hit is the side of a door */
-void check_door_side(t_dda *dda, int **map);
+void			check_door_side(t_dda *dda, int **map);
 
 /* If a block is a door, tests if the door has been hit */
-void check_door_hit(t_dda *dda, t_player *player, int **map, int *hit);
+void			check_door_hit(t_dda *dda, \
+t_player *player, int **map, int *hit);
 
 /* DDA - Detects ray hit */
-void	set_raycasting_data(t_player *player, t_dda *dda);
-void	set_step(t_player *player, t_dda *dda);
-void	ft_dda(t_dda *dda, t_player *player, int **map);
+void			set_raycasting_data(t_player *player, t_dda *dda);
+void			set_step(t_player *player, t_dda *dda);
+void			ft_dda(t_dda *dda, t_player *player, int **map);
 
 /* Checks if a door - open or close - has been it */
-void	ft_dda_door(t_dda *dda, int **map);
+void			ft_dda_door(t_dda *dda, int **map);
 
 /* Updates door status each frame*/
-void update_doors(t_cube *data, int **map);
+void			update_doors(t_cube *data, int **map);
 
 #endif

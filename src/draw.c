@@ -6,17 +6,13 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:34:43 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/04 16:45:19 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:23:16 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-#define todo
 /*
-	To do:
-	Calculate line height based on FOV, HEIGHT and WIDTH to be always squared
-
 	Line height is such that if distance is one block, the wall occupies
 	the whole screen.
 */
@@ -33,7 +29,8 @@ static void	set_line_limits(t_dda *dda)
 	If side is 0, ray hit a E or W.
 	If side is 1, ray hit N or S.
 */
-static void	get_texture(t_dda *dda, t_texture_pack *textures, mlx_texture_t **texture)
+static void	get_texture(t_dda *dda, \
+t_texture_pack *textures, mlx_texture_t **texture)
 {
 	if (dda->door_hit == true)
 		*texture = textures->door;
@@ -49,10 +46,10 @@ static void	get_texture(t_dda *dda, t_texture_pack *textures, mlx_texture_t **te
 		*texture = textures->north_wall;
 }
 
-#define todo
 /*
-	Todo:
-	Explain this better
+	Returns x position in texture.
+
+	If a door has been hit, offset must be substracted.
 */
 static void	get_texture_x(t_dda *dda, t_player *player)
 {

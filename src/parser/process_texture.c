@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 20:11:06 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/04 20:14:33 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:12:24 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ mlx_texture_t **texture, xpm_t **xpm)
 		return (print_error(-1, CANT_LOAD_TEXTURE, mlx_strerror(mlx_errno)));
 	return (0);
 }
+
 /*
 	Gets the texture of a wall.
 */
@@ -80,7 +81,7 @@ static int	save_door_texture(t_ged *ged, char **args)
 	{
 		ged->textures.door_xpm = mlx_load_xpm42(args[1]);
 		if (ged->textures.door_xpm != NULL)
-			*ged->textures.door = ged->textures.door_xpm->texture;	
+			*ged->textures.door = ged->textures.door_xpm->texture;
 	}
 	else
 		return (print_error(-1, WRONG_EXTENSION, args[1]));
@@ -103,7 +104,7 @@ static int	save_door_texture(t_ged *ged, char **args)
 	Gets and stores textures. Detecs minilib errors parsing it,
 	wrong extensions. Supports xpm42 and png.
 */
-int get_texture(t_cube *data, char **args)
+int	get_texture(t_cube *data, char **args)
 {
 	if (!ft_strcmp(args[0], DOOR_ID))
 		return (save_door_texture(&data->ged, args));

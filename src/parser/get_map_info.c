@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:45:30 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/04 20:10:31 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:16:03 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ int	square_is_enclosed(t_sim *map, int **arr, unsigned int i, unsigned int j)
 /*
 	Sets door state to close.
 */
-static void configurate_door(t_parser *parse, unsigned int i, unsigned int j, int **map)
+static void	configurate_door(t_parser *parse, \
+unsigned int i, unsigned int j, int **map)
 {
 	parse->door_found = true;
 	if (map[i][j] == 'O')
@@ -109,7 +110,7 @@ int	get_map_info(t_parser *parse, t_sim *sim, int **arr)
 			if (!ft_strchr(" 01WESNOP", arr[i][j]))
 				return (print_error(-1, WRONG_LINE_CONTENT, "Map"));
 			if (ft_strchr("WESN", arr[i][j]) \
-			&& set_player_coordinates(sim, arr, i, j) == -1) 
+			&& set_player_coordinates(sim, arr, i, j) == -1)
 				return (-1);
 			if (ft_strchr("0WESNOP", arr[i][j]) \
 			&& square_is_enclosed(sim, arr, i, j) == -1)

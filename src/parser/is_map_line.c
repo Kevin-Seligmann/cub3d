@@ -6,18 +6,14 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:15:08 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 19:27:33 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:13:19 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include "parser.h"
 
-#define todo
 /*
-	To do:
-	Review map requirements on subject.
-
 	A line is a map line if it starts with a serie of spaces
 	and then an optional 1.
 */

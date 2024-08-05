@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:31:23 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/05 16:54:55 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:22:21 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,14 @@
 	Detecs if the space to move is clear.
 	The 50th state of a door is an open door.
 */
-static bool is_space(int value)
+static bool	is_space(int value)
 {
 	if (value == '0' || value == DOOR_NS + 50 || value == DOOR_WE + 50)
 		return (true);
 	return (false);
 }
 
-#define todo
 /*
-	To do:
-	Improve collision to not get stuck in corners. 
-	hint: Sometimes the character gets inside the wall
-
 	If the place to move is inside the collision, returns the distance
 	to the wall. Otherwise returns the movement itself.
 

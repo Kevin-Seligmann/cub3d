@@ -6,12 +6,12 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:02:30 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/01 23:38:30 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:13:07 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cubed.h"
-# include "parser.h"
+#include "cubed.h"
+#include "parser.h"
 
 /*
 	Copies each map line from the config file to the double array
@@ -27,7 +27,7 @@ static void	copy_map(t_cube *data, unsigned int ind)
 		line_ind = 0;
 		while (data->parse.config_lines[ind][line_ind])
 		{
-			data->sim.map[map_ind][line_ind]\
+			data->sim.map[map_ind][line_ind] \
 			= data->parse.config_lines[ind][line_ind];
 			line_ind ++;
 		}
@@ -47,7 +47,7 @@ static void	copy_map(t_cube *data, unsigned int ind)
 */
 static int	alloc_map(t_sim *sim)
 {
-	unsigned int height;
+	unsigned int	height;
 
 	sim->map = malloc(sizeof(*(sim->map)) * (sim->height + 1));
 	if (!sim->map)
@@ -89,7 +89,7 @@ static int	get_map_dimensions(t_cube *data, int ind)
 				data->sim.width = map_width_aux;
 		}
 		else
-			return print_error(-1, WRONG_LINE_CONTENT, "Map");
+			return (print_error(-1, WRONG_LINE_CONTENT, "Map"));
 		ind ++;
 	}
 	return (0);

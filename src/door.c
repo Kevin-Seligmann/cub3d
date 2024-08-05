@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 14:56:24 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/05 17:06:22 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:22:31 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_dda_door(t_dda *dda, int **map)
 			dda->side = 1;
 		}
 		if (map[dda->pos_int.z][dda->pos_int.x] == '1')
-			break;
+			break ;
 		else if (map[dda->pos_int.z][dda->pos_int.x] < DOOR_WE + 100 \
 		&& map[dda->pos_int.z][dda->pos_int.x] > DOOR_NS - 1)
 			dda->door_hit = true;
@@ -46,7 +46,7 @@ void	ft_dda_door(t_dda *dda, int **map)
 	If the block besides a wall is a door, this
 	will change the texture displayed.
 */
-void check_door_side(t_dda *dda, int **map)
+void	check_door_side(t_dda *dda, int **map)
 {
 	dda->door_side = \
 	(dda->side == 1 && dda->step.z == 1 && dda->pos_int.z > 0 \
@@ -56,11 +56,11 @@ void check_door_side(t_dda *dda, int **map)
 	map[dda->pos_int.z + 1] && \
 	map[dda->pos_int.z + 1][dda->pos_int.x] > DOOR_NS - 1 && \
 	map[dda->pos_int.z + 1][dda->pos_int.x] < DOOR_NS + 100) || \
-	(dda->side == 0 && dda->step.x == 1  && dda->pos_int.x > 0 \
+	(dda->side == 0 && dda->step.x == 1 && dda->pos_int.x > 0 \
 	&& map[dda->pos_int.z][dda->pos_int.x - 1] > DOOR_WE - 1 \
 	&& map[dda->pos_int.z][dda->pos_int.x - 1] < DOOR_WE + 100) || \
 	(dda->side == 0 && dda->step.x == -1 && \
-	map[dda->pos_int.z][dda->pos_int.x + 1] > DOOR_WE - 1 &&
+	map[dda->pos_int.z][dda->pos_int.x + 1] > DOOR_WE - 1 && \
 	map[dda->pos_int.z][dda->pos_int.x + 1] < DOOR_WE + 100);
 }
 
@@ -72,7 +72,7 @@ void check_door_side(t_dda *dda, int **map)
 
 	This value is used to detect if a ray hits a door.
 */
-static void get_door_offset(t_dda *dda, int value)
+static void	get_door_offset(t_dda *dda, int value)
 {
 	if (value > DOOR_NS - 1 && value < DOOR_NS + 51)
 		dda->door_offset = (value - 100.) / 50.;
@@ -115,7 +115,7 @@ static void get_door_offset(t_dda *dda, int value)
 	Adding the player position and substracting the door x-int position
 	gives the position on the door.
 */
-void check_door_hit(t_dda *dda, t_player *player, int **map, int *hit)
+void	check_door_hit(t_dda *dda, t_player *player, int **map, int *hit)
 {
 	get_door_offset(dda, map[dda->pos_int.z][dda->pos_int.x]);
 	if (dda->side == 1)
@@ -134,7 +134,7 @@ void check_door_hit(t_dda *dda, t_player *player, int **map, int *hit)
 		dda->door_x = player->pos.z + dda->ray_dir.z * (dda->side_dist.x - \
 		dda->delta_dist.x) + dda->step.x * \
 		dda->ray_dir.z / (dda->ray_dir.x * 2.) - dda->pos_int.z;
-		if (dda->door_x < 1. && dda->door_x - dda->door_offset> 0.)
+		if (dda->door_x < 1. && dda->door_x - dda->door_offset > 0.)
 		{
 			*hit = 1;
 			dda->door_hit = true;
@@ -147,7 +147,7 @@ void check_door_hit(t_dda *dda, t_player *player, int **map, int *hit)
 	status advances one, until it reaches open or close.
 	This makes sense if door state working has been read.
 */
-void update_doors(t_cube *data, int **map)
+void	update_doors(t_cube *data, int **map)
 {
 	unsigned int	x;
 	unsigned int	y;
@@ -162,13 +162,12 @@ void update_doors(t_cube *data, int **map)
 				map[y][x] = DOOR_NS;
 			else if ((map[y][x] > DOOR_NS && map[y][x] < DOOR_NS + 50) || \
 			(map[y][x] > DOOR_NS + 50 && map[y][x] < DOOR_NS + 99))
-				map[y][x] ++;
+				map[y][x]++;
 			else if (map[y][x] == DOOR_WE + 99)
 				map[y][x] = DOOR_WE;
 			else if ((map[y][x] > DOOR_WE && map[y][x] < DOOR_WE + 50) || \
 			(map[y][x] > DOOR_WE + 50 && map[y][x] < DOOR_WE + 99))
-				map[y][x] ++;
-
+				map[y][x]++;
 			x ++;
 		}
 		y ++;

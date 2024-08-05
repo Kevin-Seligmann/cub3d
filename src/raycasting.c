@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:00:36 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/05 16:57:23 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:16:50 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,25 +135,23 @@ static void	get_wall_dist(t_dda *dda)
 		dda->wall_dist = (dda->side_dist.z - dda->delta_dist.z);
 	if (dda->door_hit == true)
 	{
-		if (dda->step.z == 1 && dda->side == 1) 
+		if (dda->step.z == 1 && dda->side == 1)
 			dda->wall_dist += 0.5 / dda->ray_dir.z;
 		else if (dda->step.z == -1 && dda->side == 1)
 			dda->wall_dist -= 0.5 / dda->ray_dir.z;
 		else if (dda->step.x == 1 && dda->side == 0)
 			dda->wall_dist += 0.5 / dda->ray_dir.x;
 		else if (dda->step.x == -1 && dda->side == 0)
-			dda->wall_dist -= 0.5 / dda->ray_dir.x;	
+			dda->wall_dist -= 0.5 / dda->ray_dir.x;
 	}
 }
 
-#define todo
 /*
-	To do:
-	explain this better (Probably on docs)
+	Raycasting loop
 */
 void	ft_raycasting(t_cube *data)
 {
-	t_dda *dda;
+	t_dda	*dda;
 
 	dda = &data->dda;
 	dda->x = 0;

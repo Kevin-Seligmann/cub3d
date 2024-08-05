@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/05 16:10:26 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:26:36 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_rgba
 	int	r;
 	int	g;
 	int	b;
-	int a;
+	int	a;
 }	t_rgba;
 
 /* 2D Vector, int. */
@@ -79,9 +79,9 @@ typedef struct s_dda
 	bool			door_side;
 	double			door_offset;
 	double			door_x;
-	unsigned int 	x;
-	unsigned int 	y;
-} t_dda;
+	unsigned int	x;
+	unsigned int	y;
+}	t_dda;
 
 /*
 	Player data.
@@ -95,7 +95,7 @@ typedef struct s_player
 	t_vd2	pos;
 	t_vd2	dir;
 	t_vd2	old_pos;
-} t_player;
+}	t_player;
 
 /*
 	Simulation data.
@@ -155,7 +155,6 @@ typedef struct s_ged
 	t_texture_pack	textures;
 	unsigned int	key_flag;
 }	t_ged;
-
 
 /*
 	Parser data.

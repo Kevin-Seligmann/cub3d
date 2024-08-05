@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:59:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/05 17:07:58 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:18:48 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,10 @@
 */
 static void	escape_window(mlx_key_data_t keydata, t_cube *data)
 {
-	(void) keydata;
-	(void) data;
-//	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-//		mlx_terminate(data->ged.mlx);
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+		mlx_terminate(data->ged.mlx);
 }
+
 /* 
 	Keys that move to the front or back.
 
@@ -87,9 +86,9 @@ static void	rotation_keys(mlx_key_data_t keydata, unsigned int *key_flag)
 	If it does, change it status from open/opening to closing
 	or close/closing to opening.
 */
-static void action_key(mlx_key_data_t keydata, t_cube *data)
+static void	action_key(mlx_key_data_t keydata, t_cube *data)
 {
-	t_dda *dda;
+	t_dda	*dda;
 	double	val;
 
 	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
@@ -105,7 +104,7 @@ static void action_key(mlx_key_data_t keydata, t_cube *data)
 			return ;
 		if (val == DOOR_NS || val == DOOR_WE || \
 		val == DOOR_NS + 50 || val == DOOR_WE + 50)
-			data->sim.map[data->dda.pos_int.z][dda->pos_int.x] ++;
+			data->sim.map[data->dda.pos_int.z][dda->pos_int.x]++;
 		else if (val > DOOR_NS && val < DOOR_NS + 100)
 			data->sim.map[data->dda.pos_int.z][dda->pos_int.x] = \
 			DOOR_NS + 100 - (val - DOOR_NS);
@@ -115,10 +114,8 @@ static void action_key(mlx_key_data_t keydata, t_cube *data)
 	}
 }
 
-#define error
 /*
-	To do:
-	MLX termination key
+	Key actions.
 */
 void	key_hook(mlx_key_data_t keydata, void *param)
 {

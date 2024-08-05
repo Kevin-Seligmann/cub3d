@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 20:12:25 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 20:24:05 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:18:19 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 /*
 	Gets an 32 bits integer from r, g, b, a values.
 */
-unsigned int get_rgba(int r, int g, int b, int a)
+unsigned int	get_rgba(int r, int g, int b, int a)
 {
-    return (r << 24 | g << 16 | b << 8 | a);
+	return (r << 24 | g << 16 | b << 8 | a);
 }
 
 /*
@@ -27,12 +27,12 @@ unsigned int get_rgba(int r, int g, int b, int a)
 int	skip_coma(char **line)
 {
 	while (**line == ' ')
-		(*line) ++;
+		(*line)++;
 	if (**line != ',')
 		return (-1);
-	(*line) ++;
+	(*line)++;
 	while (**line == ' ')
-		(*line) ++;
+		(*line)++;
 	return (0);
 }
 
@@ -46,7 +46,7 @@ int	get_number(char **line, int *color)
 	while (ft_isdigit(**line))
 	{
 		*color = (*color) * 10 + **line - '0';
-		(*line) ++;
+		(*line)++;
 		if (*color > 255)
 			return (-1);
 	}

@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:41:35 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/05 16:14:25 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:21:14 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*
 	Main loop hook.
 */
-void	simulation_loop(void *param)
+static void	simulation_loop(void *param)
 {
 	t_cube	*data;
 
@@ -27,13 +27,10 @@ void	simulation_loop(void *param)
 	ft_raycasting(data);
 }
 
-#define message
 /*
-	To do:
-	Define windows rezising
-	Check hook errors
+	MLX init and hooks.
 */
-int	config_mlx(t_cube *data)
+static int	config_mlx(t_cube *data)
 {
 	data->ged.key_flag = 0;
 	data->ged.mlx = mlx_init(WIDTH, HEIGHT, WINDOWS_TITLE, true);
@@ -46,12 +43,6 @@ int	config_mlx(t_cube *data)
 	return (0);
 }
 
-#define message
-/*
-	To do:
-	Check resources after parser and init failing
-	mlx termination and clean exit
-*/
 int	main(int argc, char **argv)
 {
 	static t_cube	data;
