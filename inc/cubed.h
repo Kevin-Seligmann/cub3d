@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/07 15:02:35 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:17:16 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,5 +198,9 @@ void			update_doors(t_cube *data, int **map);
 
 /* Closes the windows to finish the simulation. */
 void			escape_window(mlx_key_data_t keydata, t_cube *data);
+
+/*On/Off the map*/
+
+void			on_off_minimap(mlx_key_data_t keydata, t_cube *data);
 
 #endif
