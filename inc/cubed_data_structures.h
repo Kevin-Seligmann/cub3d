@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/05 17:26:36 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:37:11 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,8 @@ typedef struct s_ged
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	t_texture_pack	textures;
+	unsigned int	win_height;
+	unsigned int	win_width;
 	unsigned int	key_flag;
 }	t_ged;
 

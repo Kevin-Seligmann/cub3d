@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:00:36 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/05 17:16:50 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:40:46 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@
 /*
 	Camera plane, ray direction, dda distance, door booleans.
 */
-void	set_raycasting_data(t_player *player, t_dda *dda)
+void	set_raycasting_data(t_player *player, t_dda *dda, t_ged *ged)
 {
 	perp_clockwise_vf2(&player->dir, &dda->cam_vect);
 	dda->cam_vect.x *= CAM_V_LENGTH;
 	dda->cam_vect.z *= CAM_V_LENGTH;
-	dda->camera_x = 2. * dda->x / WIDTH - 1.;
+	dda->camera_x = 2. * dda->x / (float) ged->img->width - 1.;
 	dda->ray_dir.x = player->dir.x + dda->cam_vect.x * dda->camera_x;
 	dda->ray_dir.z = player->dir.z + dda->cam_vect.z * dda->camera_x;
 	dda->pos_int.x = player->pos.x;
@@ -155,9 +155,9 @@ void	ft_raycasting(t_cube *data)
 
 	dda = &data->dda;
 	dda->x = 0;
-	while (dda->x < WIDTH)
+	while (dda->x < data->ged.img->width)
 	{
-		set_raycasting_data(&data->sim.player, &data->dda);
+		set_raycasting_data(&data->sim.player, &data->dda, &data->ged);
 		set_step(&data->sim.player, &data->dda);
 		ft_dda(&data->dda, &data->sim.player, data->sim.map);
 		check_door_side(dda, data->sim.map);

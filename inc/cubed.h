@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/05 17:25:45 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:41:20 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,9 +154,6 @@ magnitude of the movement per translation tick */
 int				print_error(int return_value, \
 const char		*error_message, const char *strerror);
 
-/* MLX initialization, hooks, and termination */
-int				config_mlx(t_cube *data);
-
 /* Hook for MLX that contains an actions for each key press */
 void			key_hook(mlx_key_data_t keydata, void *param);
 
@@ -166,9 +163,6 @@ int **map, unsigned int key_flag);
 
 /* Performs the rotation calculations */
 void			do_rotation(t_player *player, unsigned int key_flag);
-
-/* DDA algorithm, hooked into mlx_loop, executed each frame */
-void			simulation_loop(void *data);
 
 /* Stores in dst the clockwise perpendicular 2d´vector to src */
 void			perp_clockwise_v2(t_v2 *src, t_v2 *dst);
@@ -191,7 +185,7 @@ void			check_door_hit(t_dda *dda, \
 t_player *player, int **map, int *hit);
 
 /* DDA - Detects ray hit */
-void			set_raycasting_data(t_player *player, t_dda *dda);
+void			set_raycasting_data(t_player *player, t_dda *dda, t_ged *ged);
 void			set_step(t_player *player, t_dda *dda);
 void			ft_dda(t_dda *dda, t_player *player, int **map);
 

@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:59:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/05 17:18:48 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:41:49 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static void	action_key(mlx_key_data_t keydata, t_cube *data)
 	{
 		dda = &data->dda;
 		dda->x = WIDTH / 2;
-		set_raycasting_data(&data->sim.player, &data->dda);
+		set_raycasting_data(&data->sim.player, &data->dda, &data->ged);
 		set_step(&data->sim.player, &data->dda);
 		ft_dda_door(&data->dda, data->sim.map);
 		val = data->sim.map[data->dda.pos_int.z][dda->pos_int.x];

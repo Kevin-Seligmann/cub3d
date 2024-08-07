@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:34:43 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/05 17:23:16 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:40:32 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 	Line height is such that if distance is one block, the wall occupies
 	the whole screen.
 */
-static void	set_line_limits(t_dda *dda)
+static void	set_line_limits(t_dda *dda, t_ged *ged)
 {
-	dda->line_height = HEIGHT / dda->wall_dist;
-	dda->line_start = -(int)(dda->line_height / 2) + HEIGHT / 2;
-	dda->line_end = dda->line_height / 2 + HEIGHT / 2;
+	dda->line_height = ged->img->height / dda->wall_dist;
+	dda->line_start = -(int)(dda->line_height / 2) + ged->img->height / 2;
+	dda->line_end = dda->line_height / 2 + ged->img->height / 2;
 }
 
 /*
@@ -102,9 +102,9 @@ static void	put_texture_pixel(t_ged *gph, t_dda *dda)
 */
 void	draw(t_dda *dda, t_ged *ged, t_sim *sim)
 {
-	set_line_limits(dda);
+	set_line_limits(dda, ged);
 	dda->y = 0;
-	while (dda->y < HEIGHT)
+	while (dda->y < ged->img->height)
 	{
 		if ((int) dda->y < dda->line_start)
 			mlx_put_pixel(ged->img, dda->x, dda->y, sim->ceiling_color);
