@@ -14,7 +14,7 @@ INC = -I./inc -I./libft/inc -I./$(MLX_FOLDER)/include
 OBJ = extension_checker.o get_map_info.o is_map_line.o parser_main.o process_color.o\
 	process_config.o process_map.o process_texture.o cubed.o draw.o\
 	error.o key_hook.o movement.o raycasting.o vector.o\
-	door.o windows_size.o
+	door.o windows_size.o key_hook_2.o
 
 LFT = $(LFT_FOLDER)/libft.a
 MLX = $(MLX_FOLDER)/libmlx42.a

@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:59:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/07 13:41:49 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:38:35 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,6 @@
 	unset. The flags permit detecting multiple key presses, executing more
 	than one movement at the same time in the game loop.
 */
-
-/*
-	Closes the windows to finish the simulation.
-*/
-static void	escape_window(mlx_key_data_t keydata, t_cube *data)
-{
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		mlx_terminate(data->ged.mlx);
-}
 
 /* 
 	Keys that move to the front or back.
