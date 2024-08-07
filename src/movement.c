@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:31:23 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/05 17:22:21 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:00:11 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,29 +106,35 @@ void	do_translation(t_player *player, int **map, unsigned int key_flag)
 
 /*
 	While a key is pressed the direction vector of the player is multiplied 
-	by a rotation matrix, the used angle is ROTSPEED,  -ROTSPEED.
+	by a rotation matrix, the used angle is ROTMS,  -ROTMS.
 
 	cos(a)	- sin(a)
 	sin(a)	cos(a)
 */
-void	do_rotation(t_player *player, int unsigned key_flag)
+void	do_rotation(t_player *player, t_ged *ged, int unsigned key_flag)
 {
 	double	aux;
+	double	ang;
 
+	ang = ged->mouse_x;
+	mlx_get_mouse_pos(ged->mlx, &ged->mouse_x, &ged->mouse_y);
+	ang = (ang - ged->mouse_x) * MOUSE_ROTMS_FACTOR;
 	if (key_flag & CUBK_L)
 	{
 		aux = player->dir.x;
-		player->dir.x = aux * cos(ROTSPEED) - \
-		player->dir.z * sin(ROTSPEED);
-		player->dir.z = aux * sin(ROTSPEED) + \
-		player->dir.z * cos(ROTSPEED);
+		player->dir.x = aux * cos(ROTMS) - player->dir.z * sin(ROTMS);
+		player->dir.z = aux * sin(ROTMS) + player->dir.z * cos(ROTMS);
 	}
 	if (key_flag & CUBK_R)
 	{
 		aux = player->dir.x;
-		player->dir.x = aux * cos(-ROTSPEED) - \
-		player->dir.z * sin(-ROTSPEED);
-		player->dir.z = aux * sin(-ROTSPEED) + \
-		player->dir.z * cos(-ROTSPEED);
+		player->dir.x = aux * cos(-ROTMS) - player->dir.z * sin(-ROTMS);
+		player->dir.z = aux * sin(-ROTMS) + player->dir.z * cos(-ROTMS);
+	}
+	if (ang != 0)
+	{
+		aux = player->dir.x;
+		player->dir.x = aux * cos(ang) - player->dir.z * sin(ang);
+		player->dir.z = aux * sin(ang) + player->dir.z * cos(ang);
 	}
 }

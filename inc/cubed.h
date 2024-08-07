@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/05 17:25:45 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:02:35 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@
 
 	MLX Termination.
 	Clean exit.
-
-	Define windows rezising.
 
 	Make squares for all sizes.
 */
@@ -108,7 +106,10 @@ magnitude of the movement per translation tick */
 
 /* Rotation speed. Angle to use in rotation matrix per rotation tick */
 /* Having MIN_WALL_DIST + MS >= 1 could cause a crash */
-# define ROTSPEED 0.1
+# define ROTMS 0.1
+
+/* Multiplier for mouse rotation movement speed */
+# define MOUSE_ROTMS_FACTOR 0.01
 
 /* Values for keypress flags, helps making movement smoother */
 # define CUBK_A 0x1
@@ -154,9 +155,6 @@ magnitude of the movement per translation tick */
 int				print_error(int return_value, \
 const char		*error_message, const char *strerror);
 
-/* MLX initialization, hooks, and termination */
-int				config_mlx(t_cube *data);
-
 /* Hook for MLX that contains an actions for each key press */
 void			key_hook(mlx_key_data_t keydata, void *param);
 
@@ -165,10 +163,7 @@ void			do_translation(t_player *player, \
 int **map, unsigned int key_flag);
 
 /* Performs the rotation calculations */
-void			do_rotation(t_player *player, unsigned int key_flag);
-
-/* DDA algorithm, hooked into mlx_loop, executed each frame */
-void			simulation_loop(void *data);
+void	do_rotation(t_player *player, t_ged *ged, int unsigned key_flag);
 
 /* Stores in dst the clockwise perpendicular 2d´vector to src */
 void			perp_clockwise_v2(t_v2 *src, t_v2 *dst);
@@ -191,7 +186,7 @@ void			check_door_hit(t_dda *dda, \
 t_player *player, int **map, int *hit);
 
 /* DDA - Detects ray hit */
-void			set_raycasting_data(t_player *player, t_dda *dda);
+void			set_raycasting_data(t_player *player, t_dda *dda, t_ged *ged);
 void			set_step(t_player *player, t_dda *dda);
 void			ft_dda(t_dda *dda, t_player *player, int **map);
 
@@ -200,5 +195,8 @@ void			ft_dda_door(t_dda *dda, int **map);
 
 /* Updates door status each frame*/
 void			update_doors(t_cube *data, int **map);
+
+/* Closes the windows to finish the simulation. */
+void			escape_window(mlx_key_data_t keydata, t_cube *data);
 
 #endif

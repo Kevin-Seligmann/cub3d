@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:14:12 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/05 16:12:57 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:34:17 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,8 @@ int		get_map_color(t_cube *data, char **args, char *line);
 /* Process map */
 int		process_map(t_cube *data, int ind);
 int		get_map_info(t_parser *parse, t_sim *sim, int **arr);
+
+/* If windows size change, update images */
+void	update_size(t_ged *ged);
 
 #endif
