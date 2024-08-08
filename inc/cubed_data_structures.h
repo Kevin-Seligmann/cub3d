@@ -6,7 +6,7 @@
 /*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/07 15:38:33 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/09 00:14:45 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_dda
 	double			door_x;
 	unsigned int	x;
 	unsigned int	y;
+	unsigned int	z;
 }	t_dda;
 
 /*
@@ -114,6 +115,8 @@ typedef struct s_sim
 	unsigned int	width;
 	unsigned int	floor_color;
 	unsigned int	ceiling_color;
+	unsigned int	mm_floor_color;
+	unsigned int	mm_wall_color;
 	t_player		player;
 }	t_sim;
 
