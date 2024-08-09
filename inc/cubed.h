@@ -6,7 +6,7 @@
 /*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/08 23:58:11 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/09 17:30:02 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,9 @@
 /* Windows Height */
 # define HEIGHT 600.
 
+/*Minimap scale multiplier*/
+# define MM_SCALE 10.
+
 /* Used to determine FOV. For 1, FOV is 90. For 0.66, FOV is 60 */
 # define CAM_V_LENGTH 0.66
 
@@ -175,6 +178,8 @@ unsigned int	get_rgba(int r, int g, int b, int a);
 /* Draws the scene and minimap*/
 void			draw(t_dda *dda, t_ged *ged, t_sim *sim);
 void			draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim);
+void			draw_square_1(t_ged *ged, unsigned int x, unsigned int y);
+void			draw_square_2(t_ged *ged, unsigned int x, unsigned int y);
 
 /* Performs the raycasting algorithm, DDA */
 void			ft_raycasting(t_cube *game);
