@@ -6,7 +6,7 @@
 /*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:41:35 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/09 15:35:19 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/09 18:03:46 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static int	config_mlx(t_cube *data)
 	data->ged.img = mlx_new_image(data->ged.mlx, WIDTH, HEIGHT);
 	data->ged.minimap = mlx_new_image(data->ged.mlx, data->sim.width * MM_SCALE, data->sim.height * MM_SCALE);
 	mlx_image_to_window(data->ged.mlx, data->ged.minimap, 0, 0);
-	ft_memset(data->ged.minimap->pixels, 255, data->ged.minimap->width * data->ged.minimap->height * sizeof(int32_t));
 	mlx_image_to_window(data->ged.mlx, data->ged.img, 0, 0);
 	mlx_set_instance_depth(data->ged.img->instances, 0);
 	mlx_set_instance_depth(data->ged.minimap->instances, 1);
