@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/07 15:02:35 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/08 23:58:11 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,8 +172,9 @@ void			perp_clockwise_vf2(t_vd2 *src, t_vd2 *dst);
 /* Transforms RGBA into a 4 bytes hex */
 unsigned int	get_rgba(int r, int g, int b, int a);
 
-/* Draws the scene */
+/* Draws the scene and minimap*/
 void			draw(t_dda *dda, t_ged *ged, t_sim *sim);
+void			draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim);
 
 /* Performs the raycasting algorithm, DDA */
 void			ft_raycasting(t_cube *game);
@@ -198,5 +199,9 @@ void			update_doors(t_cube *data, int **map);
 
 /* Closes the windows to finish the simulation. */
 void			escape_window(mlx_key_data_t keydata, t_cube *data);
+
+/*On/Off the map*/
+
+void			on_off_minimap(mlx_key_data_t keydata, t_cube *data);
 
 #endif

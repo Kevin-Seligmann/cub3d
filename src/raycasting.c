@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:00:36 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/07 13:40:46 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/09 14:58:43 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void	ft_raycasting(t_cube *data)
 
 	dda = &data->dda;
 	dda->x = 0;
-	while (dda->x < data->ged.img->width)
+	while (dda->x < data->ged.img->width || dda->x < data->ged.minimap->width)
 	{
 		set_raycasting_data(&data->sim.player, &data->dda, &data->ged);
 		set_step(&data->sim.player, &data->dda);
