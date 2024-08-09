@@ -6,7 +6,7 @@
 /*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:37:59 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/07 17:22:40 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/09 15:03:38 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void	escape_window(mlx_key_data_t keydata, t_cube *data)
 {
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		mlx_terminate(data->ged.mlx);
+		mlx_close_window(data->ged.mlx);
 }
 
 void	on_off_minimap(mlx_key_data_t keydata, t_cube *data)

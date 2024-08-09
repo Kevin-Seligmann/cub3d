@@ -6,7 +6,7 @@
 /*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:00:36 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/09 00:04:16 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/09 14:58:43 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,8 +163,6 @@ void	ft_raycasting(t_cube *data)
 		check_door_side(dda, data->sim.map);
 		get_wall_dist(&data->dda);
 		draw(&data->dda, &data->ged, &data->sim);
-		draw_mini_map(&data->dda, &data->ged, &data->sim);
-		printf("He entrado minimpa\n");
 		dda->x ++;
 	}
 }

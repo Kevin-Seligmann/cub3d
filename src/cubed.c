@@ -6,7 +6,7 @@
 /*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:41:35 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/07 16:57:41 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/09 15:00:11 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	simulation_loop(void *param)
 	do_rotation(&data->sim.player, &data->ged, data->ged.key_flag);
 	do_translation(&data->sim.player, data->sim.map, data->ged.key_flag);
 	update_doors(data, data->sim.map);
+	draw_mini_map(&data->dda, &data->ged, &data->sim);
 	ft_raycasting(data);
 }
 

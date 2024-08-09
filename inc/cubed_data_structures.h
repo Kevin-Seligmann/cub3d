@@ -6,7 +6,7 @@
 /*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/09 00:14:45 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/09 11:17:47 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef struct s_dda
 	double			door_x;
 	unsigned int	x;
 	unsigned int	y;
-	unsigned int	z;
+	//unsigned int	z;
 }	t_dda;
 
 /*
@@ -148,6 +148,7 @@ typedef struct s_texture_pack
 
 	'mlx'. MLX instance.
 	'img'. MLX image.
+	'minimap'. MLX minimap.
 	'texts'. Loaded game textures.
 	'key_flag'. Which keys are being pressed.
 	'mouse_x'. Mouse offset from intial x position.

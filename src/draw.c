@@ -6,7 +6,7 @@
 /*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:34:43 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/09 00:16:51 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/09 15:01:16 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,19 +121,22 @@ void	draw(t_dda *dda, t_ged *ged, t_sim *sim)
 
 void	draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim)
 {
-	set_line_limits(dda, ged);
-	dda->z = 0;
-	while (dda->z < ged->minimap->height)
+	unsigned int	x;
+	unsigned int	y;
+	
+	(void)dda;
+	y = 0;
+	while (y < sim->height)
 	{
-		if ((int) dda->z < dda->line_start)
-			mlx_put_pixel(ged->minimap, dda->x, dda->z, sim->mm_wall_color);
-		else if ((int) dda->y >= dda->line_end)
-			mlx_put_pixel(ged->minimap, dda->x, dda->z, sim->mm_floor_color);
-		else
+		x = 0;
+		while (x <sim->width)
 		{
-			get_texture_x(dda, &sim->player);
-			put_texture_pixel(ged, dda);
+			if (sim->map[y][x] == '1')
+				mlx_put_pixel(ged->minimap, x, y, 0xFFFF00F0);
+			else
+				mlx_put_pixel(ged->minimap, x, y, 0x0000FFF0);
+			x++;
 		}
-		dda->z ++;
+		y++;
 	}
 }
