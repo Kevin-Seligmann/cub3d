@@ -32,7 +32,7 @@ CFLAGS = -Wall -Wextra -Werror -MMD $(INC) -g
 MLXFLAGS = -ldl -lglfw -pthread -lm
 
 # Rules
-all: $(OBJ_FOLDER) mlibft mmlx $(NAME)
+all: $(MLX_FOLDER) $(OBJ_FOLDER) mlibft mmlx $(NAME)
 
 # Linking
 $(NAME): $(LFT) $(MLX) $(OBJ_DIR)
@@ -73,5 +73,9 @@ re: fclean all
 # Utils
 $(OBJ_FOLDER):
 	@mkdir -p $(OBJ_FOLDER)
+
+$(MLX_FOLDER):
+	git clone git@github.com:codam-coding-college/MLX42.git
+	
 
 -include $(DEPS)
