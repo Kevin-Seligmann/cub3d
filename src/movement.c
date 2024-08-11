@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:31:23 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/11 19:10:09 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/11 21:14:15 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,10 @@ void	do_rotation(t_player *player, t_ged *ged, int unsigned key_flag)
 	double	aux;
 	double	ang;
 
-	ang = ged->mouse_x;
-	mlx_get_mouse_pos(ged->mlx, &ged->mouse_x, &ged->mouse_y);
-	ang = (ang - ged->mouse_x) * MOUSE_ROTMS_FACTOR;
+	ged->old_mouse_pos.x = ged->mouse_pos.x;
+	ged->old_mouse_pos.z = ged->mouse_pos.z;
+	mlx_get_mouse_pos(ged->mlx, &ged->mouse_pos.x, &ged->mouse_pos.z);
+	ang = (ged->mouse_pos.x - ged->old_mouse_pos.x) * MOUSE_ROTMS_FACTOR;
 	if (key_flag & CUBK_L)
 	{
 		aux = player->dir.x;

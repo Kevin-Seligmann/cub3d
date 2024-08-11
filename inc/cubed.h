@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/11 17:21:42 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/11 21:10:06 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ void			do_translation(t_player *player, \
 int **map, unsigned int key_flag);
 
 /* Performs the rotation calculations */
-void		do_rotation(t_player *player, t_ged *ged, int unsigned key_flag);
+void			do_rotation(t_player *player, t_ged *ged, int unsigned key_flag);
 
 /* Stores in dst the clockwise perpendicular 2d´vector to src */
 void			perp_clockwise_v2(t_v2 *src, t_v2 *dst);
@@ -207,7 +207,6 @@ void			update_doors(t_cube *data, int **map);
 void			escape_window(mlx_key_data_t keydata, t_cube *data);
 
 /*On/Off the map*/
-
 void			on_off_minimap(mlx_key_data_t keydata, t_cube *data);
 
 #endif

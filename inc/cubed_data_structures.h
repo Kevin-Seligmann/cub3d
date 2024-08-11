@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed_data_structures.h                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/09 11:17:47 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/11 21:12:57 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ typedef struct s_texture_pack
 	'minimap'. MLX minimap.
 	'texts'. Loaded game textures.
 	'key_flag'. Which keys are being pressed.
-	'mouse_x'. Mouse offset from intial x position.
+	'mouse_pos'. Mouse offset from intial x position.
 	'mouse_y'. Mouse offset from initial y position.
 */
 typedef struct s_ged
@@ -163,8 +163,8 @@ typedef struct s_ged
 	unsigned int	win_height;
 	unsigned int	win_width;
 	unsigned int	key_flag;
-	int				mouse_x;
-	int				mouse_y;
+	t_v2			old_mouse_pos;
+	t_v2			mouse_pos;
 }	t_ged;
 
 /*
