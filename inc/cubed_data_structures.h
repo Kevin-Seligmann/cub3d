@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed_data_structures.h                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/09 11:17:47 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/11 17:24:16 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ typedef struct s_dda
 	double			door_x;
 	unsigned int	x;
 	unsigned int	y;
-	//unsigned int	z;
 }	t_dda;
 
 /*
@@ -121,11 +120,7 @@ typedef struct s_sim
 }	t_sim;
 
 /*
-	Textures.
-
-	the xmp_t will be used only if the texture provided is XMP42.
-	xmp_t constains a texture itself. The xpm_t is here to
-	keep the reference for no purpose, XML should handle it.
+	Textures
 */
 typedef struct s_texture_pack
 {
@@ -135,12 +130,7 @@ typedef struct s_texture_pack
 	mlx_texture_t	*west_wall;
 	mlx_texture_t	*door_side;
 	mlx_texture_t	*door;
-	xpm_t			*east_wall_xpm;
-	xpm_t			*north_wall_xpm;
-	xpm_t			*south_wall_xpm;
-	xpm_t			*west_wall_xpm;
-	xpm_t			*door_side_xpm;
-	xpm_t			*door_xpm;
+	mlx_texture_t	sprites[8][30];
 }	t_texture_pack;
 
 /*
@@ -174,6 +164,7 @@ typedef struct s_ged
 	'config'. Configuration on a string.
 	'conflig_line'. Configuration separated by lines.
 	'door_found'. If a door has been found on config file.
+	'sprite_found'. If a sprite has been found in the map.
 */
 typedef struct s_parser
 {
@@ -181,7 +172,7 @@ typedef struct s_parser
 	char	*config;
 	char	**config_lines;
 	bool	door_found;
-//	bool	sprite_found[8][30];
+	bool	sprite_found[8];
 }	t_parser;
 
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/08 23:58:11 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/11 17:06:50 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,6 @@ void			update_doors(t_cube *data, int **map);
 void			escape_window(mlx_key_data_t keydata, t_cube *data);
 
 /*On/Off the map*/
-
 void			on_off_minimap(mlx_key_data_t keydata, t_cube *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:28:57 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/05 17:14:14 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/11 17:35:11 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static int	process_element(t_cube *data, char *line)
 	else if (!ft_strcmp(args[0], FLOOR_ID) || \
 		!ft_strcmp(args[0], CEILING_ID))
 		return_value = get_map_color(data, args, line);
+	else if (is_sprite_id(args[0]))
+		return_value = get_sprite_texture(data, args);
 	else
 		return_value = print_error(-1, WRONG_LINE_CONTENT, 0);
 	ft_arr_free(args);
@@ -61,7 +63,9 @@ static bool	obligatory_elements_are_set(t_cube *data)
 		data->sim.player.dir.x == -2 || \
 		data->sim.player.dir.z == -2 || \
 		(data->parse.door_found == true && \
-		(data->ged.textures.door == 0 || data->ged.textures.door_side == 0)))
+		(data->ged.textures.door == 0 || \
+		data->ged.textures.door_side == 0)) || \
+		found_sprite_is_not_set(data))
 		return (false);
 	return (true);
 }
@@ -79,12 +83,6 @@ static void	set_default_config(t_cube *data)
 	data->ged.textures.west_wall = 0;
 	data->ged.textures.door = 0;
 	data->ged.textures.door_side = 0;
-	data->ged.textures.north_wall_xpm = 0;
-	data->ged.textures.south_wall_xpm = 0;
-	data->ged.textures.east_wall_xpm = 0;
-	data->ged.textures.west_wall_xpm = 0;
-	data->ged.textures.door_xpm = 0;
-	data->ged.textures.door_side_xpm = 0;
 	data->sim.ceiling_color = 0;
 	data->sim.floor_color = 0;
 	data->sim.player.dir.x = -2;
