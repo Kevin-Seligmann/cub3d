@@ -1,7 +1,7 @@
-NO ./textures/bluestone.png
-SO ./textures/greystone.png
-WE ./textures/redbrick.png
-EA ./textures/wood.png
+NO ./textures/42.png
+SO ./textures/42.png
+WE ./textures/42.png
+EA ./textures/42.png
 DR ./textures/DoorBlue.png ./textures/DoorBlue2.png
 
 F 120,200,50
