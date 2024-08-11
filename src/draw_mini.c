@@ -3,7 +3,22 @@
 /*Draw the miniplayer in Scale proportion of the map, using less than MM_SCale as multiplier and a colour */
 void	draw_mini_player(t_ged *ged, t_sim *sim)
 {
-			mlx_put_pixel(ged->minimap, sim->player.pos.x, sim->player.pos.z, 0xFFFFFF);
+	double	square_x;
+	double	square_z;
+
+	square_x = 0;
+	square_z = 0;
+	while (square_x < MM_SCALE)
+	{
+        square_z = 0;
+		while (square_z < MM_SCALE)
+		{
+			mlx_put_pixel(ged->minimap, sim->player.pos.x * MM_SCALE + square_x, sim->player.pos.z * MM_SCALE + square_z, 0xFF0000FF);
+			square_z++;
+		}
+		square_x++;
+	}		
+			
 }
 
 /*Draw the minimap in Scale proportion of the map, using MM_SCale as multiplier  and a colour*/
@@ -19,7 +34,7 @@ void	draw_square_1(t_ged *ged, unsigned int x, unsigned int y)
         square_y = 0;
 		while (square_y < MM_SCALE)
 		{
-			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x, y * MM_SCALE + square_y, 0x0000FFF);
+			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x, y * MM_SCALE + square_y, 0x0000FF);
 			square_y++;
 		}
 		square_x++;
