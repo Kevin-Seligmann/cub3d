@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:31:23 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/07 15:00:11 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/11 19:10:09 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,13 @@ void	do_translation(t_player *player, int **map, unsigned int key_flag)
 	}
 	else if (key_flag & CUBK_A)
 	{
-		player->pos.x += movex(player, map, -MS * player->dir.z);
-		player->pos.z += movez(player, map, MS * player->dir.x);
+		player->pos.x += movex(player, map, MS * player->dir.z);
+		player->pos.z += movez(player, map, -MS * player->dir.x);
 	}
 	else if (key_flag & CUBK_D)
 	{
-		player->pos.x += movex(player, map, MS * player->dir.z);
-		player->pos.z += movez(player, map, -MS * player->dir.x);
+		player->pos.x += movex(player, map, -MS * player->dir.z);
+		player->pos.z += movez(player, map, MS * player->dir.x);
 	}
 }
 
@@ -122,14 +122,14 @@ void	do_rotation(t_player *player, t_ged *ged, int unsigned key_flag)
 	if (key_flag & CUBK_L)
 	{
 		aux = player->dir.x;
-		player->dir.x = aux * cos(ROTMS) - player->dir.z * sin(ROTMS);
-		player->dir.z = aux * sin(ROTMS) + player->dir.z * cos(ROTMS);
+		player->dir.x = aux * cos(-ROTMS) - player->dir.z * sin(-ROTMS);
+		player->dir.z = aux * sin(-ROTMS) + player->dir.z * cos(-ROTMS);
 	}
 	if (key_flag & CUBK_R)
 	{
 		aux = player->dir.x;
-		player->dir.x = aux * cos(-ROTMS) - player->dir.z * sin(-ROTMS);
-		player->dir.z = aux * sin(-ROTMS) + player->dir.z * cos(-ROTMS);
+		player->dir.x = aux * cos(ROTMS) - player->dir.z * sin(ROTMS);
+		player->dir.z = aux * sin(ROTMS) + player->dir.z * cos(ROTMS);
 	}
 	if (ang != 0)
 	{
