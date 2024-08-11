@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:34:43 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/09 17:48:53 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/11 19:08:55 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	put_texture_pixel(t_ged *gph, t_dda *dda)
 	ypos = (dda->y - dda->line_start) * \
 	((texture->height - 1.) / dda->line_height);
 	tex_coord = (xpos + ypos * texture->width) * 4;
-	mlx_put_pixel(gph->img, dda->x, dda->y, \
+	mlx_put_pixel(gph->img, gph->win_width - dda->x, dda->y, \
 	get_rgba(texture->pixels[tex_coord], \
 	texture->pixels[tex_coord + 1], \
 	texture->pixels[tex_coord + 2], \
@@ -107,9 +107,11 @@ void	draw(t_dda *dda, t_ged *ged, t_sim *sim)
 	while (dda->y < ged->img->height)
 	{
 		if ((int) dda->y < dda->line_start)
-			mlx_put_pixel(ged->img, dda->x, dda->y, sim->ceiling_color);
+			mlx_put_pixel(ged->img, ged->win_width - dda->x, \
+			dda->y, sim->ceiling_color);
 		else if ((int) dda->y >= dda->line_end)
-			mlx_put_pixel(ged->img, dda->x, dda->y, sim->floor_color);
+			mlx_put_pixel(ged->img, ged->win_width - dda->x, \
+			dda->y, sim->floor_color);
 		else
 		{
 			get_texture_x(dda, &sim->player);
