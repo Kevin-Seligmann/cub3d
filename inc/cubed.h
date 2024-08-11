@@ -6,7 +6,7 @@
 /*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/09 22:55:36 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/11 17:21:42 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ unsigned int	get_rgba(int r, int g, int b, int a);
 /* Draws the scene and minimap*/
 void			draw(t_dda *dda, t_ged *ged, t_sim *sim);
 void			draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim);
+void			draw_mini_player(t_ged *ged, t_sim *sim);
 void			draw_square_1(t_ged *ged, unsigned int x, unsigned int y);
 void			draw_square_2(t_ged *ged, unsigned int x, unsigned int y);
 
