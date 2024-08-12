@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/12 03:02:02 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/12 21:57:17 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,24 @@ typedef struct s_vd2
 	double	x;
 	double	z;
 }	t_vd2;
+
+typedef struct s_sprite
+{
+	mlx_texture_t	*texture;
+	t_vd2			pos;
+	t_vd2			transform;
+	double			zbuffer[WIDTHINT];
+	double			det_inv;
+	t_v2			draw_start;
+	t_v2			draw_end;
+	t_v2			dim;
+	t_v2			ind;
+	t_v2			text;
+	int				text_coord;
+	int				screen_x;
+	int				sprite_ind;
+	unsigned int	color;
+}	t_sprite;
 
 /*
 	DDA variables.
@@ -82,7 +100,7 @@ typedef struct s_dda
 	double			door_x;
 	unsigned int	x;
 	unsigned int	y;
-	double			zbuffer[WIDTHINT];
+	t_sprite		sprite;
 }	t_dda;
 
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:41:35 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/09 15:00:11 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/12 17:53:06 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	simulation_loop(void *param)
 	update_doors(data, data->sim.map);
 	draw_mini_map(&data->dda, &data->ged, &data->sim);
 	ft_raycasting(data);
+	update_sprites(data);
 }
 
 /*

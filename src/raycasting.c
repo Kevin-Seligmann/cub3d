@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:00:36 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/12 15:13:55 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/12 21:46:56 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ static void	get_wall_dist(t_dda *dda)
 		else if (dda->step.x == -1 && dda->side == 0)
 			dda->wall_dist -= 0.5 / dda->ray_dir.x;
 	}
-	dda->zbuffer[dda->x] = dda->wall_dist * dda->wall_dist;
+	dda->sprite.zbuffer[dda->x] = dda->wall_dist;
 }
 
 /*

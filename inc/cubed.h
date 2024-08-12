@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/12 15:01:46 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:58:37 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,8 @@ void			on_off_minimap(mlx_key_data_t keydata, t_cube *data);
 
 /* Draws sprites into the screen */
 void	draw_sprites(t_cube *data);
+
+/* Update sprites */
+void	update_sprites(t_cube *data);
 
 #endif
