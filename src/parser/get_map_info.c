@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:45:30 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/05 17:16:03 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/12 02:44:32 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,36 @@ int	square_is_enclosed(t_sim *map, int **arr, unsigned int i, unsigned int j)
 }
 
 /*
-	Sets door state to close.
+	Sets door state to close. Tells if door or spray has been found.
 */
-static void	configurate_door(t_parser *parse, \
+static void	configurate_door_and_sprite(t_parser *parse, \
 unsigned int i, unsigned int j, int **map)
 {
-	parse->door_found = true;
-	if (map[i][j] == 'O')
-		map[i][j] = DOOR_NS;
-	else if (map[i][j] == 'P')
-		map[i][j] = DOOR_WE;
+	if (ft_strchr("OP", map[i][j]))
+	{
+		parse->door_found = true;
+		if (map[i][j] == 'O')
+			map[i][j] = DOOR_NS;
+		else if (map[i][j] == 'P')
+			map[i][j] = DOOR_WE;
+		return ;
+	}
+	if (map[i][j] == '2')
+		parse->sprite_found[0] = true;
+	else if (map[i][j] == '3')
+		parse->sprite_found[1] = true;
+	else if (map[i][j] == '4')
+		parse->sprite_found[2] = true;
+	else if (map[i][j] == '5')
+		parse->sprite_found[3] = true;
+	else if (map[i][j] == '6')
+		parse->sprite_found[4] = true;
+	else if (map[i][j] == '7')
+		parse->sprite_found[5] = true;
+	else if (map[i][j] == '8')
+		parse->sprite_found[6] = true;
+	else if (map[i][j] == '9')
+		parse->sprite_found[7] = true;
 }
 
 /*
@@ -107,16 +127,16 @@ int	get_map_info(t_parser *parse, t_sim *sim, int **arr)
 		j = 0;
 		while (arr[i][j])
 		{
-			if (!ft_strchr(" 01WESNOP", arr[i][j]))
+			if (!ft_strchr(" 0123456789WESNOP", arr[i][j]))
 				return (print_error(-1, WRONG_LINE_CONTENT, "Map"));
 			if (ft_strchr("WESN", arr[i][j]) \
 			&& set_player_coordinates(sim, arr, i, j) == -1)
 				return (-1);
-			if (ft_strchr("0WESNOP", arr[i][j]) \
+			if (ft_strchr("023456789WESNOP", arr[i][j]) \
 			&& square_is_enclosed(sim, arr, i, j) == -1)
 				return (-1);
-			if (ft_strchr("OP", arr[i][j]))
-				configurate_door(parse, i, j, arr);
+			if (ft_strchr("OP23456789", arr[i][j]))
+				configurate_door_and_sprite(parse, i, j, arr);
 			j ++;
 		}
 		i ++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:00:36 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/09 14:58:43 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/12 15:13:55 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ static void	get_wall_dist(t_dda *dda)
 		else if (dda->step.x == -1 && dda->side == 0)
 			dda->wall_dist -= 0.5 / dda->ray_dir.x;
 	}
+	dda->zbuffer[dda->x] = dda->wall_dist * dda->wall_dist;
 }
 
 /*
@@ -162,7 +163,8 @@ void	ft_raycasting(t_cube *data)
 		ft_dda(&data->dda, &data->sim.player, data->sim.map);
 		check_door_side(dda, data->sim.map);
 		get_wall_dist(&data->dda);
-		draw(&data->dda, &data->ged, &data->sim);
+		draw_scene(&data->dda, &data->ged, &data->sim);
+		draw_sprites(data);
 		dda->x ++;
 	}
 }

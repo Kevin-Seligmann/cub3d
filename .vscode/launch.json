@@ -5,7 +5,7 @@
 		"type": "cppdbg",
 		"request": "launch",
 		"program": "/home/kseus/cub3d/cub3D",
-		"args": ["/home/kseus/cub3d/maps/tests/valid.cub"],
+		"args": ["/home/kseus/cub3d/maps/tests/sprites.cub"],
 		"stopAtEntry": false,
 		"cwd": "/home/kseus/cub3d",
 		"environment": [],

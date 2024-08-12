@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/11 17:24:16 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/12 03:02:02 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define CUBED_DATA_STRUCTURES_H
 
 # include "MLX42/MLX42.h"
+# include "defines.h"
 
 /* Red, green, blue, alpha (opacity) */
 typedef struct s_rgba
@@ -81,6 +82,7 @@ typedef struct s_dda
 	double			door_x;
 	unsigned int	x;
 	unsigned int	y;
+	double			zbuffer[WIDTHINT];
 }	t_dda;
 
 /*
@@ -106,6 +108,7 @@ typedef struct s_player
 	'floor_color'. Floor color.
 	'ceiling_color'. Ceiling color'
 	'player'. Player data.
+	'sprite_ind'. Looping through sprites (x = ind, z = max)
 */
 typedef struct s_sim
 {
@@ -130,7 +133,8 @@ typedef struct s_texture_pack
 	mlx_texture_t	*west_wall;
 	mlx_texture_t	*door_side;
 	mlx_texture_t	*door;
-	mlx_texture_t	sprites[8][30];
+	mlx_texture_t	*sprites[8][30];
+	t_v2			sprite_ind[8];
 }	t_texture_pack;
 
 /*
