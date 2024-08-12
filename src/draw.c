@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:34:43 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/12 16:22:40 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/12 14:48:17 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static void	put_texture_pixel(t_ged *gph, t_dda *dda)
 	If the pixel is inside the texture, maps
 	the pixel to the texture
 */
-void	draw(t_dda *dda, t_ged *ged, t_sim *sim)
+void	draw_scene(t_dda *dda, t_ged *ged, t_sim *sim)
 {
 	set_line_limits(dda, ged);
 	dda->y = 0;

@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"string_view": "c",
-		"errno.h": "c"
+		"errno.h": "c",
+		"functional": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:14:12 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/07 13:34:17 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:01:41 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@
 */
 
 # include "cubed_data_structures.h"
+# include "defines.h"
 
 /* Process file config */
 int		process_file_config(t_cube *data);
@@ -75,5 +76,17 @@ int		get_map_info(t_parser *parse, t_sim *sim, int **arr);
 
 /* If windows size change, update images */
 void	update_size(t_ged *ged);
+
+/* If an identifier is a sprite */
+bool		is_sprite_id(char *id);
+
+/*
+	If a sprite has been found on the map, but its texture has not been
+	provided
+*/
+bool	found_sprite_is_not_set(t_cube *data);
+
+/* Gets a sprite texture */
+int	get_sprite_texture(t_cube *data, char **args);
 
 #endif

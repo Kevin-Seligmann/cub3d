@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/11 21:12:57 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/12 21:57:17 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define CUBED_DATA_STRUCTURES_H
 
 # include "MLX42/MLX42.h"
+# include "defines.h"
 
 /* Red, green, blue, alpha (opacity) */
 typedef struct s_rgba
@@ -38,6 +39,24 @@ typedef struct s_vd2
 	double	x;
 	double	z;
 }	t_vd2;
+
+typedef struct s_sprite
+{
+	mlx_texture_t	*texture;
+	t_vd2			pos;
+	t_vd2			transform;
+	double			zbuffer[WIDTHINT];
+	double			det_inv;
+	t_v2			draw_start;
+	t_v2			draw_end;
+	t_v2			dim;
+	t_v2			ind;
+	t_v2			text;
+	int				text_coord;
+	int				screen_x;
+	int				sprite_ind;
+	unsigned int	color;
+}	t_sprite;
 
 /*
 	DDA variables.
@@ -81,7 +100,7 @@ typedef struct s_dda
 	double			door_x;
 	unsigned int	x;
 	unsigned int	y;
-	//unsigned int	z;
+	t_sprite		sprite;
 }	t_dda;
 
 /*
@@ -107,6 +126,7 @@ typedef struct s_player
 	'floor_color'. Floor color.
 	'ceiling_color'. Ceiling color'
 	'player'. Player data.
+	'sprite_ind'. Looping through sprites (x = ind, z = max)
 */
 typedef struct s_sim
 {
@@ -121,11 +141,7 @@ typedef struct s_sim
 }	t_sim;
 
 /*
-	Textures.
-
-	the xmp_t will be used only if the texture provided is XMP42.
-	xmp_t constains a texture itself. The xpm_t is here to
-	keep the reference for no purpose, XML should handle it.
+	Textures
 */
 typedef struct s_texture_pack
 {
@@ -135,12 +151,8 @@ typedef struct s_texture_pack
 	mlx_texture_t	*west_wall;
 	mlx_texture_t	*door_side;
 	mlx_texture_t	*door;
-	xpm_t			*east_wall_xpm;
-	xpm_t			*north_wall_xpm;
-	xpm_t			*south_wall_xpm;
-	xpm_t			*west_wall_xpm;
-	xpm_t			*door_side_xpm;
-	xpm_t			*door_xpm;
+	mlx_texture_t	*sprites[8][30];
+	t_v2			sprite_ind[8];
 }	t_texture_pack;
 
 /*
@@ -174,6 +186,7 @@ typedef struct s_ged
 	'config'. Configuration on a string.
 	'conflig_line'. Configuration separated by lines.
 	'door_found'. If a door has been found on config file.
+	'sprite_found'. If a sprite has been found in the map.
 */
 typedef struct s_parser
 {
@@ -181,7 +194,7 @@ typedef struct s_parser
 	char	*config;
 	char	**config_lines;
 	bool	door_found;
-//	bool	sprite_found[8][30];
+	bool	sprite_found[8];
 }	t_parser;
 
 /*
