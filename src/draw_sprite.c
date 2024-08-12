@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 22:18:55 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/12 22:23:24 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/12 23:09:47 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ static void	put_sprite_pixel(t_sprite *spr, t_ged *ged)
 {
 	spr->text.z = ((((spr->ind.z) * 256 - ged->img->height * 128 + \
 	spr->dim.z  * 128) * spr->texture->height) / spr->dim.z) / 256;
-	spr->text_coord = (spr->text.x + spr->text.z * spr->texture->width) * 4;
+	spr->text_coord = ((spr->texture->width - spr->text.x) + spr->text.z * spr->texture->width) * 4;
 	spr->color = get_rgba(spr->texture->pixels[spr->text_coord], \
 	spr->texture->pixels[spr->text_coord + 1], \
 	spr->texture->pixels[spr->text_coord + 2], \
 	spr->texture->pixels[spr->text_coord + 3]);
 	if (spr->color != 0)
-		mlx_put_pixel(ged->img, spr->ind.x, spr->ind.z, spr->color);
+		mlx_put_pixel(ged->img, ged->img->width - spr->ind.x, spr->ind.z, spr->color);
 	spr->ind.z ++;
 }
 
@@ -72,7 +72,7 @@ static void	draw_sprite(t_ged *ged, t_sprite *spr)
 		}
 		spr->zbuffer[spr->ind.x] = spr->transform.z;
 		spr->text.x = (int) ((spr->ind.x - (-spr->dim.x / 2 + \
-		spr->screen_x)) * spr->texture->width / spr->dim.z);
+		spr->screen_x)) * spr->texture->width / spr->dim.x);
 		spr->ind.z = spr->draw_start.z;
 		while (spr->ind.z < spr->draw_end.z)
 			put_sprite_pixel(spr, ged);
@@ -95,6 +95,7 @@ void	draw_sprites(t_cube *data)
 			{
 				data->dda.sprite.pos.x = i + 0.5 - data->sim.player.pos.x;
 				data->dda.sprite.pos.z = j + 0.5 - data->sim.player.pos.z;
+				data->dda.sprite.sprite_ind = data->sim.map[j][i] - '2';
 				do_sprite_transform(&data->dda.sprite, \
 				&data->dda, &data->sim.player, &data->ged);
 				get_draw_limits(&data->dda.sprite, &data->ged);
