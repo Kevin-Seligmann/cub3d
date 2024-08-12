@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:41:35 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/11 21:13:30 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:20:15 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	simulation_loop(void *param)
 	t_cube	*data;
 
 	data = param;
+	update_size(&data->ged);
 	do_rotation(&data->sim.player, &data->ged, data->ged.key_flag);
 	do_translation(&data->sim.player, data->sim.map, data->ged.key_flag);
 	update_doors(data, data->sim.map);
@@ -36,7 +37,7 @@ static int	config_mlx(t_cube *data)
 	data->ged.key_flag = 0;
 	data->ged.win_height = HEIGHT;
 	data->ged.win_width = WIDTH;
-	data->ged.mlx = mlx_init(WIDTH, HEIGHT, WINDOWS_TITLE, false);
+	data->ged.mlx = mlx_init(WIDTH, HEIGHT, WINDOWS_TITLE, true);
 	if (!data->ged.mlx)
 		return (print_error(-1, MLX_ERROR, mlx_strerror(mlx_errno)));
 	data->ged.img = mlx_new_image(data->ged.mlx, WIDTH, HEIGHT);
