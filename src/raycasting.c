@@ -156,7 +156,7 @@ void	ft_raycasting(t_cube *data)
 
 	dda = &data->dda;
 	dda->x = 0;
-	while (dda->x < data->ged.img->width || dda->x < data->ged.minimap->width)
+	while (dda->x < data->ged.img->width)
 	{
 		set_raycasting_data(&data->sim.player, &data->dda, &data->ged);
 		set_step(&data->sim.player, &data->dda);

@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:31:23 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/07 15:00:11 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/11 21:14:15 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,13 @@ void	do_translation(t_player *player, int **map, unsigned int key_flag)
 	}
 	else if (key_flag & CUBK_A)
 	{
-		player->pos.x += movex(player, map, -MS * player->dir.z);
-		player->pos.z += movez(player, map, MS * player->dir.x);
+		player->pos.x += movex(player, map, MS * player->dir.z);
+		player->pos.z += movez(player, map, -MS * player->dir.x);
 	}
 	else if (key_flag & CUBK_D)
 	{
-		player->pos.x += movex(player, map, MS * player->dir.z);
-		player->pos.z += movez(player, map, -MS * player->dir.x);
+		player->pos.x += movex(player, map, -MS * player->dir.z);
+		player->pos.z += movez(player, map, MS * player->dir.x);
 	}
 }
 
@@ -116,20 +116,21 @@ void	do_rotation(t_player *player, t_ged *ged, int unsigned key_flag)
 	double	aux;
 	double	ang;
 
-	ang = ged->mouse_x;
-	mlx_get_mouse_pos(ged->mlx, &ged->mouse_x, &ged->mouse_y);
-	ang = (ang - ged->mouse_x) * MOUSE_ROTMS_FACTOR;
+	ged->old_mouse_pos.x = ged->mouse_pos.x;
+	ged->old_mouse_pos.z = ged->mouse_pos.z;
+	mlx_get_mouse_pos(ged->mlx, &ged->mouse_pos.x, &ged->mouse_pos.z);
+	ang = (ged->mouse_pos.x - ged->old_mouse_pos.x) * MOUSE_ROTMS_FACTOR;
 	if (key_flag & CUBK_L)
-	{
-		aux = player->dir.x;
-		player->dir.x = aux * cos(ROTMS) - player->dir.z * sin(ROTMS);
-		player->dir.z = aux * sin(ROTMS) + player->dir.z * cos(ROTMS);
-	}
-	if (key_flag & CUBK_R)
 	{
 		aux = player->dir.x;
 		player->dir.x = aux * cos(-ROTMS) - player->dir.z * sin(-ROTMS);
 		player->dir.z = aux * sin(-ROTMS) + player->dir.z * cos(-ROTMS);
+	}
+	if (key_flag & CUBK_R)
+	{
+		aux = player->dir.x;
+		player->dir.x = aux * cos(ROTMS) - player->dir.z * sin(ROTMS);
+		player->dir.z = aux * sin(ROTMS) + player->dir.z * cos(ROTMS);
 	}
 	if (ang != 0)
 	{

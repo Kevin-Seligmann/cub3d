@@ -53,10 +53,14 @@ t_texture_pack *textures, mlx_texture_t **texture)
 */
 static void	get_texture_x(t_dda *dda, t_player *player)
 {
-	if (dda->side == 0)
+	if (dda->side == 0 && (dda->step.x == 1 || dda->door_hit))
 		dda->texture_x = player->pos.z + dda->wall_dist * dda->ray_dir.z;
-	else
+	else if (dda->side == 0 && dda->step.x == -1)
+		dda->texture_x = 1 - (player->pos.z + dda->wall_dist * dda->ray_dir.z);
+	else if (dda->side == 1 && (dda->step.z == -1 || dda->door_hit))
 		dda->texture_x = player->pos.x + dda->wall_dist * dda->ray_dir.x;
+	else
+		dda->texture_x = 1 - (player->pos.x + dda->wall_dist * dda->ray_dir.x);
 	if (dda->door_hit)
 		dda->texture_x -= dda->door_offset;
 	dda->texture_x = (dda->texture_x - floorf(dda->texture_x));
@@ -84,7 +88,7 @@ static void	put_texture_pixel(t_ged *gph, t_dda *dda)
 	ypos = (dda->y - dda->line_start) * \
 	((texture->height - 1.) / dda->line_height);
 	tex_coord = (xpos + ypos * texture->width) * 4;
-	mlx_put_pixel(gph->img, dda->x, dda->y, \
+	mlx_put_pixel(gph->img, gph->img->width - dda->x, dda->y, \
 	get_rgba(texture->pixels[tex_coord], \
 	texture->pixels[tex_coord + 1], \
 	texture->pixels[tex_coord + 2], \
@@ -107,9 +111,11 @@ void	draw_scene(t_dda *dda, t_ged *ged, t_sim *sim)
 	while (dda->y < ged->img->height)
 	{
 		if ((int) dda->y < dda->line_start)
-			mlx_put_pixel(ged->img, dda->x, dda->y, sim->ceiling_color);
+			mlx_put_pixel(ged->img, ged->img->width - dda->x, \
+			dda->y, sim->ceiling_color);
 		else if ((int) dda->y >= dda->line_end)
-			mlx_put_pixel(ged->img, dda->x, dda->y, sim->floor_color);
+			mlx_put_pixel(ged->img, ged->img->width - dda->x, \
+			dda->y, sim->floor_color);
 		else
 		{
 			get_texture_x(dda, &sim->player);

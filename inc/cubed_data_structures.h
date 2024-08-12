@@ -163,7 +163,7 @@ typedef struct s_texture_pack
 	'minimap'. MLX minimap.
 	'texts'. Loaded game textures.
 	'key_flag'. Which keys are being pressed.
-	'mouse_x'. Mouse offset from intial x position.
+	'mouse_pos'. Mouse offset from intial x position.
 	'mouse_y'. Mouse offset from initial y position.
 */
 typedef struct s_ged
@@ -175,8 +175,8 @@ typedef struct s_ged
 	unsigned int	win_height;
 	unsigned int	win_width;
 	unsigned int	key_flag;
-	int				mouse_x;
-	int				mouse_y;
+	t_v2			old_mouse_pos;
+	t_v2			mouse_pos;
 }	t_ged;
 
 /*

@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/12 17:58:37 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/11 21:10:06 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # include "cubed_data_structures.h"
 # include "defines.h"
 
+
 /* Prints an error with the provided strings and returns 'return_value' */
 int				print_error(int return_value, \
 const char		*error_message, const char *strerror);
@@ -60,7 +61,7 @@ void			do_translation(t_player *player, \
 int **map, unsigned int key_flag);
 
 /* Performs the rotation calculations */
-void	do_rotation(t_player *player, t_ged *ged, int unsigned key_flag);
+void			do_rotation(t_player *player, t_ged *ged, int unsigned key_flag);
 
 /* Stores in dst the clockwise perpendicular 2d´vector to src */
 void			perp_clockwise_v2(t_v2 *src, t_v2 *dst);
@@ -72,6 +73,9 @@ unsigned int	get_rgba(int r, int g, int b, int a);
 /* Draws the scene and minimap*/
 void			draw_scene(t_dda *dda, t_ged *ged, t_sim *sim);
 void			draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim);
+void			draw_mini_player(t_ged *ged, t_sim *sim);
+void			draw_square_1(t_ged *ged, unsigned int x, unsigned int y);
+void			draw_square_2(t_ged *ged, unsigned int x, unsigned int y);
 
 /* Performs the raycasting algorithm, DDA */
 void			ft_raycasting(t_cube *game);

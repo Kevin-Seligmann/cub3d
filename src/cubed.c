@@ -42,13 +42,12 @@ static int	config_mlx(t_cube *data)
 	if (!data->ged.mlx)
 		return (print_error(-1, MLX_ERROR, mlx_strerror(mlx_errno)));
 	data->ged.img = mlx_new_image(data->ged.mlx, WIDTH, HEIGHT);
-	data->ged.minimap = mlx_new_image(data->ged.mlx, data->sim.width * 5, data->sim.height * 5);
+	data->ged.minimap = mlx_new_image(data->ged.mlx, data->sim.width * MM_SCALE, data->sim.height * MM_SCALE);
 	mlx_image_to_window(data->ged.mlx, data->ged.minimap, 0, 0);
-	ft_memset(data->ged.minimap->pixels, 255, data->ged.minimap->width * data->ged.minimap->height * sizeof(int32_t));
 	mlx_image_to_window(data->ged.mlx, data->ged.img, 0, 0);
 	mlx_set_instance_depth(data->ged.img->instances, 0);
 	mlx_set_instance_depth(data->ged.minimap->instances, 1);
-	printf("HE entrado\n");
+	mlx_get_mouse_pos(data->ged.mlx, &data->ged.mouse_pos.x, &data->ged.mouse_pos.z);
 	mlx_key_hook(data->ged.mlx, key_hook, data);
 	mlx_loop_hook(data->ged.mlx, simulation_loop, data);
 	return (0);
