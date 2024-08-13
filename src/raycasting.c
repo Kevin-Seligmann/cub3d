@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 11:00:36 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/12 21:46:56 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/13 06:14:30 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ void	ft_raycasting(t_cube *data)
 		check_door_side(dda, data->sim.map);
 		get_wall_dist(&data->dda);
 		draw_scene(&data->dda, &data->ged, &data->sim);
-		draw_sprites(data);
 		dda->x ++;
 	}
+	draw_sprites(data);
 }

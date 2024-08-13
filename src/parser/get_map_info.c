@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:45:30 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/12 02:44:32 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/13 03:43:27 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	square_is_enclosed(t_sim *map, int **arr, unsigned int i, unsigned int j)
 /*
 	Sets door state to close. Tells if door or spray has been found.
 */
-static void	configurate_door_and_sprite(t_parser *parse, \
+static void	config_door(t_parser *parse, \
 unsigned int i, unsigned int j, int **map)
 {
 	if (ft_strchr("OP", map[i][j]))
@@ -93,39 +93,45 @@ unsigned int i, unsigned int j, int **map)
 			map[i][j] = DOOR_WE;
 		return ;
 	}
-	if (map[i][j] == '2')
-		parse->sprite_found[0] = true;
-	else if (map[i][j] == '3')
-		parse->sprite_found[1] = true;
-	else if (map[i][j] == '4')
-		parse->sprite_found[2] = true;
-	else if (map[i][j] == '5')
-		parse->sprite_found[3] = true;
-	else if (map[i][j] == '6')
-		parse->sprite_found[4] = true;
-	else if (map[i][j] == '7')
-		parse->sprite_found[5] = true;
-	else if (map[i][j] == '8')
-		parse->sprite_found[6] = true;
-	else if (map[i][j] == '9')
-		parse->sprite_found[7] = true;
 }
 
+void	config_sprite(t_cube *data, int i, int j, int **map)
+{
+	int	ind;
+
+	if (data->dda.sprite.sprite_count == 29)
+	{
+		print_error(0, "Warning: sprite limit reached, sprite ignored", 0);
+		return ;
+	}
+	data->dda.sprite.sprites[data->dda.sprite.sprite_count].pos.x = j + 0.5;
+	data->dda.sprite.sprites[data->dda.sprite.sprite_count].pos.z = i + 0.5;
+	data->dda.sprite.sprites[data->dda.sprite.sprite_count].sprite_ind = \
+	map[i][j] - '2';
+	ind = '2';
+	while (ind < '9' + 1)
+	{
+		if (map[i][j] == ind)
+			data->parse.sprite_found[ind - '2'] = true;
+		ind ++;
+	}
+	data->dda.sprite.sprite_count ++;
+}
 /*
 	If a character that doesn't belong on a map is present, returns -1.
 	If a character is a coordinate, extracts the data.
 	Checks if empty spaces are enclosed.
 */
-int	get_map_info(t_parser *parse, t_sim *sim, int **arr)
+int	get_map_info(t_cube *data, t_parser *parse, t_sim *sim, int **arr)
 {
 	unsigned int	i;
 	unsigned int	j;
 
-	i = 0;
-	while (arr[i])
+	i = -1;
+	while (arr[++i])
 	{
-		j = 0;
-		while (arr[i][j])
+		j = -1;
+		while (arr[i][++j])
 		{
 			if (!ft_strchr(" 0123456789WESNOP", arr[i][j]))
 				return (print_error(-1, WRONG_LINE_CONTENT, "Map"));
@@ -135,11 +141,11 @@ int	get_map_info(t_parser *parse, t_sim *sim, int **arr)
 			if (ft_strchr("023456789WESNOP", arr[i][j]) \
 			&& square_is_enclosed(sim, arr, i, j) == -1)
 				return (-1);
-			if (ft_strchr("OP23456789", arr[i][j]))
-				configurate_door_and_sprite(parse, i, j, arr);
-			j ++;
+			if (ft_strchr("OP", arr[i][j]))
+				config_door(parse, i, j, arr);
+			if (ft_strchr("23456789", arr[i][j]))
+				config_sprite(data, i, j, arr);
 		}
-		i ++;
 	}
 	return (0);
 }

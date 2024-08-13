@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/12 21:57:17 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/13 03:23:44 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ typedef struct s_vd2
 
 typedef struct s_sprite
 {
+	t_vd2	pos;
+	double	dist;
+	int		sprite_ind;
+}	t_sprite;
+
+typedef struct s_sprite_dda
+{
+	t_sprite		sprites[30];
 	mlx_texture_t	*texture;
 	t_vd2			pos;
 	t_vd2			transform;
@@ -50,13 +58,14 @@ typedef struct s_sprite
 	t_v2			draw_start;
 	t_v2			draw_end;
 	t_v2			dim;
-	t_v2			ind;
 	t_v2			text;
+	t_v2			ind;
 	int				text_coord;
 	int				screen_x;
+	int				sprite_count;
 	int				sprite_ind;
 	unsigned int	color;
-}	t_sprite;
+}	t_sprite_dda;
 
 /*
 	DDA variables.
@@ -100,7 +109,7 @@ typedef struct s_dda
 	double			door_x;
 	unsigned int	x;
 	unsigned int	y;
-	t_sprite		sprite;
+	t_sprite_dda	sprite;
 }	t_dda;
 
 /*
@@ -126,7 +135,6 @@ typedef struct s_player
 	'floor_color'. Floor color.
 	'ceiling_color'. Ceiling color'
 	'player'. Player data.
-	'sprite_ind'. Looping through sprites (x = ind, z = max)
 */
 typedef struct s_sim
 {
@@ -151,7 +159,7 @@ typedef struct s_texture_pack
 	mlx_texture_t	*west_wall;
 	mlx_texture_t	*door_side;
 	mlx_texture_t	*door;
-	mlx_texture_t	*sprites[8][30];
+	mlx_texture_t	*sprites_text[8][30];
 	t_v2			sprite_ind[8];
 }	t_texture_pack;
 

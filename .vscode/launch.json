@@ -8,22 +8,8 @@
 		"args": ["/home/kseus/cub3d/maps/tests/sprites.cub"],
 		"stopAtEntry": false,
 		"cwd": "/home/kseus/cub3d",
-		"environment": [],
 		"externalConsole": false,
 		"MIMode": "gdb",
-		"preLaunchTask": "build",
-		"setupCommands": [
-			{
-				"description": "Enable pretty-printing for gdb",
-				"text": "-enable-pretty-printing",
-				"ignoreFailures": true
-			},
-			{
-				"description": "Set Disassembly Flavor to Intel",
-				"text": "-gdb-set disassembly-flavor intel",
-				"ignoreFailures": true
-			}
-		]
 	}
 	]
 }

@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 17:28:56 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/12 02:57:40 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/13 02:33:49 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	found_sprite_is_not_set(t_cube *data)
 	ind = 0;
 	while (ind < 8)
 	{
-		if (data->parse.sprite_found[ind] && *(data->ged.textures.sprites[ind]) == NULL)
+		if (data->parse.sprite_found[ind] && *(data->ged.textures.sprites_text[ind]) == NULL)
 			return (true);
 		ind ++;
 	}
@@ -79,7 +79,7 @@ int	get_sprite_texture(t_cube *data, char **args)
 	texture = mlx_load_png(args[1]);
 	if (!texture)
 		return (print_error(-1, CANT_LOAD_TEXTURE, mlx_strerror(mlx_errno)));
-	data->ged.textures.sprites[sprite_ind][sprite_frame] = texture;
+	data->ged.textures.sprites_text[sprite_ind][sprite_frame] = texture;
 	data->ged.textures.sprite_ind[sprite_ind].z ++;
 	return (0);
 }
