@@ -77,7 +77,7 @@ $(OBJ_FOLDER):
 	@mkdir -p $(OBJ_FOLDER)
 
 $(MLX_FOLDER):
-	git clone git@github.com:codam-coding-college/MLX42.git
+	git clone https://github.com/codam-coding-college/MLX42.git
 	
 
 -include $(DEPS)

@@ -21,6 +21,25 @@ void	draw_mini_player(t_ged *ged, t_sim *sim)
 			
 }
 
+void	draw_door(t_ged *ged, unsigned int x, unsigned int y)
+{
+	unsigned int	square_x;
+	unsigned int	square_y;
+
+	square_x = 0;
+	square_y = 0;
+	while (square_x < MM_SCALE)
+	{
+        square_y = 0;
+		while (square_y < MM_SCALE)
+		{
+			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x, y * MM_SCALE + square_y, 0x00FF00FF);
+			square_y++;
+		}
+		square_x++;
+	}
+}
+
 /*Draw the minimap in Scale proportion of the map, using MM_SCale as multiplier  and a colour*/
 void	draw_square_1(t_ged *ged, unsigned int x, unsigned int y)
 {
@@ -78,6 +97,8 @@ void	draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim)
 			draw_mini_player(ged, sim);
 			if (sim->map[y][x] == '1')
 				draw_square_1(ged, x, y);
+			else if (sim->map[y][x] == '0')
+				draw_door(ged, x, y);
 			else
 				draw_square_2(ged, x, y);
 			x++;
