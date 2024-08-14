@@ -6,7 +6,7 @@
 /*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/14 11:24:04 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/14 18:02:35 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,9 @@ void			draw_scene(t_dda *dda, t_ged *ged, t_sim *sim);
 void			draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim);
 void			draw_door(t_ged *ged, unsigned int x, unsigned int y);
 void			draw_mini_player(t_ged *ged, t_sim *sim);
-void			draw_square_1(t_ged *ged, unsigned int x, unsigned int y);
-void			draw_square_2(t_ged *ged, unsigned int x, unsigned int y);
+void			draw_mini_sprite(t_ged *ged, unsigned int x, unsigned int y);
+void			draw_mini_wall(t_ged *ged, unsigned int x, unsigned int y);
+void			draw_mini_floor(t_ged *ged, unsigned int x, unsigned int y);
 
 /* Performs the raycasting algorithm, DDA */
 void			ft_raycasting(t_cube *game);
