@@ -3,6 +3,7 @@
 /*Draw the miniplayer in Scale proportion of the map, using less than MM_SCale as multiplier and a colour */
 void	draw_mini_player(t_ged *ged, t_sim *sim)
 {
+	/*
 	double	square_x;
 	double	square_z;
 
@@ -18,7 +19,22 @@ void	draw_mini_player(t_ged *ged, t_sim *sim)
 		}
 		square_x++;
 	}		
-			
+	*/
+	double x, z;
+    double radius = MM_SCALE / 2.0;  // Radio del círculo, basado en el tamaño de escala del minimapa
+    double center_x = sim->player.pos.x * MM_SCALE + radius;
+    double center_z = sim->player.pos.z * MM_SCALE + radius;
+
+    for (x = -radius; x <= radius; x++)
+    {
+        for (z = -radius; z <= radius; z++)
+        {
+            if (x * x + z * z <= radius * radius)  // Ecuación de un círculo: x^2 + z^2 <= r^2
+            {
+                mlx_put_pixel(ged->minimap, center_x + x, center_z + z, 0xFF0000FF);
+            }
+        }
+    }		
 }
 
 void	draw_door(t_ged *ged, unsigned int x, unsigned int y)
