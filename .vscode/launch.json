@@ -1,15 +1,14 @@
 {
 	"configurations": [
 	{
-		"name": "(gdb) Launch",
+		"name": "gbd: make + launch",
 		"type": "cppdbg",
 		"request": "launch",
-		"program": "/home/kseus/cub3d/cub3D",
-		"args": ["/home/kseus/cub3d/maps/tests/sprites.cub"],
-		"stopAtEntry": false,
-		"cwd": "/home/kseus/cub3d",
-		"externalConsole": false,
+		"program": "${workspaceFolder}/cub3D",
+		"args": ["${workspaceFolder}/maps/tests/sprites.cub"],
 		"MIMode": "gdb",
+		"cwd": "${workspaceFolder}",
+		"preLaunchTask": "make"
 	}
 	]
 }

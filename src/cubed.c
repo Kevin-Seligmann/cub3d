@@ -6,12 +6,21 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:41:35 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/12 17:53:06 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/16 22:38:40 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include "parser.h"
+
+static int	handle_main_error(t_cube *cube, int ret, char *err, const char *strerr)
+{
+	if (cube->ged.mlx)
+		mlx_terminate(cube->ged.mlx);
+	if (cube->sim.map)
+		ft_arr_free_int(cube->sim.map);
+	return (print_error(ret, err, strerr));
+}
 
 /*
 	Main loop hook.
@@ -40,16 +49,18 @@ static int	config_mlx(t_cube *data)
 	data->ged.win_width = WIDTH;
 	data->ged.mlx = mlx_init(WIDTH, HEIGHT, WINDOWS_TITLE, true);
 	if (!data->ged.mlx)
-		return (print_error(-1, MLX_ERROR, mlx_strerror(mlx_errno)));
+		return (handle_main_error(data, -1, MLX_ERROR, mlx_strerror(mlx_errno)));
 	data->ged.img = mlx_new_image(data->ged.mlx, WIDTH, HEIGHT);
 	data->ged.minimap = mlx_new_image(data->ged.mlx, data->sim.width * MM_SCALE, data->sim.height * MM_SCALE);
-	mlx_image_to_window(data->ged.mlx, data->ged.minimap, 0, 0);
-	mlx_image_to_window(data->ged.mlx, data->ged.img, 0, 0);
+	if (!data->ged.img || !data->ged.minimap || \
+	mlx_image_to_window(data->ged.mlx, data->ged.minimap, 0, 0) == -1 || \
+	mlx_image_to_window(data->ged.mlx, data->ged.img, 0, 0) == -1  || \
+	mlx_loop_hook(data->ged.mlx, simulation_loop, data) == false)
+		return (handle_main_error(data, -1, MLX_ERROR, mlx_strerror(mlx_errno)));
 	mlx_set_instance_depth(data->ged.img->instances, 0);
 	mlx_set_instance_depth(data->ged.minimap->instances, 1);
 	mlx_get_mouse_pos(data->ged.mlx, &data->ged.mouse_pos.x, &data->ged.mouse_pos.z);
 	mlx_key_hook(data->ged.mlx, key_hook, data);
-	mlx_loop_hook(data->ged.mlx, simulation_loop, data);
 	return (0);
 }
 

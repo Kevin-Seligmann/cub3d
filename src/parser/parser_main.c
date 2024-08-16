@@ -6,12 +6,45 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 21:34:38 by kseligma          #+#    #+#             */
-/*   Updated: 2024/07/30 20:25:18 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/16 15:14:08 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include "parser.h"
+
+bool	is_map_line_2(char *line, int *ind)
+{
+	bool	is_map;
+	bool	found_space;
+
+	found_space = false;
+	while (line[*ind] == ' ')
+	{
+		(*ind)++;
+		found_space = true;
+	}
+	is_map = line[*ind] == '1' || (found_space && (line[*ind] == '\n' || !line[*ind]));
+	while (line[*ind] && line[*ind] != '\n')
+		(*ind)++;
+	if (line[*ind] == '\n')
+		(*ind)++;
+	return (is_map);
+}
+
+static int	valid_map(char *line)
+{
+	int	ind;
+
+	ind = 0;
+	while (!is_map_line_2(line, &ind))
+		;
+	while (is_map_line_2(line, &ind))
+		;
+	if (line[ind])
+		return (-1);
+	return (0);
+};
 
 /*
 	Copies the information stored in the config file to a
@@ -36,6 +69,8 @@ static int	copy_file_to_tab(t_parser *parse_data)
 			return (print_error(-1, MEMORY_ERROR, 0));
 		line = get_next_line(parse_data->fd);
 	}
+	if (valid_map(parse_data->config) == -1)
+		return (print_error(-1, WRONG_LINE_CONTENT, 0));
 	parse_data->config_lines = ft_split(parse_data->config, '\n');
 	if (!parse_data->config_lines)
 		return (print_error(-1, MEMORY_ERROR, 0));

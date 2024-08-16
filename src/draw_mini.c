@@ -8,12 +8,12 @@ void	draw_mini_player(t_ged *ged, t_sim *sim)
 
 	square_x = 0;
 	square_z = 0;
-	while (square_x < MM_SCALE)
+	while (square_x < MM_SCALE / 2)
 	{
         square_z = 0;
-		while (square_z < MM_SCALE)
+		while (square_z < MM_SCALE / 4)
 		{
-			mlx_put_pixel(ged->minimap, sim->player.pos.x * MM_SCALE + square_x, sim->player.pos.z * MM_SCALE + square_z, 0xFF0000FF);
+			mlx_put_pixel(ged->minimap, sim->player.pos.x * MM_SCALE + square_x - MM_SCALE / 4, sim->player.pos.z * MM_SCALE + square_z - MM_SCALE / 4 , 0xFF0000FF);
 			square_z++;
 		}
 		square_x++;
@@ -53,7 +53,7 @@ void	draw_square_1(t_ged *ged, unsigned int x, unsigned int y)
         square_y = 0;
 		while (square_y < MM_SCALE)
 		{
-			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x, y * MM_SCALE + square_y, 0x0000FF);
+			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x, y * MM_SCALE + square_y, 0x000000B0);
 			square_y++;
 		}
 		square_x++;
@@ -73,7 +73,7 @@ void	draw_square_2(t_ged *ged, unsigned int x, unsigned int y)
         square_y = 0;
 		while (square_y < MM_SCALE)
 		{
-			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x, y * MM_SCALE + square_y, 0xFFFFFFF);
+			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x, y * MM_SCALE + square_y, 0xFFFFFFB0);
 			square_y++;
 		}
 		square_x++;
@@ -97,8 +97,8 @@ void	draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim)
 			draw_mini_player(ged, sim);
 			if (sim->map[y][x] == '1')
 				draw_square_1(ged, x, y);
-			else if (sim->map[y][x] == '0')
-				draw_door(ged, x, y);
+//			else if (sim->map[y][x] == '0')
+//				draw_door(ged, x, y);
 			else
 				draw_square_2(ged, x, y);
 			x++;

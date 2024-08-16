@@ -5,13 +5,6 @@
             "label": "make",
             "type": "shell",
             "command": "make",
-            "args": [],
-            "group": {
-                "kind": "make",
-                "isDefault": true
-            },
-            "problemMatcher": ["$gcc"],
-            "detail": "Generated task for running the Makefile"
         }
     ]
 }

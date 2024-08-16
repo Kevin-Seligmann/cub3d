@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 02:59:58 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/14 11:13:08 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/14 13:38:31 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ magnitude of the movement per translation tick */
 # define DOOR_NS 100
 # define DOOR_WE 200
 
-# define MM_SCALE 40
+# define MM_SCALE 10
 
 /* User messages */
 # define INVALID_NUMBER_ARGS "The number of arguments is invalid"
