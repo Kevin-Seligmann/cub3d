@@ -101,13 +101,12 @@ void	draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim)
 		while (x < sim->width)
 		{
 			draw_mini_player(ged, sim);
-			draw_mini_door(ged, sim, x, y);
 			if (sim->map[y][x] == '1')
 				draw_mini_wall(ged, x, y);
 			else if (sim->map[y][x] == '0')
 				draw_mini_floor(ged, x, y);
-			//else if (sim->map[y][x] >= 0 && sim->map[x][y] <=99)
-			//	draw_mini_door(ged, sim, x, y);
+			else if (sim->map[y][x] >= 100 && sim->map[y][x] < 300)
+				draw_mini_door(ged, sim, x, y);
 			else if (sim->map[y][x] >= '2' || sim->map[y][x] <= '9') 
 				draw_mini_sprite(ged, x, y);
 			x++;

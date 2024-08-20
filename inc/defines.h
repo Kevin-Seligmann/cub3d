@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 02:59:58 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/17 17:40:52 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/20 15:58:40 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@
 
 /* Program constants */
 /* Windows Width */
-# define WIDTH 800.
-# define WIDTHINT 800
+# define WIDTH 1000.
+# define WIDTHINT 1000
 
 /* Windows Height */
 # define HEIGHT 600.
@@ -94,10 +94,10 @@ magnitude of the movement per translation tick */
 
 /*
 	Door opening state. 
-	0. Close.
-	1-49. Opening.
-	50. Open.
-	51-99. Closing.
+	100 or 200. Closed.
+	101-149 or 201 - 249. Opening.
+	150 or 250. Opened.
+	151-199 or 251-299. Closing.
 */
 # define DOOR_NS 100
 # define DOOR_WE 200
