@@ -1,0 +1,54 @@
+Test name: big_map.cub
+Exit code: 0 $
+
+Test name: door.cub
+Exit code: 0 $
+
+Test name: full_sprites.cub
+Exit code: 0 $
+
+Test name: look_east.cub
+Exit code: 0 $
+
+Test name: look_north.cub
+Exit code: 0 $
+
+Test name: look_south.cub
+Exit code: 0 $
+
+Test name: look_west.cub
+Exit code: 0 $
+
+Test name: many_newlines.cub
+Exit code: 0 $
+
+Test name: no_nl_end.cub
+Exit code: 0 $
+
+Test name: order_scrambled_1.cub
+Exit code: 0 $
+
+Test name: order_scrambled_2.cub
+Exit code: 0 $
+
+Test name: order_scrambled_3.cub
+Exit code: 0 $
+
+Test name: spaced_elements1.cub
+Exit code: 0 $
+
+Test name: spaced_elements2.cub
+Exit code: 0 $
+
+Test name: spaced_map.cub
+Exit code: 0 $
+
+Test name: valid.cub
+Exit code: 0 $
+
+Test name: walk_around.cub
+Exit code: 0 $
+
+Test name: big_map.cub
+Exit code: 0 $
+

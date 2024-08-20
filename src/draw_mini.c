@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:18:32 by oseivane          #+#    #+#             */
-/*   Updated: 2024/08/20 19:44:35 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 19:52:49 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,28 @@ void	draw_mini_player(t_ged *ged, int center_x, int center_z)
 			z++;
 		}
 		x++;
+	}
+}
+
+/*Draw the minimap in Scale proportion of the map,
+using MM_SCale as multiplier  and a colour*/
+void	draw_mini_void(t_ged *ged, unsigned int x, unsigned int y)
+{
+	unsigned int	square_x;
+	unsigned int	square_y;
+
+	square_x = 0;
+	square_y = 0;
+	while (square_x < MM_SCALE)
+	{
+		square_y = 0;
+		while (square_y < MM_SCALE)
+		{
+			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x,
+				y * MM_SCALE + square_y, 0);
+			square_y++;
+		}
+		square_x++;
 	}
 }
 
@@ -152,7 +174,9 @@ void	draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim)
 		x = 0;
 		while (x < mm_size.x)
 		{
-			if (sim->map[corner.z + y][corner.x + x] == '1')
+			if (corner.z + y >= (int) sim->height || corner.x + x >= (int) sim->width)
+				draw_mini_void(ged, x, y);
+			else if (sim->map[corner.z + y][corner.x + x] == '1')
 				draw_mini_wall(ged, x, y);
 			else if (sim->map[corner.z + y][corner.x + x] == '0')
 				draw_mini_floor(ged, x, y);
@@ -160,8 +184,6 @@ void	draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim)
 				draw_mini_door(ged, sim, x, y);
 			else if (sim->map[corner.z][corner.x] >= '2' || sim->map[corner.z][corner.x] <= '9') 
 				draw_mini_sprite(ged, x, y);
-			else
-				draw_mini_wall(ged, x, y);
 			x ++;
 		}
 		y ++;
