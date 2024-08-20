@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:41:35 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/20 19:30:42 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:23:54 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	simulation_loop(void *param)
 static void	config_mlx(t_cube *data)
 {
 	data->ged.key_flag = 0;
+	data->ged.mm_scale = MM_SCALE;
 	data->ged.win_height = HEIGHT;
 	data->ged.win_width = WIDTH;
 	data->ged.mlx = mlx_init(WIDTH, HEIGHT, WINDOWS_TITLE, true);

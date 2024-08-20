@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:59:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/07 17:15:50 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/20 20:17:42 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	t_cube	*data;
 
 	data = param;
-	on_off_minimap(keydata, data);
+	minimap_controls(keydata, data);
 	escape_window(keydata, data);
 	rotation_keys(keydata, &data->ged.key_flag);
 	strafe_keys(keydata, &data->ged.key_flag);

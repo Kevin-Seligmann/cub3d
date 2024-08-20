@@ -6,7 +6,7 @@
 /*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/08/20 20:01:49 by oseivane         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:17:42 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void			update_doors(t_cube *data, int **map);
 void			escape_window(mlx_key_data_t keydata, t_cube *data);
 
 /*On/Off the map*/
-void			on_off_minimap(mlx_key_data_t keydata, t_cube *data);
+void			minimap_controls(mlx_key_data_t keydata, t_cube *data);
 
 /* Draws sprites into the screen */
 void			draw_sprites(t_cube *data);

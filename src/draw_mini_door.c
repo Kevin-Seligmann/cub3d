@@ -6,7 +6,7 @@
 /*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:26:41 by oseivane          #+#    #+#             */
-/*   Updated: 2024/08/20 20:08:00 by oseivane         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:23:41 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	draw_mini_door_closed(t_ged *ged, unsigned int x, unsigned int y)
 
 	square_x = 0;
 	square_y = 0;
-	while (square_x < MM_SCALE)
+	while (square_x < ged->mm_scale)
 	{
 		square_y = 0;
-		while (square_y < MM_SCALE)
+		while (square_y < ged->mm_scale)
 		{
-			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x,
-				y * MM_SCALE + square_y, 0xf71109FF);
+			mlx_put_pixel(ged->minimap, x * ged->mm_scale + square_x,
+				y * ged->mm_scale + square_y, 0xf71109FF);
 			square_y++;
 		}
 		square_x++;
@@ -39,13 +39,13 @@ void	draw_mini_door_opened(t_ged *ged, unsigned int x, unsigned int y)
 
 	square_x = 0;
 	square_y = 0;
-	while (square_x < MM_SCALE)
+	while (square_x < ged->mm_scale)
 	{
 		square_y = 0;
-		while (square_y < MM_SCALE)
+		while (square_y < ged->mm_scale)
 		{
-			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x,
-				y * MM_SCALE + square_y, 0x08f409FF);
+			mlx_put_pixel(ged->minimap, x * ged->mm_scale + square_x,
+				y * ged->mm_scale + square_y, 0x08f409FF);
 			square_y++;
 		}
 		square_x++;
@@ -59,13 +59,13 @@ void	draw_mini_door_move(t_ged *ged, unsigned int x, unsigned int y)
 
 	square_x = 0;
 	square_y = 0;
-	while (square_x < MM_SCALE)
+	while (square_x < ged->mm_scale)
 	{
 		square_y = 0;
-		while (square_y < MM_SCALE)
+		while (square_y < ged->mm_scale)
 		{
-			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x,
-				y * MM_SCALE + square_y, 0xFFFF00FF);
+			mlx_put_pixel(ged->minimap, x * ged->mm_scale + square_x,
+				y * ged->mm_scale + square_y, 0xFFFF00FF);
 			square_y++;
 		}
 		square_x++;
