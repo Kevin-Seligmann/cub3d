@@ -3,51 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   parser_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 21:34:38 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/20 12:52:07 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:16:55 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include "parser.h"
 
-bool	is_map_line_char_p(char *line, int *ind)
+bool	is_map_line_char_p(char *line, int ind)
 {
 	bool	is_map;
 	bool	found_space;
 
+	if (!line[ind])
+		return (false);
 	found_space = false;
-	while (line[*ind] == ' ')
+	while (line[ind] == ' ')
 	{
-		(*ind)++;
+		(ind)++;
 		found_space = true;
 	}
-	is_map = line[*ind] == '1' || (found_space && (line[*ind] == '\n' || !line[*ind]));
-	while (line[*ind] && line[*ind] != '\n')
-		(*ind)++;
-	if (line[*ind] == '\n')
-		(*ind)++;
+	is_map = line[ind] == '1' || (found_space && (line[ind] == '\n' || !line[ind]));
 	return (is_map);
 }
 
 static void	empty_after_map(t_cube *data, char *line)
 {
 	int		ind;
-	bool	is_map;
 
 	ind = 0;
-	while (!is_map_line_char_p(line, &ind))
+	while (!is_map_line_char_p(line, ind))
 	{
+		while (line[ind] != '\n' && line[ind])
+			ind++;
+		if (line[ind] == '\n')
+			ind ++;
 		if (!line[ind])
 			exit_cubed(data, -1, "Map not found", 0);
 	}
-	while (is_map_line_char_p(line, &ind))
-		;
+	while (is_map_line_char_p(line, ind))
+	{
+		while (line[ind] != '\n' && line[ind])
+			ind++;
+		if (line[ind] == '\n')
+			ind ++;
+	}
 	if (line[ind])
-		exit_cubed(data, -1, "WRONG_LINE_CONTENT", "After map");
-};
+		exit_cubed(data, -1, WRONG_LINE_CONTENT, "After map");
+}
 
 /*
 	Copies the information stored in the config file to a
