@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_mini.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:18:32 by oseivane          #+#    #+#             */
-/*   Updated: 2024/08/20 19:44:35 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:06:04 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	draw_mini_wall(t_ged *ged, unsigned int x, unsigned int y)
 		while (square_y < MM_SCALE)
 		{
 			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x,
-				y * MM_SCALE + square_y, 0xFFFFFFFF);
+				y * MM_SCALE + square_y, 0x000000C0);
 			square_y++;
 		}
 		square_x++;
@@ -74,7 +74,7 @@ void	draw_mini_floor(t_ged *ged, unsigned int x, unsigned int y)
 		while (square_y < MM_SCALE)
 		{
 			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x,
-				y * MM_SCALE + square_y, 0xFFFFFF);
+				y * MM_SCALE + square_y, 0xFFFFFFC0);
 			square_y++;
 		}
 		square_x++;
@@ -156,12 +156,10 @@ void	draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim)
 				draw_mini_wall(ged, x, y);
 			else if (sim->map[corner.z + y][corner.x + x] == '0')
 				draw_mini_floor(ged, x, y);
-			else if (sim->map[corner.z][corner.x] >= 100 && sim->map[corner.z][corner.x] < 300)
-				draw_mini_door(ged, sim, x, y);
+			else if (sim->map[corner.z + y][corner.x + x] >= 100 && sim->map[corner.z + y][corner.x + x] < 300)
+				draw_mini_door(ged, sim, x, y, &corner);
 			else if (sim->map[corner.z][corner.x] >= '2' || sim->map[corner.z][corner.x] <= '9') 
 				draw_mini_sprite(ged, x, y);
-			else
-				draw_mini_wall(ged, x, y);
 			x ++;
 		}
 		y ++;

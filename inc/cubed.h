@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/08/20 19:36:10 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:01:49 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ unsigned int	get_rgba(int r, int g, int b, int a);
 void			draw_scene(t_dda *dda, t_ged *ged, t_sim *sim);
 void			draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim);
 void			draw_mini_door(t_ged *ged, t_sim *sim,
-					unsigned int x, unsigned int y);
+					unsigned int x, unsigned int y, t_v2 *corner);
 void			draw_mini_door_closed(t_ged *ged,
 					unsigned int x, unsigned int y);
 void			draw_mini_door_opened(t_ged *ged,

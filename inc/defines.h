@@ -6,7 +6,7 @@
 /*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 02:59:58 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/20 18:16:18 by oseivane         ###   ########.fr       */
+/*   Updated: 2024/08/20 19:48:34 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ magnitude of the movement per translation tick */
 # define DOOR_NS 100
 # define DOOR_WE 200
 
-# define MM_SCALE 10
+# define MM_SCALE 20
 # define MM_RATIO 0.25
 
 /* User messages */
