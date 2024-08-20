@@ -6,7 +6,7 @@
 /*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/08/20 20:17:42 by oseivane         ###   ########.fr       */
+/*   Updated: 2024/08/20 21:39:48 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void			draw_scene(t_dda *dda, t_ged *ged, t_sim *sim);
 void			draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim);
 void			draw_mini_door(t_ged *ged, t_sim *sim,
 					unsigned int x, unsigned int y, t_v2 *corner);
+void			draw_mini_square(t_ged *ged, unsigned int x,
+					unsigned int y, unsigned int colour);
 void			draw_mini_door_closed(t_ged *ged,
 					unsigned int x, unsigned int y);
 void			draw_mini_door_opened(t_ged *ged,

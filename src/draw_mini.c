@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_mini.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:18:32 by oseivane          #+#    #+#             */
-/*   Updated: 2024/08/20 21:30:53 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 21:41:59 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ void	draw_mini_player(t_ged *ged, int center_x, int center_z)
 	}
 }
 
-/*Draw the minimap in Scale proportion of the map,
-using MM_SCale as multiplier  and a colour*/
-void	draw_mini_void(t_ged *ged, unsigned int x, unsigned int y)
+void	draw_mini_square(t_ged *ged, unsigned int x, unsigned int y, unsigned int colour)
 {
 	unsigned int	square_x;
 	unsigned int	square_y;
@@ -52,71 +50,7 @@ void	draw_mini_void(t_ged *ged, unsigned int x, unsigned int y)
 		while (square_y < ged->mm_scale)
 		{
 			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x,
-				y * MM_SCALE + square_y, 0);
-			square_y++;
-		}
-		square_x++;
-	}
-}
-
-/*Draw the minimap in Scale proportion of the map,
-using MM_SCale as multiplier  and a colour*/
-void	draw_mini_void(t_ged *ged, unsigned int x, unsigned int y)
-{
-	unsigned int	square_x;
-	unsigned int	square_y;
-
-	square_x = 0;
-	square_y = 0;
-	while (square_x < ged->mm_scale)
-	{
-		square_y = 0;
-		while (square_y < MM_SCALE)
-		{
-			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x,
-				y * MM_SCALE + square_y, 0xFFFFFFFF);
-			square_y++;
-		}
-		square_x++;
-	}
-}
-
-/*Draw the minimap in Scale proportion of the map,
-using MM_SCale as multiplier and a colour */
-void	draw_mini_floor(t_ged *ged, unsigned int x, unsigned int y)
-{
-	unsigned int	square_x;
-	unsigned int	square_y;
-
-	square_x = 0;
-	square_y = 0;
-	while (square_x < ged->mm_scale)
-	{
-		square_y = 0;
-		while (square_y < ged->mm_scale)
-		{
-			mlx_put_pixel(ged->minimap, x * ged->mm_scale + square_x,
-				y * ged->mm_scale + square_y, 0xFFFFFFC0);
-			square_y++;
-		}
-		square_x++;
-	}
-}
-
-void	draw_mini_sprite(t_ged *ged, unsigned int x, unsigned int y)
-{
-	unsigned int	square_x;
-	unsigned int	square_y;
-
-	square_x = 0;
-	square_y = 0;
-	while (square_x < ged->mm_scale)
-	{
-		square_y = 0;
-		while (square_y < ged->mm_scale)
-		{
-			mlx_put_pixel(ged->minimap, x * ged->mm_scale + square_x,
-				y * ged->mm_scale + square_y, 0x724dbdFF);
+				y * MM_SCALE + square_y, colour);
 			square_y++;
 		}
 		square_x++;
@@ -175,15 +109,15 @@ void	draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim)
 		while (x < mm_size.x)
 		{
 			if (corner.z + y >= (int) sim->height || corner.x + x >= (int) sim->width)
-				draw_mini_void(ged, x, y);
+				draw_mini_square(ged, x, y, 0);
 			else if (sim->map[corner.z + y][corner.x + x] == '1')
-				draw_mini_wall(ged, x, y);
+				draw_mini_square(ged, x, y, 0xFFFFFFFF);
 			else if (sim->map[corner.z + y][corner.x + x] == '0')
-				draw_mini_floor(ged, x, y);
+				draw_mini_square(ged, x, y, 0xFFFFFFC0);
 			else if (sim->map[corner.z + y][corner.x + x] >= 100 && sim->map[corner.z + y][corner.x + x] < 300)
 				draw_mini_door(ged, sim, x, y, &corner);
 			else if (sim->map[corner.z][corner.x] >= '2' || sim->map[corner.z][corner.x] <= '9') 
-				draw_mini_sprite(ged, x, y);
+				draw_mini_square(ged, x, y, 0x724dbdFF);
 			x ++;
 		}
 		y ++;

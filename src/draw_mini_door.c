@@ -6,78 +6,18 @@
 /*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:26:41 by oseivane          #+#    #+#             */
-/*   Updated: 2024/08/20 20:23:41 by oseivane         ###   ########.fr       */
+/*   Updated: 2024/08/20 21:44:09 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-void	draw_mini_door_closed(t_ged *ged, unsigned int x, unsigned int y)
-{
-	unsigned int	square_x;
-	unsigned int	square_y;
-
-	square_x = 0;
-	square_y = 0;
-	while (square_x < ged->mm_scale)
-	{
-		square_y = 0;
-		while (square_y < ged->mm_scale)
-		{
-			mlx_put_pixel(ged->minimap, x * ged->mm_scale + square_x,
-				y * ged->mm_scale + square_y, 0xf71109FF);
-			square_y++;
-		}
-		square_x++;
-	}
-}
-
-void	draw_mini_door_opened(t_ged *ged, unsigned int x, unsigned int y)
-{
-	unsigned int	square_x;
-	unsigned int	square_y;
-
-	square_x = 0;
-	square_y = 0;
-	while (square_x < ged->mm_scale)
-	{
-		square_y = 0;
-		while (square_y < ged->mm_scale)
-		{
-			mlx_put_pixel(ged->minimap, x * ged->mm_scale + square_x,
-				y * ged->mm_scale + square_y, 0x08f409FF);
-			square_y++;
-		}
-		square_x++;
-	}
-}
-
-void	draw_mini_door_move(t_ged *ged, unsigned int x, unsigned int y)
-{
-	unsigned int	square_x;
-	unsigned int	square_y;
-
-	square_x = 0;
-	square_y = 0;
-	while (square_x < ged->mm_scale)
-	{
-		square_y = 0;
-		while (square_y < ged->mm_scale)
-		{
-			mlx_put_pixel(ged->minimap, x * ged->mm_scale + square_x,
-				y * ged->mm_scale + square_y, 0xFFFF00FF);
-			square_y++;
-		}
-		square_x++;
-	}
-}
-
 void	draw_mini_door(t_ged *ged, t_sim *sim, unsigned int x, unsigned int y, t_v2 *corner)
 {
 	if (sim->map[corner->z + y][corner->x + x] == 100 || sim->map[corner->z + y][corner->x + x] == 200)
-		draw_mini_door_closed(ged, x, y);
+		draw_mini_square(ged, x, y, 0xf71109FF);
 	else if (sim->map[corner->z + y][corner->x + x] == 150 || sim->map[corner->z + y][corner->x + x] == 250)
-		draw_mini_door_opened(ged, x, y);
+		draw_mini_square(ged, x, y, 0x08f409FF);
 	else
-		draw_mini_door_move(ged, x, y);
+		draw_mini_square(ged, x, y, 0xFFFF00FF);
 }
