@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:34:43 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/12 14:48:17 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 11:50:28 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ t_texture_pack *textures, mlx_texture_t **texture)
 	else if (dda->door_side == true)
 		*texture = textures->door_side;
 	else if (dda->side == 0 && dda->step.x == 1)
-		*texture = textures->east_wall;
-	else if (dda->side == 0 && dda->step.x == -1)
 		*texture = textures->west_wall;
+	else if (dda->side == 0 && dda->step.x == -1)
+		*texture = textures->east_wall;
 	else if (dda->side == 1 && dda->step.z == 1)
-		*texture = textures->south_wall;
-	else if (dda->side == 1 && dda->step.z == -1)
 		*texture = textures->north_wall;
+	else if (dda->side == 1 && dda->step.z == -1)
+		*texture = textures->south_wall;
 }
 
 /*
@@ -88,7 +88,7 @@ static void	put_texture_pixel(t_ged *gph, t_dda *dda)
 	ypos = (dda->y - dda->line_start) * \
 	((texture->height - 1.) / dda->line_height);
 	tex_coord = (xpos + ypos * texture->width) * 4;
-	mlx_put_pixel(gph->img, gph->img->width - dda->x, dda->y, \
+	mlx_put_pixel(gph->img, gph->img->width - dda->x - 1, dda->y, \
 	get_rgba(texture->pixels[tex_coord], \
 	texture->pixels[tex_coord + 1], \
 	texture->pixels[tex_coord + 2], \
@@ -111,10 +111,10 @@ void	draw_scene(t_dda *dda, t_ged *ged, t_sim *sim)
 	while (dda->y < ged->img->height)
 	{
 		if ((int) dda->y < dda->line_start)
-			mlx_put_pixel(ged->img, ged->img->width - dda->x, \
+			mlx_put_pixel(ged->img, ged->img->width - dda->x - 1, \
 			dda->y, sim->ceiling_color);
 		else if ((int) dda->y >= dda->line_end)
-			mlx_put_pixel(ged->img, ged->img->width - dda->x, \
+			mlx_put_pixel(ged->img, ged->img->width - dda->x - 1, \
 			dda->y, sim->floor_color);
 		else
 		{

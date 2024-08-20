@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/14 11:24:04 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/19 17:37:46 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,11 @@ void			draw_sprites(t_cube *data);
 
 /* Update sprites */
 void			update_sprites(t_cube *data);
+
+/* Exits the program */
+void			exit_cubed(t_cube *data, int exit_code, char *err, const char *strerr);
+
+/* If windows size change, update images */
+void			update_size(t_cube *data, t_ged *ged);
 
 #endif

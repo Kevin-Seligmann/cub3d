@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/13 03:23:44 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:20:40 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_sprite_dda
 	mlx_texture_t	*texture;
 	t_vd2			pos;
 	t_vd2			transform;
-	double			zbuffer[WIDTHINT];
+	double			zbuffer[MAXWIDTH];
 	double			det_inv;
 	t_v2			draw_start;
 	t_v2			draw_end;
@@ -62,9 +62,9 @@ typedef struct s_sprite_dda
 	t_v2			ind;
 	int				text_coord;
 	int				screen_x;
-	int				sprite_count;
 	int				sprite_ind;
 	unsigned int	color;
+	int				sprite_count;
 }	t_sprite_dda;
 
 /*

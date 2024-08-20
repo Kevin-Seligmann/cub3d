@@ -1,0 +1,14 @@
+NO ./assets/textures/tests/north.png
+SO
+WE ./assets/textures/tests/west.png
+EA
+
+
+F 120,200,50
+C 135,206,235
+
+111111
+100001
+100001
+100W01
+111111

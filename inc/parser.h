@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:14:12 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/13 02:52:30 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:38:49 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@
 # include "defines.h"
 
 /* Process file config */
-int		process_file_config(t_cube *data);
+void		process_file_config(t_cube *data);
 
 /* Checks if the file has the extension provided */
-int		extension_checker(char *file, char *extension);
+void		extension_checker(t_cube *data, char *file, char *extension);
 
 /* Parses a configuration file */
-int		parser(t_cube *data, int argc, char **argv);
+void		parser(t_cube *data, int argc, char **argv);
 
 /* Checks if a line on the config file belongs to the map */
 bool	is_map_line(char *line);
@@ -71,11 +71,8 @@ int		get_texture(t_cube *data, char **args);
 int		get_map_color(t_cube *data, char **args, char *line);
 
 /* Process map */
-int		process_map(t_cube *data, int ind);
-int		get_map_info(t_cube *data, t_parser *parse, t_sim *sim, int **arr);
-
-/* If windows size change, update images */
-void	update_size(t_ged *ged);
+void		process_map(t_cube *data, int ind);
+void		get_map_info(t_cube *data, t_parser *parse, t_sim *sim, int **arr);
 
 /* If an identifier is a sprite */
 bool		is_sprite_id(char *id);

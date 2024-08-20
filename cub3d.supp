@@ -1,0 +1,105 @@
+{
+	<dl_open_leak_1>
+	Memcheck:Leak
+	...
+	fun:_dl_open
+}
+{
+   <dl_catch_invread_1>
+   Memcheck:Addr8
+   ...
+   fun:_dl_catch_exception
+}
+{
+   <dl_catch_reachable_leak_1>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:_dl_catch_exception
+}
+{
+   <glfw_init_reachable_leak_1>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:glfwInit
+}
+{
+   <glfw_windows_leak_3>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libglfw.so.3.3
+}
+{
+   <glfw_windows_leak_2>
+   Memcheck:Leak
+   match-leak-kinds: indirect
+   ...
+   fun:glfwCreateWindow
+}
+{
+   <glfw_windows_leak_1>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   ...
+   fun:glfwCreateWindow
+}
+
+{
+   <unknown_reachable_leak_6>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+}
+{
+   <unknown_reachable_leak_5>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:_dl_init
+}
+{
+   <unknown_reachable_leak_4>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   ...
+   fun:XrmGetStringDatabase
+}
+{
+   <unknown_reachable_leak_3>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+}
+{
+   <unknown_reachable_leak_2>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   ...
+   fun:XrmGetStringDatabase
+}
+{
+   <unknown_possible_leak_1>
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/dri/vmwgfx_dri.so
+   obj:/usr/lib/x86_64-linux-gnu/dri/vmwgfx_dri.so
+   obj:/usr/lib/x86_64-linux-gnu/dri/vmwgfx_dri.so
+   obj:/usr/lib/x86_64-linux-gnu/dri/vmwgfx_dri.so
+   obj:/usr/lib/x86_64-linux-gnu/dri/vmwgfx_dri.so
+   obj:/usr/lib/x86_64-linux-gnu/dri/vmwgfx_dri.so
+   obj:/usr/lib/x86_64-linux-gnu/dri/vmwgfx_dri.so
+   obj:/usr/lib/x86_64-linux-gnu/dri/vmwgfx_dri.so
+   obj:*
+   obj:*
+   obj:*
+}

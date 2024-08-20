@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 20:11:06 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/11 17:25:04 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:19:23 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	texture_not_previosly_load(t_ged *ged, char **args)
 		(!ft_strcmp(args[0], NORTH_ID) && ged->textures.north_wall) || \
 		(!ft_strcmp(args[0], SOUTH_ID) && ged->textures.south_wall) || \
 		(ft_arr_count_arguments(args) != 2))
-		return (print_error(-1, WRONG_LINE_CONTENT, 0));;
+		return (print_error(-1, WRONG_LINE_CONTENT, "Wall texture"));;
 	return (0);
 }
 
@@ -56,7 +56,7 @@ static int	save_wall_texture(t_ged *ged, char **args)
 static int	save_door_texture(t_ged *ged, char **args)
 {
 	if (ged->textures.door != 0 || ft_arr_count_arguments(args) != 3)
-		return (print_error(-1, WRONG_LINE_CONTENT, 0));
+		return (print_error(-1, WRONG_LINE_CONTENT, "Door texture"));
 	ged->textures.door = mlx_load_png(args[1]);
 	ged->textures.door_side = mlx_load_png(args[2]);
 	if (!ged->textures.door_side || !ged->textures.door)

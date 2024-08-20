@@ -1,0 +1,14 @@
+NO ./assets/textures/tests/north.png
+SO ./assets/textures/tests/south.png
+WE ./assets/textures/tests/west.png
+EA ./assets/textures/tests/east.png
+DR ./assets/textures/wolfestein/DoorBlue.png ./assets/textures/wolfestein/DoorBlue2.png
+
+F 120,200,50
+C 135,206,235
+
+111111
+1W0001
+100O01
+100100
+111111
