@@ -1,47 +1,34 @@
 #include "cubed.h"
 
-/*Draw the miniplayer in Scale proportion of the map, using less than MM_SCale as multiplier and a colour */
+/*Draw the ciruclar miniplayer in Scale proportion of the map, using less than MM_SCale as multiplier and a colour */
 void	draw_mini_player(t_ged *ged, t_sim *sim)
 {
-	double	square_x;
-	double	square_z;
-
-	square_x = 0;
-	square_z = 0;
-	while (square_x < MM_SCALE / 2)
-	{
-        square_z = 0;
-		while (square_z < MM_SCALE / 4)
-		{
-			mlx_put_pixel(ged->minimap, sim->player.pos.x * MM_SCALE + square_x - MM_SCALE / 4, sim->player.pos.z * MM_SCALE + square_z - MM_SCALE / 4 , 0xFF0000FF);
-			square_z++;
-		}
-		square_x++;
-	}		
-			
-}
-
-void	draw_door(t_ged *ged, unsigned int x, unsigned int y)
-{
-	unsigned int	square_x;
-	unsigned int	square_y;
-
-	square_x = 0;
-	square_y = 0;
-	while (square_x < MM_SCALE)
-	{
-        square_y = 0;
-		while (square_y < MM_SCALE)
-		{
-			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x, y * MM_SCALE + square_y, 0x00FF00FF);
-			square_y++;
-		}
-		square_x++;
-	}
+	double	x;
+	double	z;
+    double	radius;
+    double	center_x;
+    double	center_z;
+	radius = MM_SCALE / 2.0;
+	x = -radius;
+	center_x = sim->player.pos.x * MM_SCALE + radius;
+	center_z = sim->player.pos.z * MM_SCALE + radius;
+    while (x <= radius)
+    {
+		z = -radius;
+        while (z <= radius)
+        {
+            if (x * x + z * z <= radius * radius)
+            {
+                mlx_put_pixel(ged->minimap, center_x + x, center_z + z, 0xba7e56FF);
+            }
+		z++;
+        }
+	x++;
+    }		
 }
 
 /*Draw the minimap in Scale proportion of the map, using MM_SCale as multiplier  and a colour*/
-void	draw_square_1(t_ged *ged, unsigned int x, unsigned int y)
+void	draw_mini_wall(t_ged *ged, unsigned int x, unsigned int y)
 {
 	unsigned int	square_x;
 	unsigned int	square_y;
@@ -53,7 +40,7 @@ void	draw_square_1(t_ged *ged, unsigned int x, unsigned int y)
         square_y = 0;
 		while (square_y < MM_SCALE)
 		{
-			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x, y * MM_SCALE + square_y, 0x000000B0);
+			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x, y * MM_SCALE + square_y, 0x0000FF);
 			square_y++;
 		}
 		square_x++;
@@ -61,7 +48,7 @@ void	draw_square_1(t_ged *ged, unsigned int x, unsigned int y)
 }
 
 /*Draw the minimap in Scale proportion of the map, using MM_SCale as multiplier and a colour */
-void	draw_square_2(t_ged *ged, unsigned int x, unsigned int y)
+void	draw_mini_floor(t_ged *ged, unsigned int x, unsigned int y)
 {
 	unsigned int	square_x;
 	unsigned int	square_y;
@@ -73,7 +60,26 @@ void	draw_square_2(t_ged *ged, unsigned int x, unsigned int y)
         square_y = 0;
 		while (square_y < MM_SCALE)
 		{
-			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x, y * MM_SCALE + square_y, 0xFFFFFFB0);
+			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x, y * MM_SCALE + square_y, 0xFFFFFF);
+			square_y++;
+		}
+		square_x++;
+	}
+}
+
+void	draw_mini_sprite(t_ged *ged, unsigned int x, unsigned int y)
+{
+	unsigned int	square_x;
+	unsigned int	square_y;
+
+	square_x = 0;
+	square_y = 0;
+	while (square_x < MM_SCALE)
+	{
+        square_y = 0;
+		while (square_y < MM_SCALE)
+		{
+			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x, y * MM_SCALE + square_y, 0x724dbdFF);
 			square_y++;
 		}
 		square_x++;
@@ -85,7 +91,6 @@ void	draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim)
 {
 	unsigned int	x;
 	unsigned int	y;
-	
 	(void)dda;
 
 	y = 0;
@@ -96,11 +101,13 @@ void	draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim)
 		{
 			draw_mini_player(ged, sim);
 			if (sim->map[y][x] == '1')
-				draw_square_1(ged, x, y);
-//			else if (sim->map[y][x] == '0')
-//				draw_door(ged, x, y);
-			else
-				draw_square_2(ged, x, y);
+				draw_mini_wall(ged, x, y);
+			else if (sim->map[y][x] == '0')
+				draw_mini_floor(ged, x, y);
+			else if (sim->map[y][x] >= 100 && sim->map[y][x] < 300)
+				draw_mini_door(ged, sim, x, y);
+			else if (sim->map[y][x] >= '2' || sim->map[y][x] <= '9') 
+				draw_mini_sprite(ged, x, y);
 			x++;
 		}
 		y++;

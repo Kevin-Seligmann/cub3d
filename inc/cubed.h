@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/19 17:37:46 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/19 22:50:35 by osg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,14 @@ unsigned int	get_rgba(int r, int g, int b, int a);
 /* Draws the scene and minimap*/
 void			draw_scene(t_dda *dda, t_ged *ged, t_sim *sim);
 void			draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim);
-void			draw_door(t_ged *ged, unsigned int x, unsigned int y);
+void			draw_mini_door(t_ged *ged, t_sim *sim, unsigned int x, unsigned int y);
+void			draw_mini_door_closed(t_ged *ged, unsigned int x, unsigned int y);
+void			draw_mini_door_opened(t_ged *ged, unsigned int x, unsigned int y);
+void			draw_mini_door_move(t_ged *ged, unsigned int x, unsigned int y);
 void			draw_mini_player(t_ged *ged, t_sim *sim);
-void			draw_square_1(t_ged *ged, unsigned int x, unsigned int y);
-void			draw_square_2(t_ged *ged, unsigned int x, unsigned int y);
+void			draw_mini_sprite(t_ged *ged, unsigned int x, unsigned int y);
+void			draw_mini_wall(t_ged *ged, unsigned int x, unsigned int y);
+void			draw_mini_floor(t_ged *ged, unsigned int x, unsigned int y);
 
 /* Performs the raycasting algorithm, DDA */
 void			ft_raycasting(t_cube *game);
