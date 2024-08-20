@@ -13,9 +13,9 @@ INC = -I./inc -I./libft/inc -I./$(MLX_FOLDER)/include
 # Files
 OBJ = extension_checker.o get_map_info.o is_map_line.o parser_main.o process_color.o\
 	process_config.o process_map.o process_texture.o cubed.o draw.o draw_mini.o\
-	error.o key_hook.o movement.o raycasting.o vector.o draw_mini_door.o\
+	key_hook.o movement.o raycasting.o vector.o draw_mini_door.o\
 	door.o windows_size.o key_hook_2.o parse_sprite.o \
-	sprite.o draw_sprite.o
+	sprite.o draw_sprite.o exit.o
 
 
 LFT = $(LFT_FOLDER)/libft.a
@@ -29,8 +29,8 @@ PROJECT = cub3D
 
 # Compilation/Linking
 CC = cc
-LFLAGS = -Wall -Wextra -Werror -g
-CFLAGS = -Wall -Wextra -Werror -MMD $(INC) -g
+LFLAGS =  -Wall -Wextra -Werror -g
+CFLAGS =  -Wall -Wextra -Werror -MMD $(INC) -g
 MLXFLAGS = -ldl -lglfw -pthread -lm
 
 # Rules
@@ -79,5 +79,10 @@ $(OBJ_FOLDER):
 $(MLX_FOLDER):
 	git clone https://github.com/codam-coding-college/MLX42.git
 	
+debug: all
+	valgrind --suppressions=cub3d.supp --track-fds=yes --leak-check=full --show-leak-kinds=all ./cub3D maps/tests/sprites.cub
+
+gensupp: all
+	valgrind --suppressions=cub3d.supp -s --track-fds=yes --leak-check=full --show-leak-kinds=all --gen-suppressions=yes ./cub3D maps/tests/sprites.cub
 
 -include $(DEPS)

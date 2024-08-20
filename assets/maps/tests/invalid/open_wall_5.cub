@@ -1,0 +1,11 @@
+NO ./assets/textures/tests/north.png
+WE ./assets/textures/tests/west.png
+SO ./assets/textures/tests/south.png
+EA ./assets/textures/tests/east.png
+
+F 120,200,50
+C 135,206,235
+
+111
+10N
+111

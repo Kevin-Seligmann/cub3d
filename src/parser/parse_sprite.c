@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 17:28:56 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/13 02:33:49 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:21:22 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ int	get_sprite_texture(t_cube *data, char **args)
 	int				sprite_frame;
 
 	if (ft_arr_count_arguments(args) != 2)
-		return (print_error(-1, WRONG_LINE_CONTENT, 0));
+		return (print_error(-1, WRONG_LINE_CONTENT, "Sprite"));
 	sprite_ind = get_sprite_ind(args[0]);
 	sprite_frame = data->ged.textures.sprite_ind[sprite_ind].z;
 	if (sprite_frame == 30)
-		return (print_error(0, WAR_TEXTURES_FULL, 0));
+		return (print_error(-1, WAR_TEXTURES_FULL, 0));
 	texture = mlx_load_png(args[1]);
 	if (!texture)
 		return (print_error(-1, CANT_LOAD_TEXTURE, mlx_strerror(mlx_errno)));

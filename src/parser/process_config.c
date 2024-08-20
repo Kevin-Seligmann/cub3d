@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:28:57 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/11 17:35:11 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:41:48 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,30 +20,30 @@
 	If the identifier is a color, parses a color.
 	If is neither there's an error on the file, prints and returns -1.
 */
-static int	process_element(t_cube *data, char *line)
+static void	process_element(t_cube *data, char *line)
 {
 	char	**args;
-	int		return_value;
+	int		err;
 
 	args = ft_split(line, ' ');
-	return_value = 0;
 	if (!args)
-		return (print_error(-1, MEMORY_ERROR, 0));
+		exit_cubed(data, -1, MEMORY_ERROR, 0);
 	if (!ft_strcmp(args[0], EAST_ID) || \
 		!ft_strcmp(args[0], WEST_ID) || \
 		!ft_strcmp(args[0], NORTH_ID) || \
 		!ft_strcmp(args[0], SOUTH_ID) || \
 		!ft_strcmp(args[0], DOOR_ID))
-		return_value = get_texture(data, args);
+		err = get_texture(data, args);
 	else if (!ft_strcmp(args[0], FLOOR_ID) || \
 		!ft_strcmp(args[0], CEILING_ID))
-		return_value = get_map_color(data, args, line);
+		err = get_map_color(data, args, line);
 	else if (is_sprite_id(args[0]))
-		return_value = get_sprite_texture(data, args);
+		err = get_sprite_texture(data, args);
 	else
-		return_value = print_error(-1, WRONG_LINE_CONTENT, 0);
+		err = print_error(-1, WRONG_LINE_CONTENT, 0);
 	ft_arr_free(args);
-	return (return_value);
+	if (err == -1)
+		exit_cubed(data, -1, 0, 0);
 }
 
 /*
@@ -96,22 +96,18 @@ static void	set_default_config(t_cube *data)
 	The rest of the file is considered part of the map.
 	If there are elements lacking or there's any error, returns -1.
 */
-int	process_file_config(t_cube *data)
+void	process_file_config(t_cube *data)
 {
 	int		ind;
 
 	set_default_config(data);
 	ind = 0;
-	while (data->parse.config_lines[ind] && \
-	is_map_line(data->parse.config_lines[ind]) == false)
+	while (is_map_line(data->parse.config_lines[ind]) == false)
 	{
-		if (process_element(data, data->parse.config_lines[ind]) == -1)
-			return (-1);
+		process_element(data, data->parse.config_lines[ind]);
 		ind ++;
 	}
-	if (process_map(data, ind) == -1)
-		return (-1);
+	process_map(data, ind);
 	if (obligatory_elements_are_set(data) == false)
-		return (print_error(-1, MISSING_CONFIG_DATA, 0));
-	return (0);
+		exit_cubed(data, -1, MISSING_CONFIG_DATA, 0);
 }

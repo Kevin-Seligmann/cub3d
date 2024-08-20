@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 22:18:55 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/13 06:25:22 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:22:26 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,14 @@ static void	put_sprite_pixel(t_sprite_dda *spr, t_ged *ged)
 
 	spr->text.z = ((((spr->ind.z) - ged->img->height / 2 + \
 	spr->dim.z / 2) * spr->texture->height) / spr->dim.z);
-	spr->text_coord = (spr->texture->width - spr->text.x + spr->text.z * spr->texture->width) * 4;
+	spr->text_coord = (spr->texture->width - spr->text.x - 1 + spr->text.z * spr->texture->width) * 4;
+	spr->color = 0;
 	spr->color = get_rgba(spr->texture->pixels[spr->text_coord], \
 	spr->texture->pixels[spr->text_coord + 1], \
 	spr->texture->pixels[spr->text_coord + 2], \
 	spr->texture->pixels[spr->text_coord + 3]);
 	if (spr->color != 0)
-		mlx_put_pixel(ged->img, ged->img->width - spr->ind.x, spr->ind.z, spr->color);
+		mlx_put_pixel(ged->img, ged->img->width - spr->ind.x - 1, spr->ind.z, spr->color);
 	spr->ind.z ++;
 }
 

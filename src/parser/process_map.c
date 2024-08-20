@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:02:30 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/13 02:53:31 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 11:59:06 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,26 +45,22 @@ static void	copy_map(t_cube *data, unsigned int ind)
 /*
 	Allocates a double array to store the map.
 */
-static int	alloc_map(t_sim *sim)
+static void	alloc_map(t_cube *data, t_sim *sim)
 {
 	unsigned int	height;
 
 	sim->map = malloc(sizeof(*(sim->map)) * (sim->height + 1));
 	if (!sim->map)
-		return (print_error(-1, MEMORY_ERROR, 0));
+		exit_cubed(data, -1, MEMORY_ERROR, 0);
 	sim->map[sim->height] = NULL;
 	height = 0;
 	while (height < sim->height)
 	{
 		sim->map[height] = malloc(sizeof(sim->map[height]) * (sim->width + 1));
 		if (!sim->map[height])
-		{
-			ft_arr_free_int(sim->map);
-			return (print_error(-1, MEMORY_ERROR, 0));
-		}
+			exit_cubed(data, -1, MEMORY_ERROR, 0);
 		height ++;
 	}
-	return (0);
 }
 
 /*
@@ -72,44 +68,33 @@ static int	alloc_map(t_sim *sim)
 	counts the amount of lines to set the heigt.
 	If a line is not a map line, returns error.
 */
-static int	get_map_dimensions(t_cube *data, int ind)
+static void	get_map_dimensions(t_cube *data, int ind)
 {
-	unsigned int	map_width_aux;
+	size_t	map_width_aux;
 
 	data->sim.height = 0;
 	data->sim.width = ft_strlen(data->parse.config_lines[ind]);
 	map_width_aux = 0;
 	while (data->parse.config_lines[ind])
 	{
-		if (is_map_line(data->parse.config_lines[ind]))
-		{
-			data->sim.height ++;
-			map_width_aux = ft_strlen(data->parse.config_lines[ind]);
-			if (map_width_aux > data->sim.width)
-				data->sim.width = map_width_aux;
-		}
-		else
-			return (print_error(-1, WRONG_LINE_CONTENT, "Map"));
+		data->sim.height ++;
+		map_width_aux = ft_strlen(data->parse.config_lines[ind]);
+		if (map_width_aux > (size_t) data->sim.width)
+			data->sim.width = map_width_aux;
+		if (map_width_aux > MAX_MAP_WIDTH || data->sim.height > MAX_MAP_HEIGHT)
+			exit_cubed(data, -1, MAP_DIMENSIONS_ERROR, 0);
 		ind ++;
 	}
-	return (0);
 }
 
 /*
 	Copies the map provided in the config file to its own
 	array, then processes the information it contains.
 */
-int	process_map(t_cube *data, int ind)
+void	process_map(t_cube *data, int ind)
 {
-	if (get_map_dimensions(data, ind) == -1)
-		return (-1);
-	if (alloc_map(&data->sim) == -1)
-		return (-1);
+	get_map_dimensions(data, ind);
+	alloc_map(data, &data->sim);
 	copy_map(data, ind);
-	if (get_map_info(data, &data->parse, &data->sim, data->sim.map) == -1)
-	{
-		ft_arr_free_int(data->sim.map);
-		return (-1);
-	}
-	return (0);
+	get_map_info(data, &data->parse, &data->sim, data->sim.map);
 }

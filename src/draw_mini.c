@@ -8,7 +8,6 @@ void	draw_mini_player(t_ged *ged, t_sim *sim)
     double	radius;
     double	center_x;
     double	center_z;
-
 	radius = MM_SCALE / 2.0;
 	x = -radius;
 	center_x = sim->player.pos.x * MM_SCALE + radius;

@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:15:08 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/05 17:13:19 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:11:55 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 */
 bool	is_map_line(char *line)
 {
+	if (!line)
+		return (false);
 	while (*line == ' ')
 		line ++;
 	if (!*line || *line == '1')

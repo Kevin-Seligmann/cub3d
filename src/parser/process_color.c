@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 20:12:25 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/05 17:18:19 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:18:22 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,9 @@ int	get_map_color(t_cube *data, char **args, char *line)
 	color.b = 0;
 	color.a = 0;
 	if ((!ft_strcmp(args[0], CEILING_ID) && data->sim.ceiling_color != 0) || \
-	(!ft_strcmp(args[0], FLOOR_ID) && data->sim.floor_color != 0))
-		return (print_error(-1, WRONG_LINE_CONTENT, 0));
+	(!ft_strcmp(args[0], FLOOR_ID) && data->sim.floor_color != 0) ||
+	ft_arr_count_arguments(args) <= 1)
+		return (print_error(-1, WRONG_LINE_CONTENT, "Color"));
 	if (get_color(&color, line, args[0]) == -1)
 		return (print_error(-1, WRONG_LINE_CONTENT, "Color"));
 	if (!ft_strcmp(args[0], FLOOR_ID))
