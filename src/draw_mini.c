@@ -1,18 +1,14 @@
 #include "cubed.h"
 
 /*Draw the ciruclar miniplayer in Scale proportion of the map, using less than MM_SCale as multiplier and a colour */
-void	draw_mini_player(t_ged *ged, t_sim *sim)
+void	draw_mini_player(t_ged *ged, t_sim *sim, int center_x, int center_z)
 {	
-	return ;
+	(void) sim;
 	double	x;
 	double	z;
     double	radius;
-    double	center_x;
-    double	center_z;
 	radius = MM_SCALE / 2.0;
 	x = -radius;
-	center_x = sim->player.pos.x * MM_SCALE + radius;
-	center_z = sim->player.pos.z * MM_SCALE + radius;
     while (x <= radius)
     {
 		z = -radius;
@@ -93,43 +89,65 @@ void	mini_map_corner(t_sim *sim, t_ged *ged, t_v2 *corner, t_v2 *mm_size)
 	corner->z = sim->player.pos.z - 0.5 * ged->minimap->height / MM_SCALE;
 	mm_size->x = ged->minimap->width / MM_SCALE;
 	mm_size->z = ged->minimap->height / MM_SCALE;
-	if (corner->x > mm_size->x)
-		mm_size->x = mm_size->x;
-	if (corner->z > mm_size->z)
-		mm_size->z =  mm_size->z;
 	if (corner->x < 0)
 		corner->x = 0;
+	else if (corner->x + mm_size->x > (int) sim->width)
+		corner->x = sim->width - mm_size->x;
 	if (corner->z < 0)
 		corner->z = 0;
+	else if (corner->z + mm_size->z > (int) sim->height)
+		corner->z = sim->height - mm_size->z;
+}
+
+void	get_player_center(t_v2 *player_center, t_v2 *corner, t_v2 *mm_size, t_ged *ged, t_sim *sim)
+{
+	(void) corner;
+	(void) mm_size;
+	(void) ged;
+	player_center->x = ged->minimap->width / 2;
+	player_center->z = ged->minimap->height / 2;
+	if (corner->x == 0)
+		player_center->x = sim->player.pos.x * MM_SCALE;
+	if (corner->z == 0)
+		player_center->z = sim->player.pos.z * MM_SCALE;
+	if (corner->x == (int) sim->width - mm_size->x)
+		player_center->x += sim->player.pos.x * MM_SCALE;
+	if (corner->z == (int) sim->height - mm_size->z)
+		player_center->z = sim->player.pos.z - 0.5 * ged->minimap->height;
 }
 
 /*It draws the minimap in the left upper corner*/
 void	draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim)
 {
-	int				corner_x;
+	int	y;
+	int	x;
 	t_v2			corner;
 	t_v2			mm_size;
+	t_v2			player_center;
 	(void)dda;
 
 
 	mini_map_corner(sim, ged, &corner, &mm_size);
-	corner_x = corner.x;
-	while (corner.z < mm_size.z)
+	get_player_center(&player_center, &corner, &mm_size, ged, sim);
+	y = 0;
+	while (y < mm_size.z)
 	{
-		corner.x = corner_x;
-		while (corner.x < mm_size.x)
+		x = 0;
+		while (x < mm_size.x)
 		{
-			draw_mini_player(ged, sim);
-			if (sim->map[corner.z - mm_size.z][corner.x - mm_size.x] == '1')
-				draw_mini_wall(ged, corner.x - mm_size.x, corner.z - mm_size.z);
-			else if (sim->map[corner.z - mm_size.z][corner.x - mm_size.x] == '0')
-				draw_mini_floor(ged, corner.x - mm_size.x, corner.z - mm_size.z);
-			else if (sim->map[corner.z - mm_size.z][corner.x - mm_size.x] >= 100 && sim->map[corner.z - mm_size.z][corner.x - mm_size.x] < 300)
-				draw_mini_door(ged, sim, corner.x - mm_size.x, corner.z);
-			else if (sim->map[corner.z - mm_size.z][corner.x - mm_size.x] >= '2' || sim->map[corner.z - mm_size.z][corner.x - mm_size.x] <= '9') 
-				draw_mini_sprite(ged, corner.x - mm_size.x, corner.z - mm_size.z);
-			corner.x++;
+			if (sim->map[corner.z + y][corner.x + x] == '1')
+				draw_mini_wall(ged, x, y);
+			else if (sim->map[corner.z + y][corner.x + x] == '0')
+				draw_mini_floor(ged, x, y);
+			else if (sim->map[corner.z][corner.x] >= 100 && sim->map[corner.z][corner.x] < 300)
+				draw_mini_door(ged, sim, x, y);
+			else if (sim->map[corner.z][corner.x] >= '2' || sim->map[corner.z][corner.x] <= '9') 
+				draw_mini_sprite(ged, x, y);
+			else
+				draw_mini_wall(ged, x, y);
+			x ++;
 		}
-		corner.z++;
+		y ++;
 	}
+	draw_mini_player(ged, sim, player_center.x, player_center.z);
 }

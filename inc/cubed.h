@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/19 22:50:35 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/20 18:54:05 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void			draw_mini_door(t_ged *ged, t_sim *sim, unsigned int x, unsigned int y);
 void			draw_mini_door_closed(t_ged *ged, unsigned int x, unsigned int y);
 void			draw_mini_door_opened(t_ged *ged, unsigned int x, unsigned int y);
 void			draw_mini_door_move(t_ged *ged, unsigned int x, unsigned int y);
-void			draw_mini_player(t_ged *ged, t_sim *sim);
+void			draw_mini_player(t_ged *ged, t_sim *sim, int x, int y);
 void			draw_mini_sprite(t_ged *ged, unsigned int x, unsigned int y);
 void			draw_mini_wall(t_ged *ged, unsigned int x, unsigned int y);
 void			draw_mini_floor(t_ged *ged, unsigned int x, unsigned int y);
