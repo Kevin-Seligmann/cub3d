@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map_info.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:45:30 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/19 21:47:21 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:04:53 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ static void	set_player_coordinates(t_cube *data, t_sim *map, int i, int j)
 	is not the limit of the map itself or any of its neighbours
 	are spaces. That would entail an open map.
 */
-static void	check_square_enclosed(t_cube *data, t_sim *map, unsigned int i, unsigned int j)
+static void	check_square_enclosed(t_cube *data,
+			t_sim *map, unsigned int i, unsigned int j)
 {
 	if (i == 0 || i == map->height - 1 || j == 0 || j == map->width - 1)
 		exit_cubed(data, -1, MAP_NOT_CLOSED, 0);
@@ -69,8 +70,9 @@ static void	check_square_enclosed(t_cube *data, t_sim *map, unsigned int i, unsi
 		exit_cubed(data, -1, MAP_NOT_CLOSED, 0);
 	if (map->map[i - 1][j] == ' ' || map->map[i][j - 1] == ' ')
 		exit_cubed(data, -1, MAP_NOT_CLOSED, 0);
-	if ((map->map[i][j] == 'O' && (map->map[i + 1][j] != '1' || map->map[i - 1][j] != '1')) \
-	|| (map->map[i][j] == 'P' && (map->map[i][j + 1] != '1' || map->map[i][j - 1] != '1')))
+	if ((map->map[i][j] == 'O' && (map->map[i + 1][j] != '1'
+		|| map->map[i - 1][j] != '1')) || (map->map[i][j] == 'P'
+		&& (map->map[i][j + 1] != '1' || map->map[i][j - 1] != '1')))
 		exit_cubed(data, -1, DOOR_NOT_CLOSED, 0);
 }
 

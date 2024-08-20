@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_sprite.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 17:28:56 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/20 12:21:22 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:34:32 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cubed.h"
+#include "cubed.h"
 
 /*
 	If a sprite has been found on the map, but its texture has not been
@@ -23,7 +23,8 @@ bool	found_sprite_is_not_set(t_cube *data)
 	ind = 0;
 	while (ind < 8)
 	{
-		if (data->parse.sprite_found[ind] && *(data->ged.textures.sprites_text[ind]) == NULL)
+		if (data->parse.sprite_found[ind]
+			&& *(data->ged.textures.sprites_text[ind]) == NULL)
 			return (true);
 		ind ++;
 	}

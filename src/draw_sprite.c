@@ -3,65 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 22:18:55 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/19 14:22:26 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:32:38 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cubed.h"
+#include "cubed.h"
 
-static void	do_sprite_transform(t_dda *dda, t_player *player, t_ged *ged, t_sprite *spr)
+static void	do_sprite_transform(t_dda *dda,
+	t_player *player, t_ged *ged, t_sprite *spr)
 {
 	(void) spr;
 	dda->sprite.transform.x = dda->sprite.det_inv * (player->dir.z * \
 	dda->sprite.pos.x - player->dir.x * dda->sprite.pos.z);
-	dda->sprite.transform.z = dda->sprite.det_inv * (- dda->cam_vect.z * \
+	dda->sprite.transform.z = dda->sprite.det_inv * (-dda->cam_vect.z * \
 	dda->sprite.pos.x + dda->cam_vect.x * dda->sprite.pos.z);
-	dda->sprite.screen_x = (int) (ged->img->width / 2 * \
+	dda->sprite.screen_x = (int)(ged->img->width / 2 * \
 	(1 + dda->sprite.transform.x / dda->sprite.transform.z));
 }
 
 static void	get_draw_limits(t_sprite_dda *spr, t_ged *ged)
 {
-	spr->dim.z = fabs((double) (ged->img->height / spr->transform.z));
+	spr->dim.z = fabs((double)(ged->img->height / spr->transform.z));
 	spr->draw_start.z = -spr->dim.z / 2 + ged->img->height / 2;
 	if (spr->draw_start.z < 0)
 		spr->draw_start.z = 0;
 	spr->draw_end.z = spr->dim.z / 2 + ged->img->height / 2;
-	if (spr->draw_end.z >= (int) ged->img->height)
+	if (spr->draw_end.z >= (int)ged->img->height)
 		spr->draw_end.z = ged->img->height - 1;
-	spr->dim.x = fabs((int) ged->img->height / spr->transform.z);
+	spr->dim.x = fabs((int)ged->img->height / spr->transform.z);
 	spr->draw_start.x = -spr->dim.x / 2 + spr->screen_x;
 	if (spr->draw_start.x < 0)
 		spr->draw_start.x = 0;
 	spr->draw_end.x = spr->dim.x / 2 + spr->screen_x;
-	if (spr->draw_end.x >= (int) ged->img->width)
+	if (spr->draw_end.x >= (int)ged->img->width)
 		spr->draw_end.x = ged->img->width - 1;
 }
 
 static void	put_sprite_pixel(t_sprite_dda *spr, t_ged *ged)
 {
-
 	spr->text.z = ((((spr->ind.z) - ged->img->height / 2 + \
 	spr->dim.z / 2) * spr->texture->height) / spr->dim.z);
-	spr->text_coord = (spr->texture->width - spr->text.x - 1 + spr->text.z * spr->texture->width) * 4;
+	spr->text_coord = (spr->texture->width - spr->text.x
+			- 1 + spr->text.z * spr->texture->width) * 4;
 	spr->color = 0;
 	spr->color = get_rgba(spr->texture->pixels[spr->text_coord], \
 	spr->texture->pixels[spr->text_coord + 1], \
 	spr->texture->pixels[spr->text_coord + 2], \
 	spr->texture->pixels[spr->text_coord + 3]);
 	if (spr->color != 0)
-		mlx_put_pixel(ged->img, ged->img->width - spr->ind.x - 1, spr->ind.z, spr->color);
+		mlx_put_pixel(ged->img, ged->img->width
+			- spr->ind.x - 1, spr->ind.z, spr->color);
 	spr->ind.z ++;
 }
 
 static void	sort_sprites(t_sprite_dda *spr, t_player *player)
 {
-	int		ind;
-	int		ind2;
-	t_sprite aux;
+	int			ind;
+	int			ind2;
+	t_sprite	aux;
 
 	ind = 0;
 	while (ind < spr->sprite_count)
@@ -92,7 +94,7 @@ static void	sort_sprites(t_sprite_dda *spr, t_player *player)
 
 static void	draw_sprite(t_ged *ged, t_sprite_dda *spr)
 {
-	spr->texture = ged->textures.sprites_text[spr->sprite_ind]\
+	spr->texture = ged->textures.sprites_text[spr->sprite_ind] \
 	[ged->textures.sprite_ind[spr->sprite_ind].x];
 	spr->ind.x = spr->draw_start.x;
 	while (spr->ind.x < spr->draw_end.x)
@@ -100,7 +102,7 @@ static void	draw_sprite(t_ged *ged, t_sprite_dda *spr)
 		if (spr->transform.z > 0 && spr->ind.x > 0 && spr->ind.x < \
 		(int) ged->img->width && spr->transform.z < spr->zbuffer[spr->ind.x])
 		{
-			spr->text.x = (int) ((spr->ind.x - (-spr->dim.x / 2 + \
+			spr->text.x = (int)((spr->ind.x - (-spr->dim.x / 2 + \
 			spr->screen_x)) * spr->texture->width / spr->dim.x);
 			spr->ind.z = spr->draw_start.z;
 			while (spr->ind.z < spr->draw_end.z)
@@ -133,4 +135,3 @@ void	draw_sprites(t_cube *data)
 		ind ++;
 	}
 }
-

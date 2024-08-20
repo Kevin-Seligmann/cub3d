@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:14:12 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/19 17:38:49 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:03:49 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ void		extension_checker(t_cube *data, char *file, char *extension);
 void		parser(t_cube *data, int argc, char **argv);
 
 /* Checks if a line on the config file belongs to the map */
-bool	is_map_line(char *line);
+bool		is_map_line(char *line);
 
 /* Gets a texture from config file to mlx struct */
-int		get_texture(t_cube *data, char **args);
+int			get_texture(t_cube *data, char **args);
 
 /* Parses ceiling/roof color */
-int		get_map_color(t_cube *data, char **args, char *line);
+int			get_map_color(t_cube *data, char **args, char *line);
 
 /* Process map */
 void		process_map(t_cube *data, int ind);
@@ -81,9 +81,9 @@ bool		is_sprite_id(char *id);
 	If a sprite has been found on the map, but its texture has not been
 	provided
 */
-bool	found_sprite_is_not_set(t_cube *data);
+bool		found_sprite_is_not_set(t_cube *data);
 
 /* Gets a sprite texture */
-int	get_sprite_texture(t_cube *data, char **args);
+int			get_sprite_texture(t_cube *data, char **args);
 
 #endif
