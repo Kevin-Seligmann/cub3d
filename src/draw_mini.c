@@ -2,7 +2,8 @@
 
 /*Draw the ciruclar miniplayer in Scale proportion of the map, using less than MM_SCale as multiplier and a colour */
 void	draw_mini_player(t_ged *ged, t_sim *sim)
-{
+{	
+	return ;
 	double	x;
 	double	z;
     double	radius;
@@ -40,7 +41,7 @@ void	draw_mini_wall(t_ged *ged, unsigned int x, unsigned int y)
         square_y = 0;
 		while (square_y < MM_SCALE)
 		{
-			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x, y * MM_SCALE + square_y, 0x0000FF);
+			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x, y * MM_SCALE + square_y, 0xFFFFFFFF);
 			square_y++;
 		}
 		square_x++;
@@ -86,31 +87,49 @@ void	draw_mini_sprite(t_ged *ged, unsigned int x, unsigned int y)
 	}
 }
 
+void	mini_map_corner(t_sim *sim, t_ged *ged, t_v2 *corner, t_v2 *mm_size)
+{
+	corner->x = sim->player.pos.x - 0.5 * ged->minimap->width / MM_SCALE;
+	corner->z = sim->player.pos.z - 0.5 * ged->minimap->height / MM_SCALE;
+	mm_size->x = ged->minimap->width / MM_SCALE;
+	mm_size->z = ged->minimap->height / MM_SCALE;
+	if (corner->x > mm_size->x)
+		mm_size->x = mm_size->x;
+	if (corner->z > mm_size->z)
+		mm_size->z =  mm_size->z;
+	if (corner->x < 0)
+		corner->x = 0;
+	if (corner->z < 0)
+		corner->z = 0;
+}
+
 /*It draws the minimap in the left upper corner*/
 void	draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim)
 {
-	unsigned int	x;
-	unsigned int	y;
+	int				corner_x;
+	t_v2			corner;
+	t_v2			mm_size;
 	(void)dda;
 
-	y = 0;
-	while (y < sim->height)
+
+	mini_map_corner(sim, ged, &corner, &mm_size);
+	corner_x = corner.x;
+	while (corner.z < mm_size.z)
 	{
-		x = 0;
-		while (x < sim->width)
+		corner.x = corner_x;
+		while (corner.x < mm_size.x)
 		{
 			draw_mini_player(ged, sim);
-			if (sim->map[y][x] == '1')
-				draw_mini_wall(ged, x, y);
-			else if (sim->map[y][x] == '0')
-				draw_mini_floor(ged, x, y);
-			else if (sim->map[y][x] >= 100 && sim->map[y][x] < 300)
-				draw_mini_door(ged, sim, x, y);
-			else if (sim->map[y][x] >= '2' || sim->map[y][x] <= '9') 
-				draw_mini_sprite(ged, x, y);
-			x++;
+			if (sim->map[corner.z - mm_size.z][corner.x - mm_size.x] == '1')
+				draw_mini_wall(ged, corner.x - mm_size.x, corner.z - mm_size.z);
+			else if (sim->map[corner.z - mm_size.z][corner.x - mm_size.x] == '0')
+				draw_mini_floor(ged, corner.x - mm_size.x, corner.z - mm_size.z);
+			else if (sim->map[corner.z - mm_size.z][corner.x - mm_size.x] >= 100 && sim->map[corner.z - mm_size.z][corner.x - mm_size.x] < 300)
+				draw_mini_door(ged, sim, corner.x - mm_size.x, corner.z);
+			else if (sim->map[corner.z - mm_size.z][corner.x - mm_size.x] >= '2' || sim->map[corner.z - mm_size.z][corner.x - mm_size.x] <= '9') 
+				draw_mini_sprite(ged, corner.x - mm_size.x, corner.z - mm_size.z);
+			corner.x++;
 		}
-		y++;
+		corner.z++;
 	}
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:41:35 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/20 12:00:49 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:31:24 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	config_mlx(t_cube *data)
 	if (!data->ged.mlx)
 		exit_cubed(data, -1, MLX_ERROR, mlx_strerror(mlx_errno));
 	data->ged.img = mlx_new_image(data->ged.mlx, WIDTH, HEIGHT);
-	data->ged.minimap = mlx_new_image(data->ged.mlx, data->sim.width * MM_SCALE, data->sim.height * MM_SCALE);
+	data->ged.minimap = mlx_new_image(data->ged.mlx, data->ged.img->width * MM_RATIO, data->ged.img->height * MM_RATIO);
 	if (!data->ged.img || !data->ged.minimap || \
 	mlx_image_to_window(data->ged.mlx, data->ged.minimap, 0, 0) == -1 || \
 	mlx_image_to_window(data->ged.mlx, data->ged.img, 0, 0) == -1  || \

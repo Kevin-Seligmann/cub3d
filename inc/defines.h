@@ -6,7 +6,7 @@
 /*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 02:59:58 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/20 15:58:40 by oseivane         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:50:04 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ magnitude of the movement per translation tick */
 # define DOOR_WE 200
 
 # define MM_SCALE 10
+# define MM_RATIO 0.25
 
 /* User messages */
 # define INVALID_NUMBER_ARGS "The number of arguments is invalid"
