@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 21:34:38 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/20 16:16:55 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:35:22 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ bool	is_map_line_char_p(char *line, int ind)
 		(ind)++;
 		found_space = true;
 	}
-	is_map = line[ind] == '1' || (found_space && (line[ind] == '\n' || !line[ind]));
+	is_map = line[ind] == '1' || (found_space
+			&& (line[ind] == '\n' || !line[ind]));
 	return (is_map);
 }
 

@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:41:35 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/20 19:23:26 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 19:30:42 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	simulation_loop(void *param)
 	do_rotation(&data->sim.player, &data->ged, data->ged.key_flag);
 	do_translation(&data->sim.player, data->sim.map, data->ged.key_flag);
 	update_doors(data, data->sim.map);
-	draw_mini_map(&data->dda, &data->ged, &data->sim); // Hide map when it's bigger than the screen
+	draw_mini_map(&data->dda, &data->ged, &data->sim);
 	ft_raycasting(data);
 	update_sprites(data);
 }
@@ -42,15 +42,17 @@ static void	config_mlx(t_cube *data)
 	if (!data->ged.mlx)
 		exit_cubed(data, -1, MLX_ERROR, mlx_strerror(mlx_errno));
 	data->ged.img = mlx_new_image(data->ged.mlx, WIDTH, HEIGHT);
-	data->ged.minimap = mlx_new_image(data->ged.mlx, data->ged.img->width * MM_RATIO, data->ged.img->height * MM_RATIO);
+	data->ged.minimap = mlx_new_image(data->ged.mlx,
+			data->ged.img->width * MM_RATIO, data->ged.img->height * MM_RATIO);
 	if (!data->ged.img || !data->ged.minimap || \
 	mlx_image_to_window(data->ged.mlx, data->ged.minimap, 0, 0) == -1 || \
-	mlx_image_to_window(data->ged.mlx, data->ged.img, 0, 0) == -1  || \
+	mlx_image_to_window(data->ged.mlx, data->ged.img, 0, 0) == -1 || \
 	mlx_loop_hook(data->ged.mlx, simulation_loop, data) == false)
 		exit_cubed(data, -1, MLX_ERROR, mlx_strerror(mlx_errno));
 	mlx_set_instance_depth(data->ged.img->instances, 0);
 	mlx_set_instance_depth(data->ged.minimap->instances, 1);
-	mlx_get_mouse_pos(data->ged.mlx, &data->ged.mouse_pos.x, &data->ged.mouse_pos.z);
+	mlx_get_mouse_pos(data->ged.mlx,
+		&data->ged.mouse_pos.x, &data->ged.mouse_pos.z);
 	mlx_key_hook(data->ged.mlx, key_hook, data);
 }
 

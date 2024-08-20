@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_texture.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 20:11:06 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/20 12:19:23 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:11:52 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	texture_not_previosly_load(t_ged *ged, char **args)
 		(!ft_strcmp(args[0], NORTH_ID) && ged->textures.north_wall) || \
 		(!ft_strcmp(args[0], SOUTH_ID) && ged->textures.south_wall) || \
 		(ft_arr_count_arguments(args) != 2))
-		return (print_error(-1, WRONG_LINE_CONTENT, "Wall texture"));;
+		return (print_error(-1, WRONG_LINE_CONTENT, "Wall texture"));
 	return (0);
 }
 

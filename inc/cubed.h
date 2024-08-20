@@ -5,32 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 18:19:14 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/20 18:54:05 by kseligma         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/08/20 19:36:10 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+
 
 #ifndef CUBED_H
 
 # define CUBED_H
-
-# define todo
-/*
-	To do:
-	Check all headers.
-	Check norminette.
-
-	Improve collision to not get stuck in corners. 
-	hint: Sometimes the character gets inside the wall.
-
-	Define how to handle spaces.
-	Review config file options.
-
-	MLX Termination.
-	Clean exit.
-
-	Make squares for all sizes.
-*/
 
 /* System libraries */
 # include <math.h>
@@ -48,7 +33,6 @@
 # include "cubed_data_structures.h"
 # include "defines.h"
 
-
 /* Prints an error with the provided strings and returns 'return_value' */
 int				print_error(int return_value, \
 const char		*error_message, const char *strerror);
@@ -61,7 +45,8 @@ void			do_translation(t_player *player, \
 int **map, unsigned int key_flag);
 
 /* Performs the rotation calculations */
-void			do_rotation(t_player *player, t_ged *ged, int unsigned key_flag);
+void			do_rotation(t_player *player,
+					t_ged *ged, int unsigned key_flag);
 
 /* Stores in dst the clockwise perpendicular 2d´vector to src */
 void			perp_clockwise_v2(t_v2 *src, t_v2 *dst);
@@ -73,11 +58,14 @@ unsigned int	get_rgba(int r, int g, int b, int a);
 /* Draws the scene and minimap*/
 void			draw_scene(t_dda *dda, t_ged *ged, t_sim *sim);
 void			draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim);
-void			draw_mini_door(t_ged *ged, t_sim *sim, unsigned int x, unsigned int y);
-void			draw_mini_door_closed(t_ged *ged, unsigned int x, unsigned int y);
-void			draw_mini_door_opened(t_ged *ged, unsigned int x, unsigned int y);
+void			draw_mini_door(t_ged *ged, t_sim *sim,
+					unsigned int x, unsigned int y);
+void			draw_mini_door_closed(t_ged *ged,
+					unsigned int x, unsigned int y);
+void			draw_mini_door_opened(t_ged *ged,
+					unsigned int x, unsigned int y);
 void			draw_mini_door_move(t_ged *ged, unsigned int x, unsigned int y);
-void			draw_mini_player(t_ged *ged, t_sim *sim, int x, int y);
+void			draw_mini_player(t_ged *ged, int center_x, int center_z);
 void			draw_mini_sprite(t_ged *ged, unsigned int x, unsigned int y);
 void			draw_mini_wall(t_ged *ged, unsigned int x, unsigned int y);
 void			draw_mini_floor(t_ged *ged, unsigned int x, unsigned int y);
@@ -116,7 +104,8 @@ void			draw_sprites(t_cube *data);
 void			update_sprites(t_cube *data);
 
 /* Exits the program */
-void			exit_cubed(t_cube *data, int exit_code, char *err, const char *strerr);
+void			exit_cubed(t_cube *data, int exit_code,
+					char *err, const char *strerr);
 
 /* If windows size change, update images */
 void			update_size(t_cube *data, t_ged *ged);

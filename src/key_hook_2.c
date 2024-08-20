@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osg <osg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:37:59 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/09 15:03:38 by osg              ###   ########.fr       */
+/*   Updated: 2024/08/20 18:32:54 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	on_off_minimap(mlx_key_data_t keydata, t_cube *data)
 	if (keydata.key == MLX_KEY_M && keydata.action == MLX_PRESS)
 	{
 		if (data->ged.minimap->enabled == 1)
-				data->ged.minimap->enabled = 0;
+			data->ged.minimap->enabled = 0;
 		else if (data->ged.minimap->enabled == 0)
-				data->ged.minimap->enabled = 1;
+			data->ged.minimap->enabled = 1;
 	}
 }

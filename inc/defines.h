@@ -6,13 +6,13 @@
 /*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 02:59:58 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/20 17:50:04 by oseivane         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:16:18 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINE_H
+#ifndef DEFINES_H
 
-#define DEFINE_H
+# define DEFINES_H
 
 /* Program name */
 # define PROGRAM_NAME "cub3D"

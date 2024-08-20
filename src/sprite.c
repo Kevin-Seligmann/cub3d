@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:53:40 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/12 18:01:13 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:33:15 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	update_sprites(t_cube *data)
 {
 	int				ind;
-	t_texture_pack *textures;
+	t_texture_pack	*textures;
 
 	textures = &data->ged.textures;
 	ind = 0;
