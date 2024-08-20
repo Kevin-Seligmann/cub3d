@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed_data_structures.h                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/19 14:20:40 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:25:23 by oseivane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ typedef struct s_texture_pack
 */
 typedef struct s_ged
 {
+	unsigned int	mm_scale;
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	mlx_image_t		*minimap;

@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:18:32 by oseivane          #+#    #+#             */
-/*   Updated: 2024/08/20 19:52:49 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 21:30:53 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	draw_mini_player(t_ged *ged, int center_x, int center_z)
 	double	z;
     double	radius;
 
-	radius = MM_SCALE / 2.0;
+	radius = ged->mm_scale / 2.0;
 	x = -radius;
 	while (x <= radius)
 	{
@@ -49,7 +49,7 @@ void	draw_mini_void(t_ged *ged, unsigned int x, unsigned int y)
 	while (square_x < MM_SCALE)
 	{
 		square_y = 0;
-		while (square_y < MM_SCALE)
+		while (square_y < ged->mm_scale)
 		{
 			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x,
 				y * MM_SCALE + square_y, 0);
@@ -61,14 +61,14 @@ void	draw_mini_void(t_ged *ged, unsigned int x, unsigned int y)
 
 /*Draw the minimap in Scale proportion of the map,
 using MM_SCale as multiplier  and a colour*/
-void	draw_mini_wall(t_ged *ged, unsigned int x, unsigned int y)
+void	draw_mini_void(t_ged *ged, unsigned int x, unsigned int y)
 {
 	unsigned int	square_x;
 	unsigned int	square_y;
 
 	square_x = 0;
 	square_y = 0;
-	while (square_x < MM_SCALE)
+	while (square_x < ged->mm_scale)
 	{
 		square_y = 0;
 		while (square_y < MM_SCALE)
@@ -90,13 +90,13 @@ void	draw_mini_floor(t_ged *ged, unsigned int x, unsigned int y)
 
 	square_x = 0;
 	square_y = 0;
-	while (square_x < MM_SCALE)
+	while (square_x < ged->mm_scale)
 	{
 		square_y = 0;
-		while (square_y < MM_SCALE)
+		while (square_y < ged->mm_scale)
 		{
-			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x,
-				y * MM_SCALE + square_y, 0xFFFFFF);
+			mlx_put_pixel(ged->minimap, x * ged->mm_scale + square_x,
+				y * ged->mm_scale + square_y, 0xFFFFFFC0);
 			square_y++;
 		}
 		square_x++;
@@ -110,13 +110,13 @@ void	draw_mini_sprite(t_ged *ged, unsigned int x, unsigned int y)
 
 	square_x = 0;
 	square_y = 0;
-	while (square_x < MM_SCALE)
+	while (square_x < ged->mm_scale)
 	{
 		square_y = 0;
-		while (square_y < MM_SCALE)
+		while (square_y < ged->mm_scale)
 		{
-			mlx_put_pixel(ged->minimap, x * MM_SCALE + square_x,
-				y * MM_SCALE + square_y, 0x724dbdFF);
+			mlx_put_pixel(ged->minimap, x * ged->mm_scale + square_x,
+				y * ged->mm_scale + square_y, 0x724dbdFF);
 			square_y++;
 		}
 		square_x++;
@@ -125,10 +125,10 @@ void	draw_mini_sprite(t_ged *ged, unsigned int x, unsigned int y)
 
 void	mini_map_corner(t_sim *sim, t_ged *ged, t_v2 *corner, t_v2 *mm_size)
 {
-	corner->x = sim->player.pos.x - 0.5 * ged->minimap->width / MM_SCALE;
-	corner->z = sim->player.pos.z - 0.5 * ged->minimap->height / MM_SCALE;
-	mm_size->x = ged->minimap->width / MM_SCALE;
-	mm_size->z = ged->minimap->height / MM_SCALE;
+	corner->x = sim->player.pos.x - 0.5 * ged->minimap->width / ged->mm_scale;
+	corner->z = sim->player.pos.z - 0.5 * ged->minimap->height / ged->mm_scale;
+	mm_size->x = ged->minimap->width / ged->mm_scale;
+	mm_size->z = ged->minimap->height / ged->mm_scale;
 	if (corner->x < 0)
 		corner->x = 0;
 	else if (corner->x + mm_size->x > (int) sim->width)
@@ -147,13 +147,13 @@ void	get_player_center(t_v2 *player_center, t_v2 *corner, t_v2 *mm_size, t_ged *
 	player_center->x = ged->minimap->width / 2;
 	player_center->z = ged->minimap->height / 2;
 	if (corner->x == 0)
-		player_center->x = sim->player.pos.x * MM_SCALE;
+		player_center->x = sim->player.pos.x * ged->mm_scale;
 	if (corner->z == 0)
-		player_center->z = sim->player.pos.z * MM_SCALE;
+		player_center->z = sim->player.pos.z * ged->mm_scale;
 	if (corner->x == (int) sim->width - mm_size->x)
-		player_center->x = mm_size->x * MM_SCALE - (sim->width - sim->player.pos.x) * MM_SCALE;
+		player_center->x = mm_size->x * ged->mm_scale - (sim->width - sim->player.pos.x) * ged->mm_scale;
 	if (corner->z == (int) sim->height - mm_size->z)
-		player_center->z = mm_size->z * MM_SCALE - (sim->height - sim->player.pos.z) * MM_SCALE;
+		player_center->z = mm_size->z * ged->mm_scale - (sim->height - sim->player.pos.z) * ged->mm_scale;
 }
 
 /*It draws the minimap in the left upper corner*/
@@ -180,8 +180,8 @@ void	draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim)
 				draw_mini_wall(ged, x, y);
 			else if (sim->map[corner.z + y][corner.x + x] == '0')
 				draw_mini_floor(ged, x, y);
-			else if (sim->map[corner.z][corner.x] >= 100 && sim->map[corner.z][corner.x] < 300)
-				draw_mini_door(ged, sim, x, y);
+			else if (sim->map[corner.z + y][corner.x + x] >= 100 && sim->map[corner.z + y][corner.x + x] < 300)
+				draw_mini_door(ged, sim, x, y, &corner);
 			else if (sim->map[corner.z][corner.x] >= '2' || sim->map[corner.z][corner.x] <= '9') 
 				draw_mini_sprite(ged, x, y);
 			x ++;
