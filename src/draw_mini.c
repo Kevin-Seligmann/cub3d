@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:18:32 by oseivane          #+#    #+#             */
-/*   Updated: 2024/08/20 19:36:34 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/20 19:44:35 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,9 +129,9 @@ void	get_player_center(t_v2 *player_center, t_v2 *corner, t_v2 *mm_size, t_ged *
 	if (corner->z == 0)
 		player_center->z = sim->player.pos.z * MM_SCALE;
 	if (corner->x == (int) sim->width - mm_size->x)
-		player_center->x += sim->player.pos.x * MM_SCALE;
+		player_center->x = mm_size->x * MM_SCALE - (sim->width - sim->player.pos.x) * MM_SCALE;
 	if (corner->z == (int) sim->height - mm_size->z)
-		player_center->z = sim->player.pos.z - 0.5 * ged->minimap->height;
+		player_center->z = mm_size->z * MM_SCALE - (sim->height - sim->player.pos.z) * MM_SCALE;
 }
 
 /*It draws the minimap in the left upper corner*/
