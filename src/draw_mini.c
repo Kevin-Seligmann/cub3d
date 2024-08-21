@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:18:32 by oseivane          #+#    #+#             */
-/*   Updated: 2024/08/21 16:33:00 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/21 17:32:45 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*Draw the ciruclar miniplayer in Scale proportion of the map,
 using less than MM_SCale as multiplier and a colour */
-void	draw_mini_player(t_ged *ged, int center_x, int center_z)
+void	draw_mini_player(t_ged *ged, double center_x, double center_z)
 {
 	double	x;
 	double	z;
@@ -57,7 +57,7 @@ unsigned int y, unsigned int colour)
 	}
 }
 
-void	mini_map_corner(t_sim *sim, t_ged *ged, t_v2 *corner, t_v2 *mm_size)
+void	mini_map_corner(t_sim *sim, t_ged *ged, t_v2 *corner, t_vd2 *mm_size)
 {
 	corner->x = sim->player.pos.x - 0.5 * ged->minimap->width / ged->mm_scale;
 	corner->z = sim->player.pos.z - 0.5 * ged->minimap->height / ged->mm_scale;
@@ -76,8 +76,10 @@ void	mini_map_corner(t_sim *sim, t_ged *ged, t_v2 *corner, t_v2 *mm_size)
 void	get_player_center(t_minimap *mm, t_ged *ged, t_sim *sim)
 {
 	(void) ged;
-	mm->player_center.x = ged->minimap->width / 2;
-	mm->player_center.z = ged->minimap->height / 2;
+	mm->player_center.x = (sim->player.pos.x - \
+	mm->corner.x) * ged->mm_scale;
+	mm->player_center.z = (sim->player.pos.z - \
+	mm->corner.z) * ged->mm_scale;
 	if (mm->corner.x == 0)
 		mm->player_center.x = sim->player.pos.x * ged->mm_scale;
 	else if (mm->corner.x == (int) sim->width - mm->size.x)
@@ -91,13 +93,12 @@ void	get_player_center(t_minimap *mm, t_ged *ged, t_sim *sim)
 }
 
 /*It draws the minimap in the left upper corner*/
-void	draw_mini_map(t_dda *dda, t_ged *ged, \
+void	draw_mini_map(t_ged *ged, \
 t_sim *sim, t_minimap *mm)
 {
 	int		y;
 	int		x;
 
-	(void)dda;
 	ft_memset(ged->minimap->pixels, 0, ged->minimap->width \
 	* ged->minimap->height * sizeof(int32_t));
 	mini_map_corner(sim, ged, &mm->corner, &mm->size);

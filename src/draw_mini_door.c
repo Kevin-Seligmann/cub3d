@@ -18,9 +18,9 @@ void	draw_square(t_ged *ged, t_sim *sim, unsigned int x, unsigned int y)
 	int		val;
 
 	corner = &sim->minimap.corner;
-	val = sim->map[corner->z + y][corner->x + x];
+	val = sim->map[(int) corner->z + y][(int) corner->x + x];
 	if (val == '1')
-		draw_mini_square(ged, x, y, 0xFFFFFFFF);
+		draw_mini_square(ged, x, y, 0x000000FF);
 	else if (val == '0')
 		draw_mini_square(ged, x, y, 0xFFFFFFC0);
 	else if (val >= '2' && val <= '9')

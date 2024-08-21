@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:08:39 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/21 16:43:10 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/21 17:19:56 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void			draw_mini_square(t_ged *ged, unsigned int x,
 					unsigned int y, unsigned int colour);
 void			draw_square(t_ged *ged, t_sim \
 *sim, unsigned int x, unsigned int y);
-void			draw_mini_map(t_dda *dda, t_ged *ged, \
+void			draw_mini_map(t_ged *ged, \
 t_sim *sim, t_minimap *mm);
 
 /* Performs the raycasting algorithm, DDA */
