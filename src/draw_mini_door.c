@@ -15,19 +15,20 @@
 void	draw_square(t_ged *ged, t_sim *sim, unsigned int x, unsigned int y)
 {
 	t_v2	*corner;
+	int		val;
 
 	corner = &sim->minimap.corner;
-	if (sim->map[corner->z + y][corner->x + x] == '1')
+	val = sim->map[corner->z + y][corner->x + x];
+	if (val == '1')
 		draw_mini_square(ged, x, y, 0xFFFFFFFF);
-	else if (sim->map[corner->z + y][corner->x + x] == '0')
+	else if (val == '0')
 		draw_mini_square(ged, x, y, 0xFFFFFFC0);
-	else if (sim->map[corner->z][corner->x] >= '2' \
-		|| sim->map[corner->z][corner->x] <= '9')
+	else if (val >= '2' && val <= '9')
 		draw_mini_square(ged, x, y, 0x724dbdFF);
-	else if (sim->map[corner->z + y][corner->x + x] == 100 \
-	|| sim->map[corner->z + y][corner->x + x] == 200)
+	else if (val == 100 || val == 200)
 		draw_mini_square(ged, x, y, 0xf71109FF);
-	else if (sim->map[corner->z + y][corner->x + x] == 150 \
-	|| sim->map[corner->z + y][corner->x + x] == 250)
+	else if (val == 150 || val == 250)
 		draw_mini_square(ged, x, y, 0x08f409FF);
+	else
+		draw_mini_square(ged, x, y, 0xFFD600FF);
 }

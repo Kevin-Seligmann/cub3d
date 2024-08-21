@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:34:43 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/20 11:50:28 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:56:16 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	get_texture_x(t_dda *dda, t_player *player)
 		dda->texture_x = 1 - (player->pos.x + dda->wall_dist * dda->ray_dir.x);
 	if (dda->door_hit)
 		dda->texture_x -= dda->door_offset;
-	dda->texture_x = (dda->texture_x - floorf(dda->texture_x));
+	dda->texture_x = (dda->texture_x - floor(dda->texture_x));
 }
 
 /*
