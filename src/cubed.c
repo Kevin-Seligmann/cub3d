@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 18:41:35 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/20 20:23:54 by oseivane         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:31:56 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	simulation_loop(void *param)
 	do_rotation(&data->sim.player, &data->ged, data->ged.key_flag);
 	do_translation(&data->sim.player, data->sim.map, data->ged.key_flag);
 	update_doors(data, data->sim.map);
-	draw_mini_map(&data->dda, &data->ged, &data->sim);
+	draw_mini_map(&data->dda, &data->ged, &data->sim, &data->sim.minimap);
 	ft_raycasting(data);
 	update_sprites(data);
 }

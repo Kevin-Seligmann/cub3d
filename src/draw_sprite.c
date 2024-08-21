@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 22:18:55 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/20 18:32:38 by oseivane         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:42:51 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,39 +57,6 @@ static void	put_sprite_pixel(t_sprite_dda *spr, t_ged *ged)
 		mlx_put_pixel(ged->img, ged->img->width
 			- spr->ind.x - 1, spr->ind.z, spr->color);
 	spr->ind.z ++;
-}
-
-static void	sort_sprites(t_sprite_dda *spr, t_player *player)
-{
-	int			ind;
-	int			ind2;
-	t_sprite	aux;
-
-	ind = 0;
-	while (ind < spr->sprite_count)
-	{
-		spr->sprites[ind].dist = (player->pos.x - spr->sprites[ind].pos.x) * \
-		(player->pos.x - spr->sprites[ind].pos.x) + \
-		(player->pos.z - spr->sprites[ind].pos.z) * \
-		(player->pos.z - spr->sprites[ind].pos.z);
-		ind ++;
-	}
-	ind = 0;
-	while (ind < spr->sprite_count - 1)
-	{
-		ind2 = ind;
-		while (ind2 < spr->sprite_count - 1 - ind)
-		{
-			if (spr->sprites[ind2].dist < spr->sprites[ind2 + 1].dist)
-			{
-				aux = spr->sprites[ind2];
-				spr->sprites[ind2] = spr->sprites[ind2 + 1];
-				spr->sprites[ind2 + 1] = aux;
-			}
-			ind2++;
-		}
-		ind ++;
-	}
 }
 
 static void	draw_sprite(t_ged *ged, t_sprite_dda *spr)

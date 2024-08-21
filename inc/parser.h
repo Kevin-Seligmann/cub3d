@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:14:12 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/20 18:03:49 by oseivane         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:38:51 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,13 @@ bool		found_sprite_is_not_set(t_cube *data);
 
 /* Gets a sprite texture */
 int			get_sprite_texture(t_cube *data, char **args);
+
+/*
+	If a piece of map is not a border (an 1), checks that
+	is not the limit of the map itself or any of its neighbours
+	are spaces. That would entail an open map.
+*/
+void		check_square_enclosed(t_cube *data, \
+t_sim *map, unsigned int i, unsigned int j);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed_data_structures.h                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/20 20:25:23 by oseivane         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:25:23 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,15 @@ typedef struct s_player
 	t_vd2	old_pos;
 }	t_player;
 
+typedef struct s_minimap
+{
+	unsigned int	floor_color;
+	unsigned int	wall_color;
+	t_v2			corner;
+	t_v2			player_center;
+	t_v2			size;
+}	t_minimap;
+
 /*
 	Simulation data.
 
@@ -143,8 +152,7 @@ typedef struct s_sim
 	unsigned int	width;
 	unsigned int	floor_color;
 	unsigned int	ceiling_color;
-	unsigned int	mm_floor_color;
-	unsigned int	mm_wall_color;
+	t_minimap		minimap;
 	t_player		player;
 }	t_sim;
 

@@ -3,15 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   cubed.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/08/20 21:39:48 by oseivane         ###   ########.fr       */
+/*   Created: 2024/08/21 16:08:39 by kseligma          #+#    #+#             */
+/*   Updated: 2024/08/21 16:43:10 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
 
 #ifndef CUBED_H
 
@@ -57,20 +54,12 @@ unsigned int	get_rgba(int r, int g, int b, int a);
 
 /* Draws the scene and minimap*/
 void			draw_scene(t_dda *dda, t_ged *ged, t_sim *sim);
-void			draw_mini_map(t_dda *dda, t_ged *ged, t_sim *sim);
-void			draw_mini_door(t_ged *ged, t_sim *sim,
-					unsigned int x, unsigned int y, t_v2 *corner);
 void			draw_mini_square(t_ged *ged, unsigned int x,
 					unsigned int y, unsigned int colour);
-void			draw_mini_door_closed(t_ged *ged,
-					unsigned int x, unsigned int y);
-void			draw_mini_door_opened(t_ged *ged,
-					unsigned int x, unsigned int y);
-void			draw_mini_door_move(t_ged *ged, unsigned int x, unsigned int y);
-void			draw_mini_player(t_ged *ged, int center_x, int center_z);
-void			draw_mini_sprite(t_ged *ged, unsigned int x, unsigned int y);
-void			draw_mini_wall(t_ged *ged, unsigned int x, unsigned int y);
-void			draw_mini_floor(t_ged *ged, unsigned int x, unsigned int y);
+void			draw_square(t_ged *ged, t_sim \
+*sim, unsigned int x, unsigned int y);
+void			draw_mini_map(t_dda *dda, t_ged *ged, \
+t_sim *sim, t_minimap *mm);
 
 /* Performs the raycasting algorithm, DDA */
 void			ft_raycasting(t_cube *game);
@@ -111,5 +100,7 @@ void			exit_cubed(t_cube *data, int exit_code,
 
 /* If windows size change, update images */
 void			update_size(t_cube *data, t_ged *ged);
+
+void			sort_sprites(t_sprite_dda *spr, t_player *player);
 
 #endif
