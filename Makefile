@@ -77,7 +77,7 @@ $(OBJ_FOLDER):
 	@mkdir -p $(OBJ_FOLDER)
 
 $(MLX_FOLDER):
-	git clone https://github.com/codam-coding-college/MLX42.git
+	git clone https://github.com/42-Fundacion-Telefonica/MLX42
 	
 debug: all
 	valgrind --suppressions=cub3d.supp --track-fds=yes --leak-check=full --show-leak-kinds=all ./cub3D maps/tests/sprites.cub

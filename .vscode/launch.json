@@ -5,7 +5,7 @@
 		"type": "cppdbg",
 		"request": "launch",
 		"program": "${workspaceFolder}/cub3D",
-		"args": ["${workspaceFolder}/assets/maps/tests/valid/big_map.cub"],
+		"args": ["${workspaceFolder}/assets/maps/tests/valid/door.cub"],
 		"MIMode": "gdb",
 		"cwd": "${workspaceFolder}",
 		"preLaunchTask": "make"

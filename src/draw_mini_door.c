@@ -18,6 +18,10 @@ void	draw_square(t_ged *ged, t_sim *sim, unsigned int x, unsigned int y)
 	int		val;
 
 	corner = &sim->minimap.corner;
+	if ((y + 1) * ged->mm_scale >= ged->minimap->height
+		|| (x + 1) * ged->mm_scale >= ged->minimap->width
+		|| corner->z + y >= sim->height || corner->x + x >= sim->width)
+		return ;
 	val = sim->map[(int) corner->z + y][(int) corner->x + x];
 	if (val == '1')
 		draw_mini_square(ged, x, y, 0x000000FF);
@@ -29,6 +33,6 @@ void	draw_square(t_ged *ged, t_sim *sim, unsigned int x, unsigned int y)
 		draw_mini_square(ged, x, y, 0xf71109FF);
 	else if (val == 150 || val == 250)
 		draw_mini_square(ged, x, y, 0x08f409FF);
-	else
-		draw_mini_square(ged, x, y, 0xFFD600FF);
+	else if (val > 100 && val < 300)
+		draw_mini_square(ged, x, y, 0xFFD700FF);
 }
