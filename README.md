@@ -102,6 +102,7 @@ All floor tiles, players, sprites and doors must be enclosed by walls.
 
 The map content is last, and it should have no empty lines or anything after it.
 
+Doors should have walls at their side (Depending on if they are North-south or West-east walls)
 
 ## Features
 
