@@ -1,129 +1,80 @@
-# cub3d
+# cub3D
 
-## TODO LIST
+## usage
 
+Check [MLX42](https://github.com/codam-coding-college/MLX42) for requirements
 
-	STEPS:
-	1. Game 2D------------ NO!
-		1.1 Print map--------------------------------- NO!
-		1.2 Print player------------------------------ NO!
-		1.3 Player movements-------------------------- OK! (95%)
-			1.3.1 Rotate player--------------------------------- OK!
-			1.3.2 Move player (with direction)------------------ OK!
-			1.3.3 Map colision---------------------------------- OK! (95%)
-		1.4 Move player (with direction)-------------- OK!
-		1.5 Print Rays (FOV)-------------------------- NO!
-			1.5.1 Print one ray--------------------------------- NO!
-			1.5.2 Print ray with vertical colision-------------- NO!
-			1.5.3 Print ray with horizontal coliision----------- NO!
-			1.5.4 Print rays in FOV----------------------------- NO!
-	2. Game 3D------------ NO!
-		2.1 Raycasting-------------------------------- OK!
-		2.2 Print 3D walls---------------------------- OK!
-		2.3 Print floor & ceiling--------------------- OK!
-		2.4 Print sprites & textures------------------ 50% - No sprites
-  		2.5 Animated sprites-------------------------- NO!
-    		2.6 Mouse rotation---------------------------- NO!
-      		2.7 Doors ------------------------------------ NO!
-	3. Correct & test----- NO!
-		3.1 Correct leaks----------------------------- OK!?
-		3.2 Test Norminette--------------------------- 90%
-		3.3 Change textures--------------------------- OK!
-		3.4 Change sprites---------------------------- NO!
+Build with `make`
 
+`./cub3D config_file.cub`
 
-## Subject
+## Controls
 
-Create a simulation using raycasting
+W - Forwards movement
+S - Backwards movement
+A - Left strafe
+D - Right strafe
+E - Open/close doors
+Left arrow - Rotate left
+Right arrow - Rotate right
+Mouse - Rotate left/right
+Z, X - Zoom minimap
+C - Restore default zoom
+M - Hide/show minimap
+ESC - Exit
 
-Makefile: All rules, minilib compilation, libft compilation
+## Configuration file
 
-Allowed: open, close, read, write, printf, malloc, free, perror, strerror, exit, all of math library, all of minilib
+Configuration files must end with .cub
 
-Smooth windows management, minimizing, changing window
+The first part consist of lines, empty or with so called elements. Elements have an identifier and attributes.
 
-On error, the program should print “Error\n”, then a message explaining the error, on STDERR, and exit
+### Elements
+`SO texture.png` - South wall
+`NO texture.png`- North wall
+`EA texture.png`- East wall
+`WE texture.png`- West wall
+`F 255, 255, 255` - Floor color
+`C 0,0,0` - Ceiling color
+`DR side_texture.png door_texture.png` - Door
+`S2-S9 sprite_texture.png` - Sprite
 
-## File parsing
+Only .png textures are allowed.
 
-Only .cub files are valid
+Wall textures, color and door or sprites present on the map are obligatory.
 
-Maps are composed of lines containing the following symbols
+Two textures must be provided for doors (Side texture and door texture).
 
-- 0 - Empty space
-- 1 - Wall
-- N, S, W or E - The player and the direction it faces
-- Spaces - Void
-- [Bonus] D - A door
-- [Bonus] A/B/C - Sprite 1, 2, or 3 (Only if they have a texture)
+There are 7 sprites, S2, S3 ... S9. Each sprite can have up to 30 textures, more than one texture will result in an animation effect.
 
-All 0 must be enclosed by 1
+Sprite textures must be placed as if they were different elements, e.g:
 
-The map content is last, and it should have no empty lines
+`S2 texture_1.png`
+`S2 texture_2.png`
+`...`
 
-The other elements of the file can be separated by empty lines, and the information of each element can be separated by spaces
+The second part is the map, consists of the following objects
 
-All elements consist of an identifier and the information, always in the order described below.
+### Map objects
+1 - Wall
+0 - Floor
+N, S, W, E - Player
+Space - Void
+O - North-south wall
+P - West-east wall
+2 ... 9 - Sprite
 
-- North texture
+All floor tiles, players, sprites and doors must be enclosed by walls.
 
-    NO ./path
+The map content is last, and it should have no empty lines or anything after it.
 
-- South texture
+## Features
 
-    SO ./path
-
-- East texture
-
-    EA ./path
-
-- West texture
-
-    WE ./path
-
-- Floor color
-
-    F r,g,b
-
-- Ceiling color
-
-    C r,g,b
-
-- [Bonus] Sprite 1
-
-    SA ./path
-
-- [Bonus] Sprite 2
-
-    SB ./path
-
-- [Bonus] Sprite 3
-
-    SC ./path
-
-- [Bonus] Door texture
-
-    DR ./path
-
-
-## Keys
-
-The texture of the wall depends on which direction is facing, you can set floor and ceiling colors
-
-Left and right keys change the direction you are looking (Maybe add Q and E)
-
-WASD is movement
-
- Closing with X and ESC
-
-[Bonus]: Mouse rotates the POV
-
-[Bonus]: R open and closes doors
-
-## Bonus
-
-- Wall collision
-- Minimap
-- Doors that you can open and close
+- Map parsing and config file
+- Raycasting renderization
+- 'Paper' walls (At doors)
+- Player movement
+- Player collision
+- Minimap system
 - Animated sprites
-- Rotate the POV with the mouse
+- Actionable doors
