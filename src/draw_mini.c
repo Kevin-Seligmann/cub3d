@@ -6,7 +6,7 @@
 /*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:18:32 by oseivane          #+#    #+#             */
-/*   Updated: 2024/08/22 19:23:21 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/22 19:26:50 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,6 @@ void	draw_mini_player(t_ged *ged, double center_x, double center_z)
 			z++;
 		}
 		x++;
-	}
-}
-
-void	draw_mini_square(t_ged *ged, unsigned int x, \
-unsigned int y, unsigned int colour)
-{
-	unsigned int	square_x;
-	unsigned int	square_y;
-
-	square_x = 0;
-	square_y = 0;
-	while (square_x < ged->mm_scale)
-	{
-		square_y = 0;
-		while (square_y < ged->mm_scale)
-		{
-			mlx_put_pixel(ged->minimap, x * ged->mm_scale + square_x,
-				y * ged->mm_scale + square_y, colour);
-			square_y++;
-		}
-		square_x++;
 	}
 }
 
