@@ -13,7 +13,7 @@ INC = -I./inc -I./libft/inc -I./$(MLX_FOLDER)/include
 # Files
 OBJ = extension_checker.o get_map_info.o is_map_line.o parser_main.o process_color.o\
 	process_config.o process_map.o process_texture.o cubed.o draw.o draw_mini.o\
-	key_hook.o movement.o raycasting.o vector.o draw_mini_door.o\
+	key_hook.o movement.o raycasting.o vector.o\
 	door.o windows_size.o key_hook_2.o parse_sprite.o \
 	sprite.o draw_sprite.o exit.o draw_sprite_2.o square_enclosed.o
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_mini.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:18:32 by oseivane          #+#    #+#             */
-/*   Updated: 2024/08/21 18:11:01 by oseivane         ###   ########.fr       */
+/*   Updated: 2024/08/22 19:23:21 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	draw_mini_player(t_ged *ged, double center_x, double center_z)
 	double	z;
 	double	radius;
 
-	radius = ged->mm_scale * 0.5;
+	radius = MIN_WALL_DIST * ged->mm_scale;
 	x = -radius;
 	while (x <= radius)
 	{
@@ -57,62 +57,64 @@ unsigned int y, unsigned int colour)
 	}
 }
 
-void	mini_map_corner(t_sim *sim, t_ged *ged, t_v2 *corner, t_vd2 *mm_size)
+void	mini_map_corner(t_sim *sim, t_ged *ged, t_vd2 *corner, t_vd2 *center)
 {
 	corner->x = sim->player.pos.x - 0.5 * ged->minimap->width / ged->mm_scale;
 	corner->z = sim->player.pos.z - 0.5 * ged->minimap->height / ged->mm_scale;
-	mm_size->x = ged->minimap->width / ged->mm_scale;
-	mm_size->z = ged->minimap->height / ged->mm_scale;
-	if (corner->x + mm_size->x > (int) sim->width)
-		corner->x = sim->width - mm_size->x;
 	if (corner->x < 0)
 		corner->x = 0;
-	if (corner->z + mm_size->z > (int) sim->height)
-		corner->z = sim->height - mm_size->z;
+	else if (corner->x + ged->minimap->width / ged->mm_scale > sim->width)
+		corner->x = sim->width - ged->minimap->width / ged->mm_scale;
 	if (corner->z < 0)
 		corner->z = 0;
+	else if (corner->z + ged->minimap->height / ged->mm_scale > sim->width)
+		corner->z = sim->width - ged->minimap->height / ged->mm_scale;
+	center->x = sim->player.pos.x - corner->x;
+	center->z = sim->player.pos.z - corner->z;
 }
 
-void	get_player_center(t_minimap *mm, t_ged *ged, t_sim *sim)
+static unsigned int	get_mm_color(t_sim *sim, unsigned int x, unsigned int y)
 {
-	(void) ged;
-	mm->player_center.x = (sim->player.pos.x - \
-	mm->corner.x) * ged->mm_scale;
-	mm->player_center.z = (sim->player.pos.z - \
-	mm->corner.z) * ged->mm_scale;
-	if (mm->corner.x == 0)
-		mm->player_center.x = sim->player.pos.x * ged->mm_scale;
-	else if (mm->corner.x == (int) sim->width - mm->size.x)
-		mm->player_center.x = mm->size.x * ged->mm_scale \
-		- (sim->width - sim->player.pos.x) * ged->mm_scale;
-	if (mm->corner.z == 0)
-		mm->player_center.z = sim->player.pos.z * ged->mm_scale;
-	else if (mm->corner.z == (int) sim->height - mm->size.z)
-		mm->player_center.z = mm->size.z * ged->mm_scale \
-		- (sim->height - sim->player.pos.z) * ged->mm_scale;
+	int		val;
+
+	if (y >= sim->height || x >= sim->width)
+		return (0);
+	val = sim->map[y][x];
+	if (val == '1')
+		return(0x000000FF);
+	else if (val == '0')
+		return(0xFFFFFFC0);
+	else if (val >= '2' && val <= '9')
+		return(0x724dbdFF);
+	else if (val == 100 || val == 200)
+		return(0xf71109FF);
+	else if (val == 150 || val == 250)
+		return(0x08f409FF);
+	else if (val > 100 && val < 300)
+		return(0xFFD700FF);
+	return (0);
 }
 
 /*It draws the minimap in the left upper corner*/
 void	draw_mini_map(t_ged *ged, \
 t_sim *sim, t_minimap *mm)
 {
-	int		y;
-	int		x;
+	unsigned int	y;
+	unsigned int	x;
+	unsigned int	color;
 
-	ft_memset(ged->minimap->pixels, 0, ged->minimap->width \
-	* ged->minimap->height * sizeof(int32_t));
-	mini_map_corner(sim, ged, &mm->corner, &mm->size);
-	get_player_center(mm, ged, sim);
-	y = 0;
-	while (y < mm->size.z)
+	mini_map_corner(sim, ged, &mm->corner, &mm->player_center);
+	y=0;
+	while (y < ged->minimap->height)
 	{
 		x = 0;
-		while (x < mm->size.x)
+		while (x < ged->minimap->width)
 		{
-			draw_square(ged, sim, x, y);
-			x ++;
+			color = get_mm_color(sim, mm->corner.x + ((double) x) / (double) (ged->mm_scale), mm->corner.z +  ((double) y) / (double) (ged->mm_scale));
+			mlx_put_pixel(ged->minimap, x, y, color);
+			x++;
 		}
-		y ++;
+		y++;
 	}
-	draw_mini_player(ged, mm->player_center.x, mm->player_center.z);
+	draw_mini_player(ged, mm->player_center.x * ged->mm_scale, mm->player_center.z * ged->mm_scale);
 }

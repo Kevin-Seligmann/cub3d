@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed_data_structures.h                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:33:13 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/21 17:25:08 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/22 17:35:39 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,9 +130,8 @@ typedef struct s_minimap
 {
 	unsigned int	floor_color;
 	unsigned int	wall_color;
-	t_v2			corner;
+	t_vd2			corner;
 	t_vd2			player_center;
-	t_vd2			size;
 }	t_minimap;
 
 /*

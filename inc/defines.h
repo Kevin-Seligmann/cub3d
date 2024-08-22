@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oseivane <oseivane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 02:59:58 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/20 19:48:34 by oseivane         ###   ########.fr       */
+/*   Updated: 2024/08/22 19:24:06 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@
 
 /* Minimum distance to a wall (Akin to Character size) 
 (Put on 0 for evaluation, sometimes it glitches) */
-# define MIN_WALL_DIST 0.1
+# define MIN_WALL_DIST 0.3
 
 /* Movement speed. A multiplier for the 
 magnitude of the movement per translation tick */

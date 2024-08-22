@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kseligma <kseligma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kseligma <kseligma@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:08:39 by kseligma          #+#    #+#             */
-/*   Updated: 2024/08/21 17:19:56 by kseligma         ###   ########.fr       */
+/*   Updated: 2024/08/22 18:08:43 by kseligma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ unsigned int	get_rgba(int r, int g, int b, int a);
 void			draw_scene(t_dda *dda, t_ged *ged, t_sim *sim);
 void			draw_mini_square(t_ged *ged, unsigned int x,
 					unsigned int y, unsigned int colour);
-void			draw_square(t_ged *ged, t_sim \
-*sim, unsigned int x, unsigned int y);
 void			draw_mini_map(t_ged *ged, \
 t_sim *sim, t_minimap *mm);
 
